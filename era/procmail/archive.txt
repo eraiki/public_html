@@ -1,0 +1,32 @@
+From procmail-request@informatik.rwth-aachen.de  Mon May 11 12:44:59 1998
+Precedence: bulk
+From: procmail-request@informatik.rwth-aachen.de
+To: spam@cc.helsinki.fi
+Subject: archive retrieval info
+Date: Mon, 11 May 1998 11:20:24 +0200 (MET DST)
+Reply-To: Please.write.a.new.mail.instead.of.replying@FIRST.WORD.archive
+
+
+This archive server knows the following commands:
+
+get filename ...
+ls directory ...
+egrep case_insensitive_regular_expression filename ...
+maxfiles nnn
+version
+
+Aliases for 'get': send, sendme, getme, gimme, retrieve, mail
+Aliases for 'ls': dir, directory, list, show
+Aliases for 'egrep': search, grep, fgrep, find
+
+Lines starting with a '#' are ignored.
+Multiple commands per mail are allowed.
+Setting maxfiles to zero will remove the limit (to protect you against
+yourself no more than maxfiles files will be returned per request).
+Egrep supports most common flags.
+
+Examples:
+ls latest
+get latest/12
+egrep some.word latest/*
+

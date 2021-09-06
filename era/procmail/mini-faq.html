@@ -1,0 +1,3905 @@
+<!doctype html public "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>Procmail FAQ</title>
+<meta name="description" content="A FAQ for Procmail, the Unix mail-processing utility">
+<meta name="keywords" content="procmail, procmail faq, procmail frequently asked questions, frequently asked questions about procmail, mail filtering, autoresponder, mail processor, mail processing, mail filter, filter, autorespond, autoforward, forward mail, filter mail, mail filtering help, procmail help, help procmail, procmail instructions, procmail question, procmail answer, procmail problem, procmail trouble, troubleshoot procmail, troubleshooting procmail, procmail troubleshooting, email filter, e-mail filter, unix, mda">
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+<style type="text/css">
+BODY { background: "#fffff0"; color: "#000000"}
+A:link { color: "#0000ff"}
+A:visited { color: "#800080"}
+A:active { color: "#ff0000"}
+DIV.code { text-indent: "12%"}
+DIV.notice { text-indent: "25%"}
+DIV.buttons { text-align: center}
+</style>
+</head>
+<body>
+<h1>Procmail FAQ</h1>
+This is a FAQ for Procmail, the mail processing utility for Unix.
+<p>
+This Procmail FAQ is an attempt at answering the most often
+asked questions and straightening out the most frequent misconceptions
+about Procmail. This is no substitute for the manuals, and indeed
+presupposes some familiarity with the program's regular documentation.
+<p>
+If you feel you have trouble understanding the tips in this FAQ
+and/or the manual pages,
+please be invited to check out the
+<a href="links.html#prerequisites">newbie links on the companion link page,</a>
+which also has a lot of other Procmail-related links for you to
+investigate,
+including 
+<a href="links.html#tutorials">links to several tutorials</a>
+which provide a sort of "quick start" documentation.
+<p>
+Please note that this FAQ does not attempt to help you getting
+started with Procmail; refer to the tutorials mentioned above
+if that's what you're after.
+<p>
+On the other hand, if you are more comfortable reading crib sheets
+than prose, you might want to look at the
+<a href="quickref.html">quick reference</a>
+(still in beta; feedback and suggestions appreciated).
+<p> 
+The official URL of this page is
+<a href="http://www.iki.fi/era/procmail/mini-faq.html">http://www.iki.fi/era/procmail/mini-faq.html</a>
+-- this is a "virtual" URL which resolves to a different host. 
+Please use this "virtual" URL
+rather than whatever your browser thinks it is you are currently
+looking at. This site can and will move in the relatively near future.
+<p>
+The following mirror sites are available:
+<dl>
+<dt>	North America
+<dd>
+<a href="http://mirror.ncsa.uiuc.edu/procmail-faq/">http://mirror.ncsa.uiuc.edu/procmail-faq/</a>
+<dd>
+<a href="http://www.zer0.org/procmail/">http://www.zer0.org/procmail/</a>
+<dd>
+<a href="http://www.moongroup.com/docs/procmail/">http://www.moongroup.com/docs/procmail/</a>
+<dd>
+<a href="http://www.linuxguru.com/docs/faq/procmail/">http://www.linuxguru.com/docs/faq/procmail/</a>
+<dt>	Europe
+<dd>
+<a href="http://www.xs4all.nl/~sister/mirror/procmail/">http://www.xs4all.nl/~sister/mirror/procmail/</a>
+</dl>
+<p>
+Please use one of the mirrors if you can.
+<p>
+The author wanted to call this a "Mini-FAQ" but it keeps 
+getting bigger. There are plans to rename it the "Bronto-FAQ."
+<p>
+As this document has changed and grown 
+(it is currently 
+more than twelve
+times the size of the arguably more elegant
+<a href="mini-original.html">original version 1.0) </a>
+it has become a bit hard to know where exactly to expect information
+about some things. I apologize for this. 
+In the Contents, I try to include a mention of all very frequently
+asked questions, even if they're in a subsection of a subsection
+(further adding to the bloat, I'm afraid). The below table of contents
+is an abridged "best of" instead of a full TOC.
+<small>
+(This makes little sense on the web page but is currently made to 
+fit into various versions. I'll fix it, someday. I think.)
+</small>
+<p>
+The author's contact information is 
+<a href="#contact-info">at the bottom of this page.</a>
+<h2>
+<a name="contents">
+Contents (abridged "best of")
+</a></h2>
+<ul>
+<li>
+<a href="#description">What is Procmail?</a>
+-- Description, availability, and installation
+<ul>
+<li>
+<a href="#getting-started">Where do I start?</a>
+<li>
+<a href="#nt">Is there a Procmail for Windows NT?</a>
+<li>
+<a href="#rtfm">How can I run an arbitrary Perl or shell script</a>
+on all or selected incoming mail?
+<li>
+<a href="#spam">I want to use Procmail for spam filtering.</a>
+<li>
+And among other things, a pointer to
+<a href="#faq-toc">a local copy of Stephen's original FAQ</a>
+<li>
+<a href="#discussion">How to get answers to questions</a>
+which this FAQ doesn't cover
+<li>
+Why am I getting
+<a href="#listspam">spam from the Procmail list server?</a>
+<li>
+I subscribed to the Procmail-L mailing list earlier
+but haven't seen any messages for a while. 
+<a href="#unsubscribe">Did the listserv crash?</a>
+</ul>
+<li>
+<a href="#syntax">How do I use wildcards in Procmail? </a>
+Explain 
+<a href="#locking">file locking, </a>
+please.
+<br>... and other syntax issues, including:
+<ul>
+<li>
+How can I
+<a href="#forward-copy">forward a message but leave a copy on the server?</a>
+(Also how do I <i>not</i> leave a copy on the server.)
+<li>
+<a href="#save-many">How about saving to multiple folders?</a>
+<li>
+<a href="#forward-many">How can I forward to many addresses?</a>
+<li>
+Generally speaking,
+<a href="#c-flag">how do I do more than one action on a message?</a>
+<li>
+I get these
+<a href="#skipped"><tt>procmail: Skipped "(something)"</tt> errors ...</a>
+<li>
+<a href="#backup-dir">I can't get the backup example to work?</a>
+<li>
+<a href="#backup-mbox">How do I backup into a file instead of a directory?</a>
+<li>
+I know how to forward a message, but
+<a href="#forward-mod">how do I forward a modified message?</a>
+<li>
+How can I
+<a href="#f-flag">change the contents of a message but otherwise proceed</a>
+through my <tt>.procmailrc</tt> as usual?
+<li>
+<a href="#pass-envar">I want to pass some information to a script I run</a>
+from within Procmail
+<li>
+<a href="#def-folder">What's a "folder"?</a>
+<li>
+<a href="#def-spool">What's a spool file?</a>
+<li>
+<a href="#syntax-colon">What does the second colon in <tt>:0:</tt> mean?</a>
+<li>
+<a href="#implicit-lock">What does "Couldn't determine implicit lockfile" mean?</a>
+<li>
+<a href="#maildir">Where are files created / stored?</a>
+<li>
+<a href="#from--">What's this <tt>From&#95;</tt> header?</a>
+<li>
+<a href="#oring">How can I do a logical OR</a>
+of two conditions?
+<li>
+<a href="#recipe-block">Can I list several actions under a common condition?</a>
+How?
+<li>
+<a href="#syntax-var">How can I test the value of a variable or argument?</a>
+<li>
+<a href="#efficiency">Efficiency tips</a>
+<li>
+<a href="#matching">I'm having a hard time with <tt>\/</tt></a>
+<li>
+<a href="#asterisk">Why shouldn't I use the <tt>*</tt> wildcard?</a>
+<li>
+Short example recipes sprinkled throughout the text
+</ul>
+<li>
+<a href="#debugging">Help, I get this error message&nbsp;... </a>
+-- Troubleshooting tips
+<br>Some highlights:
+<ul>
+<li>
+<a href="#experiments.rc">An example debugging <tt>.rc</tt> file</a>
+<li>
+<a href="#gotchas">Known bugs, common gotchas, and funny quirks</a>
+<br> ... including, but not limited to:
+<ul>
+<li>
+<a href="#memory">Memory handling with huge messages / on FreeBSD</a>
+<li>
+<a href="#group-writable">Upgrade to 3.12/3.13 breaks Procmail</a>
+on systems with group-writable directories (e.g. Red Hat Linux)
+<li>
+<a href="#egrep">The regex engine is not <tt>egrep</tt> compatible</a>
+<li>
+<a href="#from">There is no <tt>^FROM</tt> macro</a>
+<li>
+<a href="#backslashes">Backslash parsing is sometimes counter-intuitive</a>
+<li>
+<a href="#shell">Always include a <tt>SHELL=</tt> definition</a>
+</ul>
+<li>
+<a href="#startup">Getting the thing to run in the first place</a>
+<li>
+<a href="#forward">What goes in your <tt>.forward</tt> file</a>
+<li>
+<a href="#yikes">Yikes! Where did my mail go??</a>
+<li> Why is Procmail
+<a href="#old-syntax">writing to a file called <tt>*</tt>?</a>
+<li> Why is Procmail
+<a href="#dev-console">writing to the console?</a>
+Can I stop that?
+<li>
+<a href="#log-entries">What are these fields that get written to the log?</a>
+<li>
+<a href="#formail-dupe">Why does formail fail when looking for duplicates?</a>
+<li>
+<a href="#trunc">What's this about "rescued data" from a filtering recipe?</a>
+<li>
+<a href="#comsat">Why won't <tt>biff</tt> work right for my own folders?</a>
+<li>
+<a href="#netscape">How do I get Procmail and Netscape to cooperate?</a>
+</ul>
+<li>
+<a href="#advanced">How do I ...?</a>
+-- Running Procmail
+<ul>
+<li>
+<a href="#bcc">...&nbsp;match on the <tt>BCC</tt> header?</a>
+<li>
+<a href="#virtdom">...&nbsp;implement a virtual domain?</a>
+Or, how can I let several local users share the same POP mailbox
+at the upstream?
+Or, what is the most frequently made wrong assumption about mail delivery?
+<li>
+... figure out
+<a href="#cc-many">who to Cc: when there are several recipients?</a>
+<li>
+<a href="#split">...&nbsp;run Procmail on a file of messages?</a>
+<li>
+<a href="#time">...&nbsp;do different actions depending on the time of day?</a>
+<li>
+<a href="#formail-rtzx">...&nbsp;trim down the From: field to just <tt>user@host?</tt></a>
+<li>
+<a href="#exitcode">...&nbsp;know what <tt>EXITCODE</tt> to use?</a>
+<li>
+<a href="#bounce">...&nbsp;prevent my <tt>.forward</tt> from showing in bounces?</a>
+<li>
+<a href="#mime">...&nbsp;extract (or kill) MIME parts from messages?</a>
+<li>
+<a href="#vacation-etc">...&nbsp;write a "vacation" program? An autoresponder?</a>
+</ul>
+<li>
+<a href="#links">Where can I learn more?</a>
+-- A small links collection
+<li>
+<a href="#appendix-folders">Appendices</a>
+<ul>
+<li>
+Appendix A --
+<a href="#appendix-folders">Folder Formats</a>
+<li>
+Appendix B --
+<a href="#appendix-mx">Figuring Out the Mail Flow</a>
+</ul>
+</ul>
+<p>
+<small>
+Version information:
+<br>
+$Id: mini-faq.prep,v 1.358 2001/04/09 09:59:17 era Exp $
+<br>
+The 
+<a href="mini-faq-versions.html">version history</a>
+details recent developments.
+</small>
+<hr title="end of prelude">
+<h2>
+<a name="description">
+What is Procmail? 
+</a></h2>
+<h3>
+Description, availability, and installation
+</h3>
+<p>
+Procmail is a mail processing utility, which can help you filter your
+mail; sort incoming mail according to sender, Subject line, length of
+message, keywords in the message, etc; implement an ftp-by-mail server, 
+and much more. 
+<p>
+Procmail is also a complete drop-in replacement for your MDA. 
+(If this doesn't mean anything to you, you don't want to know.)
+<p>
+Procmail runs under Unix. See Infinite Ink's
+<a href="http://www.ii.com/internet/robots/">Mail Filtering and Robots page</a>
+for information about related utilities for various other platforms, 
+and competing Unix programs, too (there aren't that many of either). 
+<p>
+You can download Procmail from the <a href="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">main Procmail site</a>
+or a number of mirrors.
+The Links page has a listing of
+<a href="links.html#mirrors">well-established mirror sites.</a>
+<p>
+In ancient times, then-current versions were posted to
+<tt>comp.sources.misc</tt> (vol&nbsp;43, July 1994, is the 
+newest I could find).
+<p>
+The recommended version of Procmail to install is 
+<strong>
+3.13.1
+</strong>.
+[The previous reasonably stable versions were 3.11pre4 and 3.11pre7.
+Don't use any other "pre" versions, or 3.12. You should also avoid the ancient
+version 3.10.
+3.14 was released recently, but contains some minor bugs.
+You would wait for 3.15, which should be announced shortly.]
+<p>
+<a href="http://www.procmail.org/procmail-snapshot.tar.gz">http://www.procmail.org/procmail-snapshot.tar.gz</a>
+contains a snapshot of the current development version.
+Philip Guenther's "to do" list at
+<a href="http://www.procmail.org/todo.html">http://www.procmail.org/todo.html</a>
+lists both implemented and planned changes
+relative to the latest release.
+<p>
+Please note that some of the tips in this FAQ (or elsewhere) might not
+work for versions older than 3.11pre4. In particular, a great number
+of sites seem to be stuck on 3.10, which is a bad choice for a number
+of reasons. There should be plenty of incentive to upgrade to 3.13.1.
+<p>
+The installation procedure is fairly straightforward but probably not
+the first thing you should attempt after you get a Unix account. 
+<p>
+If you feel adventurous, and have a friend with a working copy of
+Procmail for your type of operating system and hardware, you can just
+snatch her/his binary. However, you need to be aware that this defeats
+some checks which the installation program performs, such as determine
+where your mail spool is, what kinds of file locking should be
+employed, etc. Be particularly wary if you use NFS-mounted mail spool
+directories.
+<p>
+The distribution comes with a 
+<a href="faq.html">simple FAQ </a>
+(locally produced HTML version -- the
+<a href="faq.txt">text-only original</a>
+is also available)
+which covers some issues faced when first getting acquainted with
+Procmail, such as how to view the manual pages, but it primarily 
+addresses various installation problems.
+There's also answers to some very frequently asked questions,
+some of which are not dealt with in the document you're reading now. 
+Please look at least at the TOC of the "original" FAQ as well.
+<br>
+(An abridged table of contents of the "original" Procmail FAQ is 
+<a href="#faq-toc">in the "Quick Questions" section below.</a>
+Various files in the Procmail distribution package also contain
+nuggets of very valuable information, 
+especially for the administrator setting up Procmail for the first time.)
+<p>
+If you can't find the answer to your question in either 
+of these FAQs,
+please take a look at the
+<a href="#links">Links section</a>
+towards the end of this document -- but first, make sure you have 
+found all of Procmail's manual pages; there are several.
+<p>
+If you are new to Unix, you should probably read up on regular
+expressions (grep/sed/awk/perl etc) and a little on mail handling
+before attempting to tackle the Procmail manual pages.
+<h3> Related quick questions </h3>
+<p>
+<a name="getting-started">
+<strong>Q:</strong>
+I just downloaded Procmail, and want to learn to write my own recipes.
+Where do I start?
+</a><p>
+<strong>A:</strong>
+The distribution package comes with some pointers,
+and includes manuals, of course. In addition to that, the
+<a href="links.html">links page,</a>
+which is a companion page to this FAQ has links to several
+good tutorials. There is also a small collection of links
+<a href="#links">near the end of this FAQ.</a>
+<p>
+There are many good tutorials and the purpose of this FAQ
+is not to compete with them, although some basic questions
+about Procmail's syntax recur in various on-line forums
+often enough to warrant their inclusion here as well.
+<p>
+<a name="nt">
+<strong>Q:</strong>
+Is there a Procmail for Windows NT?
+</a><p>
+<strong>A:</strong>
+No, and it's somewhat unlikely that anybody would undertake a port.
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1999-03/msg00075.html">Read Bart Schaefer's excellent summary of the problems.</a>
+Excerpt: "I've seriously looked at porting it to NT, yes.
+The problems are pretty severe."
+<p>
+<a name="rtfm">
+<strong>Q:</strong>
+How can I run an arbitrary Perl or shell script on all or selected 
+incoming mail?
+</a><p>
+<strong>A:</strong>
+Install Procmail. Read the manual pages (there are several). Thank you.
+<div class="code"><pre>
+	:0
+	* conditions, if any
+	| your-script-here
+</pre></div>
+<p>
+The conditions, in their simplest form, are regular expressions
+to match against the header of each incoming mail message. 
+Correction: 
+Even simpler, you can leave out the condition lines completely 
+if you want to do your action
+(in this case, run a shell script)
+unconditionally. 
+<p>
+More-complicated conditions can also be exit codes of other shell
+scripts or programs, or tests against the full body of the message, or
+against Procmail variables (Procmail's variables are also exported to
+the environment of subprocesses, so they are essentially environment
+variables. There are details about this 
+<a href="#pass-envar">later in this FAQ.)</a>
+<p>
+Actions can also be to save the message to a folder (appended to a 
+Unix mailbox file, or written to a new file in a directory) or to forward
+the message to one or more other addresses. Finally, the action can be
+a nested block of more "recipes," 
+as these condition-action mappings are called in Procmail jargon,
+to try if the outer condition is met. 
+The <tt>procmailrc(5)</tt> manual page has the full scoop.
+<p>
+Obviously, you are not restricted to Perl or shell scripts. Anything 
+you can run from a Unix command prompt can be run from Procmail, 
+in principle, although running interactive programs doesn't usually
+make much sense.
+<p>
+<a name="spam">
+<strong>Q:</strong>
+I want to use Procmail for spam filtering.
+</a><p>
+<strong>A:</strong>
+Good luck. Have fun. Have you considered the following?
+<ul>
+<li>
+It's really kind of late to stop the spam
+when it's already on your mail server.
+Better solutions would involve your
+mail administrator and IP-level blocks
+against spam sites
+<a href="http://www.iki.fi/era/rbl/rbl.html">(RBL</a>
+et al.)
+as well as probably additional
+server-level filtering.
+<li>
+Don't reinvent the wheel.
+There are good recipe packages
+out there which you cannot
+duplicate without serious effort.
+And it'd be a waste of time anyway.
+You'll find links to many
+Procmail spam filtering packages
+on the
+<a href="links.html#antispam">links page.</a>
+</ul>
+<p>
+Procmail is excellent
+for fine-tuning and for
+sorting already identified spam
+to a separate folder
+(some sites will just tag
+suspect messages, but still
+let them through)
+but on today's Internet,
+proper antispam measures
+belong in the mail server layer
+(if not in the political layer).
+<p>
+If you're looking for a simple
+little private blocking list,
+<a href="links.html#external-file">the "Pearls" section on the Links page</a>
+has some pointers for you.
+<p>
+<a name="faq-toc">
+<strong>Q:</strong>
+I can't read. What's in the "original" Procmail FAQ?
+</a><p>
+<strong>A:</strong>
+Here's an abridged listing. 
+<ul>
+<li>
+How do I go about 
+<a href="faq.html#1">setting up a mailing list or an archive server?</a>
+<li> 
+I installed procmail but 
+<a href="faq.html#2">how am I supposed to use it now?</a>
+<li>
+<a href="faq.html#3">Various questions about compilations problems</a>
+<li>
+I compiled OK but I have 
+<a href="faq.html#7">several lock processes which won't die</a>
+<li>
+<a href="faq.html#8">When I send myself a test mail, it bounces</a>
+<li>
+<a href="faq.html#9">Where do I look for examples?</a>
+<li>
+<a href="faq.html#11">Why should I put my login name in the <tt>.forward</tt> file?</a>
+<li>
+<a href="faq.html#12">How do I view the man pages?</a>
+<li>
+<a href="faq.html#13">The <tt>From&#95;</tt> line on arriving mail has the wrong time</a>
+<li>
+<a href="faq.html#14">I get bounce messages about "Cannot mail directly to programs"</a>
+<li>
+<a href="faq.html#15">"User doesn't have a valid shell for mailing to programs."</a>
+<li>
+<a href="faq.html#16">Locking problems </a>
+(with OpenLook, with no <tt>.procmailrc</tt>, etc)
+</ul>
+<p>
+Not every question is a Frequently Asked Question, of course. 
+That's why there is a mailing list, after all. 
+<br>
+(Additionally, not all answers in the FAQs are Frequently Wanted
+and/or Understood. Sigh.&nbsp;<tt>;-)</tt>
+<p>
+<strong>Q:</strong>
+What if Procmail is already installed by another user on my host? 
+<p>
+<strong>A:</strong>
+Could be. Ask around. Yes, one installation per site should suffice.
+<p>
+<strong>Q:</strong>
+How do I know I have found all the manual pages?
+<p>
+<strong>A:</strong>
+You read them; most of them contain useful information. 
+Start with 
+<a href="procmail.0">the <i>procmail</i><b>(1)</b> manual page;</a>
+it contains pointers to the others under the "SEE ALSO" heading. 
+<p>
+Make sure you find all of the pages <i>procmail</i>,
+<i>procmailex</i>, <i>prorcmailrc</i>, and <i>regexp</i>
+(or perhaps <i>egrep</i> or <i>grep</i> if you don't have
+a general introduction to regular expressions on your system).
+<p>
+<strong>Q:</strong>
+How do I know which version of Procmail I have?
+<p>
+<strong>A:</strong>
+You examine the output of the following command:
+<div class="code"><pre>
+$ procmail -v
+procmail v3.11pre4 1995/10/29 written and created by Stephen R. van den Berg
+							&#60;srb@cuci.nl&#62;
+
+Submit questions/answers to the procmail-related mailinglist by sending to:
+	&#60;procmail@informatik.rwth-aachen.de&#62;
+
+And of course, subscription and information requests for this list to:
+	&#60;procmail-request@informatik.rwth-aachen.de&#62;
+
+Locking strategies:	dotlocking, fcntl()
+Default rcfile:		$HOME/.procmailrc
+System mailbox:		/var/spool/mail/$LOGNAME
+</pre></div>
+<p>
+For Formail and Lockfile, the companion utilities, it's harder to say
+as older versions (before 3.12) won't tell you themselves.
+<p>
+<a name="lists">
+<strong>Q:</strong>
+Please please tell me the address of the Procmail mailing list!
+</a><p>
+<strong>A:</strong>
+See answer to previous question, or the
+<a href="pointer.txt">periodic Mini-FAQ pointer posting.</a>
+<p>
+There used to be an alternative list, which was started by
+Rhett 'Jonzy' Jones, but it appears to be dead.
+<p>
+There is now also a <tt>procmail-dev</tt> list for those interested
+in developing Procmail, and similarly a <tt>smartlist-dev</tt> for
+SmartList development. To join, send a subscribe request to 
+<tt>procmail-dev-request@cuci.nl</tt> and/or
+<tt>smartlist-dev-request@cuci.nl</tt>, respectively.
+<p>
+Details about the various mailing lists related to Procmail
+(purposes, subscription and unsubscription instructions, etc)
+are available from the URL
+<a href="http://www.iki.fi/era/procmail/lists.html">http://www.iki.fi/era/procmail/lists.html</a>
+and mirrors.
+<p>
+<a name="discussion">
+<strong>Q:</strong>
+I have a question which this FAQ doesn't answer.
+</a><p>
+<strong>A:</strong>
+Ask on one of the Procmail mailing lists (see previous questions), 
+or try a newsgroup such as
+<a href="news:comp.mail.misc"><tt>comp.mail.misc</tt>.</a>
+The 
+<a href="links.html">links page</a>
+has links to various resources, including tutorials and examples.
+<p>
+Please don't assume that the FAQ author is interested in
+inquiries about free consulting services. I read the Procmail
+mailing list and answer questions when I can. Several others
+do that too, so you stand a better chance of getting a decent answer
+by mailing the list rather than me. Thanks.
+<p>
+Before you send stuff to a mailing list or a newsgroup, 
+you need to know the basics of "netiquette," i.e. how to behave
+online. In particular:
+<ul>
+<li>	Be polite and to the point. Don't waste the time of others. 
+Do your homework before you start asking questions.
+<li>	<em>Don't</em> send subscribe/unsubscribe messages to
+mailing lists.
+(Come to think of it, don't send 'em to newsgroups, 
+either.<tt>&nbsp;:-)</tt>
+Lists usually have a separate "administrative" address
+which is different from the address where you'd submit
+discussion messages. Keep the subscription instructions around,
+so you know how you got on the list in the first place --
+usually getting off the list involves a very similar procedure.
+See also the
+<a href="http://www.professional.org/procmail/unsubscribe.html">Unsubscribe FAQ</a>
+<li>	Procmail-specific instructions:
+<ul>
+<li>	Don't ask questions which are answered in the documentation
+or in the FAQs. In addition to the time of others, you will
+be wasting your own, because most of the people who read 
+your message will silently ignore you 
+(or in bad cases mutter to themselves and killfile you 
+for all eternity. Procmail users are particularly 
+well equipped for this).
+<li>	Be specific. 
+Include all information pertinent to your question.
+Use the Subject header to label your message for the reader
+(not for yourself). Subjects like "Procmail," "Help," or
+"Problem" will be the first to be skipped by those who don't
+have the time to read all messages all the time.
+Similarly, in the message itself, you should describe
+your problem in concrete terms. Often a "model message"
+(trimmed down to a bare minimum; it's probably a good
+idea to indent it with a space or two and keep too much
+headers rather than too little) and a description of how
+you would like Procmail to react on it -- step by step --
+can be an efficient way to get your message across.
+(Don't forget that not all of us are mind readers, either;
+if "framotz" in the input message magically becomes
+"sqiggly" in the output, you should probably say something
+about the mechanics behind this transformation.)
+<li>	Things to try when you have a problem:
+<ul>
+<li> Did you look at the manual pages? There are several.
+<li>	Did you run Procmail with logging enabled?
+<li>	Did you examine the log?
+<li>	Did you try running with a VERBOSE log?
+<li>	Can you reproduce the problem?
+</ul>
+If you did try all of the above, please mention it in your
+message. 
+At the very least, it tells people you did do your homework.
+By the way, the 
+<a href="#debugging">debugging section below</a>
+has some suggestions for additional things to try 
+before you post.
+</ul>
+</ul>
+<p>
+There are various netiquette pages all over the net.
+Try e.g.
+<a href="http://www.cs.ubc.ca/spider/edmonds/usenet/ml-etiquette.html">http://www.cs.ubc.ca/spider/edmonds/usenet/ml-etiquette.html</a>
+or
+<a href="http://www.hotbot.com/?MT=mailing+list+etiquette&amp;submit=SEARCH&amp;SM=title">do your own search.</a>
+<p>
+An additional tip: You should perhaps familiarize yourself with the FAQs
+for related Usenet newsgroups. Apart from various sections of the
+<a href="http://www.faqs.org/faqs/mail/"><tt>comp.mail</tt> hierarchy,</a>
+various Unix newsgroups --
+<a href="http://www.faqs.org/faqs/by-newsgroup/comp/comp.unix.shell.html"><tt>comp.unix.shell</tt></a>
+in particular -- should be worth a visit.
+<p>
+<a name="listspam">
+<strong>Q:</strong>
+Why am I getting spam from the Procmail list server?
+</a><p>
+<strong>A:</strong>
+The list is presently open for posting by anyone, including the
+spammers. This may have to be changed because of the rising tide
+of spam, which would be unfortunate, because many people might not
+want to be bothered to subscribe to the list in order to just ask
+one question. Anyhow, stay tuned (and tune your filters).
+(Actually the list's setup was recently changed to filter out
+the most obvious spam.)
+<p>
+<a name="unsubscribe">
+<strong>Q:</strong>
+I subscribed to the list at Aachen earlier 
+but haven't seen any messages for a while. 
+Did the listserv crash?
+</a><p>
+<strong>A:</strong>
+Try subscribing yourself anew and see if things start to change.
+SmartList is rather paranoid and will easily unsubscribe you
+if it gets bounces from your address.
+<p>
+By the way, the on-line mailing list archive at
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/</a>
+should have all recent messages on store. 
+You can check there whether you have received the newest messages.
+</p>
+<hr title="end of section 1">
+<h2>
+<a name="syntax">
+How do I use wildcards in Procmail? 
+</a><a href="#locking">Explain file locking, </a>
+please.
+</h2>
+<h3>
+... and other syntax issues
+</h3>
+<p>
+<a name="regex">
+Procmail uses regular expression syntax, which is more complicated but
+also vastly more versatile than the "glob" wildcards used in many
+shells for matching file names (where pr*mail would match anything
+which starts with "pr" and ends with "mail").
+</a><p>
+Briefly, the regular expression to match anything that begins with
+"pr" and ends with "mail" is <tt>^pr.*mail$</tt> but for practical
+purposes, e.g. in a Subject: line, you might want to try the following
+recipe:
+<div class="code"><pre>
+	:0:
+	* ^Subject: pr.*mail
+	procmail-mail
+</pre></div>
+<p>
+This says: Anything that begins with "Subject: pr" and contains the
+string "mail" (followed by anything, or nothing) somewhere after that
+is to be saved in the folder <tt>procmail-mail</tt>. 
+<p>
+The regular expression <tt>.</tt> (dot) matches any character
+except newline. The operator <tt>*</tt> says "the previous
+regular expression (in this case, any character) zero or more
+times", and so the whole compound expression <tt>.*</tt> matches
+any string of length 0 or longer. (Use <tt>+</tt> instead of
+<tt>*</tt> to force the matched string to contain at least one
+character.)
+<p>
+Note that there is no need for a trailing <tt>.*</tt> wildcard 
+(and certainly not a sole <tt>*</tt>, which is a syntax error)
+-- the recipe will match regardless.
+<p>
+The neat stuff starts when you want to ignore
+"pro-mail" and "ProMail" while still looking for anything else that
+begins with "pro" and also contains "mail", but this example ends here.
+<p>
+Any beginners' book about Unix will contain a more detailed tutorial
+on regular expressions, most likely in conjunction with examples using
+the <tt>grep</tt> and <tt>sed</tt> programs. For reference,
+the manual page for <tt>egrep</tt> (an extended <tt>grep</tt>)
+at your site should contain 
+a concise listing of regular expression operators. 
+(Note that the manual's assertion that Procmail is 100% egrep compatible 
+is not strictly speaking true. For one thing, there are many egrep 
+implementations.)
+<p>
+<a name="tabspace">
+One frequently seen Procmailism is this:
+</a><div class="code"><pre>
+	[ &#9;]*
+</pre></div>
+<p>
+The brackets contain one space and one tab, in any order. 
+This regular expression will catch any sequence of horizontal
+whitespace (including none at all -- change the <tt>*</tt> 
+to a <tt>+</tt> if you want to make sure there's at least one
+whitespace character).
+<p>
+Some mailer programs use tabs instead of spaces in some places, others
+will attempt to "pad" all header fields with spaces to make the
+headers somewhat more readable. Finally, Subject headers are written 
+by mere humans who sometimes press the space bar twice, perhaps only
+because they want to see if that will break your autoresponder script.
+Therefore, your Procmail recipes frequently need to match arbitrary
+runs of whitespace characters if you want them to work in all
+situations.
+<h3>
+<a name="locking">
+File locking
+</a></h3>
+<p>
+Under Unix and other multitasking operating systems, several processes
+can be running at once. This means several mail messages can be in
+delivery at the same time. Without Procmail, the default system mailer
+hopefully handles this just fine when mail is delivered to a system
+mailbox, but if two Procmails are delivering two messages to the same
+file more or less at the same time, you end up with problems. 
+(A typical symptom is that the first message gets a <tt>FFrom</tt>
+in its first line, and the second gets a <tt>rom</tt> without the
+F. This messes up the mailbox format thoroughly.)
+<p>
+Rule of thumb: Use file locking when delivering to a file. Don't use
+file locking when delivering to <tt>/dev/null</tt> (because then it
+doesn't matter if the message gets mangled, and you might not have the
+permission to acquire a lock on a device), forwarding to another
+address, or piping into a program. A pipeline which ends up appending to
+a file should still use a lock, of course, since there is the same race
+condition as when delivering straight to a file. 
+<p>
+Rule of index finger: Using an unnecessary extra lock seldom
+hurts. (When it does <em>hurt</em>, you'll notice.&nbsp;:^)
+<p>
+Examples:
+<div class="code"><pre>
+	:0:   # Deliver to a file, let Procmail figure out how to lock it
+	* ^From scooby
+	scooby
+
+	:0    # Forwarding; no locking required
+	* ^TO_dogbert
+	! bofh@dilbert.com
+
+	:0:snoopy.lock  # Explicitly name a file to use as a lock
+	* ^Subject:.*snoopy
+	| $HOME/bin/woodstock-enhancer.pl >>snoopy.mbox
+</pre></div>
+<p>
+The last one might need a little elaboration. When mail with a
+Subject: line containing the word "snoopy" anywhere in it arrives,
+Procmail will create a lock file called <tt>snoopy.lock</tt> and
+hold on to that file while executing the recipe (in this case, piping
+the mail to a program called <tt>woodstock-enhancer.pl</tt> and
+appending the program's output to the file <tt>snoopy.mbox</tt>).
+If a second message matches the same recipe, the second instance of
+Procmail which attempts to deliver that message will politely wait
+until the first Procmail lets go of the lock file.
+<p>
+(You don't really need to name the lock file in this isolated case.
+Procmail would automatically deduce a lock file based on the name of
+the file you're appending to, <tt>snoopy.mbox</tt>. But you might
+have several recipes which do separate things which need to be
+serialized somehow, so that one doesn't occur before the previous one
+has finished its critical section. Say, maybe you have a second recipe
+which modifies the program <tt>woodstock-enhancer.pl</tt> itself, or,
+more realistically, modifies a separate data file used by that
+program. You can't have that running while this recipe runs, so they
+have to share a lock, and you have to tell Procmail 
+the name of the lock file to use.)
+<p>
+A (somewhat less common, but still) newbie mistake is to put the name
+of the file you want to write to as the name of the lock file to use,
+too. This effectively prevents Procmail from doing anything at all.
+The meaning of a lockfile is, "if this file exists, you have to wait."
+<p>
+The manual really does explain most of this, although it's not very
+explicit about why you would or wouldn't want to use locking in the
+first place. 
+<p>
+<a name="syntax-forward">
+A typical newbie problem is placing a redundant but harmless
+lock on a forwarding recipe. Here's an example: 
+</a><div class="code"><pre>
+	:0:
+	* ^TO_johnny@lunatix\.com
+	! jjasmith@ppp.home.in.isp.net
+</pre></div>
+<p>
+This will forward to the address <tt>jjasmith</tt> any mail
+addressed to <tt>johnny</tt>. The trailing colon says to use a
+lock file, but Procmail can't figure out what file you want to lock
+because there is no file involved anywhere. Indeed, locking doesn't
+make any sense here, and you'll get warning messages in the log
+stating that Procmail "couldn't determine implicit lockfile."
+Remove the second colon on the first line and all will be fine.
+<p>
+(If you think you want to use a variant of this recipe, don't. Read the
+<a href="#bcc-explanation">BCC question below.)</a>
+<h3>
+<a name="syntax-qa">
+Related quick questions
+</a></h3>
+<p>
+<strong>Q:</strong>
+"Regular expressions?" What's that? 
+Wouldn't it be much simpler to just use glob-like patterns? 
+Does this mean I have to learn something new again? Augh.
+<p>
+<strong>A:</strong>
+Yes. Don't bother with Procmail if you want something simple and stupid.
+But getting started really doesn't take that much, all things counted.
+Start with a couple of the "quick start" or "tutorial" documents you'll
+<a href="links.html#tutorials">find on the web,</a>
+then try the manuals, especially <i>procmailex</i><b>(5)</b>. See if
+you can figure out the examples. Try a dry run from the command line.
+Before you write any major recipes of your own, create test cases for
+the things you find puzzling (because you and the documentation were
+not on the same wavelength, or perhaps because you are unfamiliar with
+regular expressions) and work them out with a simple test message or
+two. Learn to use the log from the start.
+<p>
+Oh, and good luck. Resistance is futile.
+You will be assimilated.<tt>&nbsp;:-)</tt>
+<p>
+<a name="forward-copy">
+<strong>Q:</strong>
+How can I forward a message but still leave a copy on the server?
+Or, how can I forward a message and <i>not</i> leave a copy on the server?
+</a><p>
+<strong>A:</strong>
+Rephrase: Forward a copy, then proceed with normal delivery
+(which ends up saving to your normal inbox on the server,
+unless other subsequent Procmail recipes in your <tt>.procmailrc</tt>
+are triggered, and end up delivering the message elsewhere).
+<div class="code"><pre>
+	:0c			# That's colon, zero, lowercase cee
+	! self@other-place.net	# That's exclamation mark, address to forward to
+</pre></div>
+<p>
+To do this conditionally, add conditions. To not save a copy on the server,
+omit the <tt>c</tt> from <tt>:0c</tt>
+<p>
+For the distressingly common question, "how do I do this but
+<i>without</i> leaving a copy on the server", the answer is to
+simply leave out the <tt>c</tt> flag. Then Procmail will
+simply forward, and consider the message delivered with that.
+(For completely unconditional forwarding, you don't really need
+Procmail at all, though.)
+<p>
+<a name="save-many">
+<strong>Q:</strong>
+How can I save a message to multiple folders?
+</a><p>
+<strong>A:</strong>
+Same as above, except save instead of forward.
+<div class="code"><pre>
+	:0c:			# That's colon, zero, lowercase cee, colon
+	folder-1		# Name of first folder
+
+	:0c:			# Second folder
+	folder-2
+
+	# Repeat for each folder, perhaps even conditionally for some (or all)
+
+	:0:			# Last folder, no cee
+	folder-n
+</pre></div>
+<p>
+To do this conditionally, add conditions. See the <i>procmailex</i>
+manual page for some examples.
+<p>
+If the folders you want to save to are directories, you can just
+list them:
+<div class="code"><pre>
+	:0		# No locking when saving to directories
+	folder1/ folder2/ folder3/
+</pre></div>
+<p>
+Understanding deliveredness is probably a prerequisite for understanding
+what the <tt>c</tt> flag does. See
+<a href="#deliveredness">below.</a>
+<p>
+<a name="forward-many">
+<strong>Q:</strong>
+How can I forward to many addresses?
+</a><p>
+<strong>A:</strong>
+In the simple case, just add more addresses to the action line:
+<div class="code"><pre>
+	:0
+	* ^Subject: result from cgi-bin/www-feedback$
+	! first@one.com second@two.net third@three.org
+</pre></div>
+<p>
+If you have a largish list of recipients, you might prefer to store 
+the addresses in an external file you can edit without mucking with
+your Procmail filters:
+<div class="code"><pre>
+	# The file $MAILDIR/addresses.txt contains the recipients, one per line
+	:0
+	* ^Subject: result from cgi-bin/www-feedback$
+	! `cat addresses.txt`
+	# ^ Make sure those ^ are backticks, BTW (ASCII 96)
+</pre></div>
+<p>
+This will break as soon as the output of the backticks is too large
+for your shell to handle. You can use more trickery to get around that, 
+but why not resort to a ready-made solution instead? A mailing list 
+manager will scale to thousands of recipients and have some provisions 
+for handling bounces, preventing mail loops, and automatically adding
+and deleting subscribers. (You might want to look at SmartList, which
+runs on top of Procmail.)
+<p>
+By the way, if mail to one address should always be redirected to one
+or more other addresses, you should read the
+<a href="#virtdom">"virtual domain" section below.</a>
+(Don't use Procmail for this. The universe will implode if you do.)
+<p>
+<a name="c-flag">
+<strong>Q:</strong>
+Okay, then I have a different but related question:
+How do I do more than one action on a message, generally speaking?
+</a><p>
+<strong>A:</strong>
+You "clone" it with the <tt>:c</tt> flag.
+<div class="code"><pre>
+	# First, we forward a copy to Don
+	:0c
+	! gillette@hedgehogs.com
+
+	# Then, we stash it in a folder
+	:0:
+	copied-to-don
+</pre></div>
+<p>
+See also the 
+<a href="#recipe-block">answer to the brace question.</a>
+<p>
+If you have both the <tt>:f</tt> flag and the <tt>:c</tt>
+flag on the same recipe, you are probably very confused.
+<p>
+<a name="skipped">
+<strong>Q:</strong>
+I get these <tt>procmail: Skipped "</tt><i>(something)</i><tt>"</tt>
+messages in the log, what do they mean?
+</a><p>
+<strong>A:</strong>
+They're Procmail's way of saying you have a syntax error in your recipes.
+<p>
+One frequent misunderstanding occurs when you have several actions
+which you would like to do in response to a matched condition.
+There <i>must</i> be one "colon" line for each action,
+and each action <i>must</i> have a colon line.
+See examples above and below, especially the question which has the answer
+<a href="#recipe-block">"use braces".</a>
+<p>
+<a name="backup-dir">
+<strong>Q:</strong>
+I copied the backup example recipe into my <tt>.procmailrc</tt>
+but it just seems to produce a lot of errors and no backup file.
+</a><p>
+<strong>A:</strong>
+It's not a "backup file", it's supposed to be backing up to a directory,
+and if that directory doesn't exist, it will not work.
+Read the paragraph before the example on the <i>procmailex</i><b>(5)</b>
+manual page.
+<p>
+<a name="backup-mbox">
+<strong>Q:</strong>
+So how do I create a backup in a file, instead of numbered files
+in a directory? It would be more convenient to use mbox format for
+the backup, too.
+</a><p>
+<strong>A:</strong>
+You can write to a file instead of a directory, of course,
+but then you will face a different problem: Removing old messages
+from the beginning of a file is much more resource-intensive
+(and somewhat harder) than removing the oldest files from a directory.
+Perhaps you should save to the same file all the time, and periodically
+rename the old one from underneath. You could set up a cron job
+to do the renaming at midnight; the cron job could also remove
+backup folders older than, say, three days at the same time.
+<p>
+<a name="forward-mod">
+<strong>Q:</strong>
+I know how to forward a message using an ! action, but that doesn't
+let me modify the message I forward. Is there a way to do that?
+</a><p>
+<strong>A:</strong>
+Typically, you want to add or change a header. This sounds like
+<tt>formail</tt>. The only thing that remains then is to actually
+send it off. You can of course filter first and then send (see next
+question), but you might as well do both in one fell swoop (unless you
+also want the modified message in your normal mail stream; again, see
+the next question for more).
+<div class="code"><pre>
+	:0c
+	* ^TO&#95;sales@pizzazz\.tm\>
+	* ! ^X-Loop: sales@mundane\.domain\.net
+	| formail -k -X "From:" -X "Subject:" \
+		-I "To: sales@mundane.domain.net" -X "To:" \
+		-I "X-Loop: sales@mundane.domain.net" -X "X-Loop:" \
+	  | $SENDMAIL $SENDMAILFLAGS -t
+</pre></div>
+<p>
+This is almost like a real-world example. It will <i>(a)</i> trim down
+the headers considerably, sparing only the From: and Subject: of the
+original. Then <i>(b)</i> we add some headers of our own (remember to
+extract them with -X too!), and <i>(c)</i> the results are handed to
+Sendmail. The <tt>-t</tt> option means the To: (and Cc: etc) lines
+in the actual message contain the recipient's address.
+<p>
+If formail won't do the modifications you want, you are of course to
+replace it with whatever you fancy. The basic pattern is the same,
+anyway: pipe to the program which "fixes" the message, then pipe the
+results to Sendmail. 
+<p>
+If the results don't contain suitable headers, or might contain e.g.
+your own address, you should take care to tell Sendmail explicitly who
+to send it to, rather than rely on <tt>sendmail -t</tt>.
+<p>
+<a name="f-flag">
+<strong>Q:</strong>
+How can I change the contents of a message 
+but otherwise proceed through my <tt>.procmailrc</tt> as usual?
+</a><p>
+<strong>A:</strong>
+This is what the <tt>:f</tt> flag is for.
+<div class="code"><pre>
+	# Add an "X-Likely-Spam: ugh" header to all messages
+	# which have an X-UIDL header
+	:0fhw
+	* ^X-UIDL:
+	| formail -I "X-Likely-Spam: ugh"
+
+	# Continues here with the slightly modified message ...
+</pre></div>
+<p>
+If you have both the <tt>:f</tt> flag and the <tt>:c</tt>
+flag on the same recipe, you are probably very confused.
+<p>
+<small>
+(An X-UIDL is not necessarily a sign that a message is spam.
+This header is added by some POP programs. If you don't use POP,
+or your POP doesn't add this header, it's fairly likely to be
+spam, but you can never be too sure. Somebody who uses POP could
+have resent a message to you, for instance, X-UIDL header and all.)
+</small>
+<p>
+<a name="pass-envar">
+<strong>Q:</strong>
+I want to pass some information (e.g. the contents of the Subject header)
+to a script I run from within Procmail. How can I do that?
+</a><p>
+<strong>A:</strong>
+Procmail's variables are exported to the environment of any
+process you run from within Procmail (with a few exceptions
+which, typically, you don't need to worry about). (This also
+means that if the script is yours to modify, you might not
+even need to pass in anything explicitly -- just make the
+script read the appropriate environment variable. 
+However, this is usually a bad solution because 
+you don't want your scripts to depend on 
+environment variables too much.)
+<p>
+In the following example, we are grabbing the contents of the
+<tt>Subject:</tt> header into the variable <tt>SUBJECT</tt>,
+and then pass that in as the <tt>-s</tt> option of
+<tt>our-script</tt>.
+<div class="code"><pre>
+	SUBJECT=`formail -zxSubject:`
+	:0w:
+	| our-script -s "$SUBJECT" &#62;&#62;output
+</pre></div>
+<p>
+This construct is a good general solution, but in this 
+particular case,  when the information the script needs 
+is simply the value of a field, we should avoid the
+overhead of the external process call (here, formail).
+<p>
+There are two ways to accomplish this savings: 
+<i>(a)</i> since the script gets the message on standard
+input, it would probably be fairly straightforward to
+modify the script so it gleans the required information
+directly from the message's headers; or
+<i>(b)</i> you can use the <tt>MATCH</tt> construct to 
+do exactly the same kind of grab you get with formail:
+<div class="code"><pre>
+	:0w:
+	* ^Subject:[ &#9;]*\/[^ &#9;].*
+	| our-script -s "$MATCH" &#62;&#62;output
+</pre></div>
+<p>
+Do note that the condition, which we use for its
+<tt>MATCH</tt>-grabbing side effect, still has to
+match, i.e. the script will only be run on messages
+with a non-empty Subject header.
+<p>
+<small>
+The whitespace between the [] brackets consists of
+a space and a tab, as usual.
+</small>
+<p>
+<a name="def-folder">
+<strong>Q:</strong>
+I'm trying to read the manual but there's one thing I'm not sure of.
+It keeps talking about "folders" all the time. How is this different
+from "mbox file," "file in directory," or "directory," or does it 
+actually mean one (or more) of those?
+</a><p>
+<strong>A:</strong>
+Procmail can save messages to various formats, some of which involve
+individual files in named directories, others are flat files to the
+end of which Procmail appends new messages, etcetera. 
+<a href="#appendix-folder">Appendix A</a>
+contains some helpful descriptions of various folder formats.
+<p>
+<a name="def-spool">
+<strong>Q:</strong>
+So what's a "spool file" then?
+</a><p>
+<strong>A:</strong>
+Your primary mail spool is whatever the <tt>$MAIL</tt> environment
+variable is set up to point to. Most mail readers will know to fetch
+new mail from this file (some even let you use it as any other folder,
+and keep old messages there as well. This might or might not be something
+your administrator dislikes).
+<p>
+For some mail programs, it's important (or at least convenient) to
+separate the location where mail is kept from the place where new
+mail is delivered. (Emacs and Netscape might be good examples.)
+These will typically take care of momentarily locking the spool file
+whenever you fetch new mail, and want exclusive access to the real
+folder where mail is permanently stored.
+<p>
+Incidentally, the <i>procmailex</i><b>(5)</b> manual page briefly
+explains the locking conventions used by Emacs. In practice, just
+ignore the locks that Emacs keeps and use spool files. (This is what
+the comment about <tt>movemail</tt> is supposed to mean.)
+<p>
+With spool files, you probably want one spool file (or even several)
+for each folder. It might make sense to put these spool files in their
+own directory, or make sure they follow a naming convention so it's
+easy to tell which files are spool files and which are folders.
+<p>
+<a name="syntax-colon">
+<strong>Q:</strong>
+What does the second colon in <tt>:0:</tt> mean? Should I worry?
+</a><p>
+<strong>A:</strong>
+You just missed it. It tells Procmail to use locking on this recipe.
+Go back and read the above snippet about 
+<a href="#locking">file locking.</a>
+See the next question.
+<p>
+<a name="implicit-lock">
+<strong>Q:</strong>
+What does "Couldn't determine implicit lockfile" mean? 
+</a><p>
+<strong>A:</strong>
+Briefly, that you have <tt>:0:</tt> where you should have 
+either a named lock file or just <tt>:0</tt> 
+(ignoring any possible flags here).
+See previous question. Hope this helps. 
+<p>
+<strong>Q:</strong>
+What does "Extraneous locallockfile ignored" mean?
+<p>
+<strong>A:</strong>
+See previous question. Hope this helps. 
+<p>
+<strong>Q:</strong>
+What does "Extraneous filter-flag ignored" mean? 
+<p>
+<strong>A:</strong>
+Briefly, that you have <tt>:0f</tt> where you should have 
+<tt>:0</tt> (ignoring any other flags and possible lock file 
+you might have). The <tt>f</tt> flag is perhaps a bit poorly 
+explained in the manual, seeing as lots of people are using it
+where they shouldn't (probably "filtering" sounds too enticing 
+in the manual for a filtering program -- <i>of course</i> you want to
+filter your mail, dear).
+<p>
+<a name="zero">
+<strong>Q:</strong>
+Okay, then what is the significance of the number zero on the 
+<tt>:0</tt> line? 
+</a><p>
+<strong>A:</strong>
+Nowadays, none really. In old versions of Procmail, you had to
+tell it how many condition lines your recipe contained (yes, "bletch"). 
+The syntax was later extended and the number zero special-cased to
+mean, all the following lines which begin with asterisks are 
+condition lines. (The asterisk at the beginning of each condition 
+is obviously also part of this extended syntax.)
+<p>
+<a name="maildir">
+<strong>Q:</strong>
+Where is formail's cache file stored? Where do I put this file I want
+Procmail to print in an autoresponse? If I don't put in an explicit
+file name, where do files get created?
+</a><p>
+<strong>A:</strong>
+Setting <tt>MAILDIR</tt> sets Procmail's working directory to
+the named directory. Relative path names will be relative to this
+directory from then on (remember, Procmail basically scans your
+<tt>.procmailrc</tt> from top to bottom and it's perfectly 
+permissible to change some setting somewhere along the way).
+<p>
+When started from a <tt>.forward</tt> file or similar, the
+initial <tt>MAILDIR</tt> will be the user's home directory.
+<p>
+<a name="from--">
+<strong>Q:</strong>
+What's this <tt>From&#95;</tt> header everyone seems to be talking about? 
+I can't find a header like that on a single one of all the messages I have 
+on store. 
+</a><p>
+<strong>A:</strong>
+This is just a conventional way to talk about the line that starts with 
+the five characters "<tt>From&nbsp;</tt>" at the very beginning of the
+headers of a mail message. This is a tricky line for several reasons: 
+<ol>
+<li>	It's not really a header, but rather added by your
+MTA at delivery, so it should properly be referred to as a 
+"pseudo-header." The contents of this pseudo-header are 
+the envelope sender and a time stamp. Some programs will accept 
+basically anything that starts with "From&nbsp;", others will 
+get confused if e.g. the time stamp is missing. 
+<li>	It's very easy to mix up with the <tt>From:</tt> header 
+(note the trailing colon on this one). The underscore is
+used partially to underscore [sic] the fact that we are 
+talking about this colonless pseudo-header, not 
+the From: header proper.
+<li>	Many MUA:s will get extremely confused if a line in the body
+of a message starts with the word "From". Often, this is
+escaped by adding a wedge in front of it, something that in 
+and of itself is a source of confusion (you don't really want
+anything to muck with the body of your message, ordinarily). 
+Unescaped <tt>From&#95;</tt> lines often lead to messages
+being split where the unescaped <tt>From</tt> was,
+because the MUA genuinely thinks this marked the start of
+a new message, and so the recipient sees two messages, the
+first ending abruptly in the middle of nowhere and the second
+continuing where the first left off, only some of the actual
+message text might show up as rather mysterious-looking
+headers instead.
+</ol>
+<p>
+The format that uses the <tt>From&#95;</tt> line as message 
+separator is commonly referred to as "Berkeley mbox format." Not
+all systems use this format, but it's pretty much a de facto standard
+on Unix. A related format uses the <tt>Content-Length:</tt> header
+instead, but keeps the <tt>From&#95;</tt> line, leading to
+utter and hopeless confusion as to which is which.
+<p>
+<a name="oring">
+<strong>Q:</strong>
+How can I do a logical OR of two or more conditions?
+<br>
+(For those who skipped the manuals, the default is to AND all 
+the conditions on a recipe. The first one to fail makes Procmail
+skip right to the next recipe.)
+</a><p>
+<strong>A:</strong>
+The usual reason people are asking this is because the following, which
+is basically the way to do it, feels clumsy or something. 
+<div class="code"><pre>
+	:0
+	* condition1|condition2|condition3|condition4
+	{ ... do something about it ... }
+</pre></div>
+<p>
+There are situations where you can't do this, such as when one of the 
+conditions is a negated condition. 
+You can try to fool around with de Morgan's laws
+to get you somewhere where this doesn't play in, or use scoring:
+<div class="code"><pre>
+	:0
+	* 1^0 condition1|condition2
+	* 1^0 ! not condition 3
+	* 1^0 ? /path/to/external-program whose exit code we want to look at
+	{ ... now do something about that instead ... }
+</pre></div>
+<p>
+Some side effects are different when you resort to scoring; for instance, 
+if you are also using the <tt>\/</tt> operator to grab stuff into
+<tt>$MATCH</tt>, scoring will generally grab the last matching line, 
+whereas a straightforward regex OR will stop already at the first one. 
+(You can change the 1 in <tt>1^0</tt> to some really big number 
+to prevent this. See the <i>procmailsc</i><b>(5)</b> manual page if
+you wonder about the significance of these strange numbers.)
+<p>
+<a name="recipe-block">
+<strong>Q:</strong>
+Can I list several actions under a common condition? How?
+</a><p>
+<strong>A:</strong>
+Here you go:
+<div class="code"><pre>
+	:0
+	* common-condition
+	{
+	    :0fbw
+	    * perhaps an additional condition on this one, even
+	    | sed -e 's/definately/definitely/g' -e 's/seperate/separate/g'
+
+	    :0c:
+            * perhaps an additional condition on this one, too
+	    action1
+
+	    :0
+	    ! action2
+	}
+</pre></div>
+<ul>
+<li>
+Notice how the "action" of the top-level condition is a set of
+curly braces containing more recipes.
+<li>
+Notice also how there is no lock on the top-level recipe.
+<li>
+And no <tt>:c</tt> flag either (in the general case. Of course you
+should have a <tt>:c</tt> if you want Procmail to branch, and do
+the braces in one branch, and continue basically as if this recipe
+hadn't matched in another).
+<li>
+Every recipe in the braces can have any additional flags and conditions,
+and even another set of braces as their action, recursively recursively. 
+In other words, they're exactly the same as a recipe in the top level 
+<tt>.procmailrc</tt>.
+</ul>
+<p>
+See also the
+<a href="#c-flag">description of the <tt>:c</tt> flag above.</a>
+<p>
+<a name="syntax-var">
+<strong>Q:</strong>
+How can I test the value of a variable or an argument? Let's say I
+manage to pass Procmail a user name using the <tt>-a</tt> switch,
+how do I look at the value of <tt>$1</tt> in a recipe?
+</a><p>
+<strong>A:</strong>
+Thusly:
+<div class="code"><pre>
+	ARG="$1"
+	:0
+	* ARG ?? regex
+	action
+</pre></div>
+<p>
+You can test against any Procmail regular expression. <tt>$1</tt>
+is unusual in that you can't test it directly, you have to assign it
+to another variable before you can actually compare. 
+<p>
+You might want to 
+anchor the beginning and end of the match with the <tt>^^</tt> 
+special anchor (so to match "str" but not "string", "Strauss", "Dnestr",
+or "tapestry", you'd say <tt>^^str^^</tt>. 
+Also note the absence of a dollar sign on the variable name. 
+Of course, this is all in the manual, by the way&nbsp;<tt>;^)</tt>
+<p>
+<a name="efficiency">
+<strong>Q:</strong>
+I want to strive for elegance and efficiency in my regular 
+expressions, and ultimately achieve Procmail guru status. 
+What typical newbie mistakes should I try to avoid?
+</a><p>
+<strong>A:</strong>
+Good girl/boy. Here's a partial list. 
+<ul>
+<li>
+Procmail normally ignores case 
+so there's no need to use 
+<tt>[Ss][Uu][Bb][Jj][Ee][Cc][Tt]</tt>
+to match the word "Subject" in mixed case, 
+for example. 
+If you actually want case significant
+matching, however, the <tt>D</tt> flag does that.
+<li>
+If you want to do something unconditionally, 
+there's no need to put in an empty "*" line
+or a bogus "<tt>^TO&#95;.*</tt>".
+Just leave out the condition line completely.
+<li>
+Watch out for embedded carriage returns in
+the <tt>.procmailrc</tt> file.
+<a href="#ctrl-m">See the "Gotchas" section</a>
+for an example.
+<li>
+Don't use <tt>\/</tt> in a regular expression
+when you really mean just a literal slash.
+<li>
+More generally speaking:
+Many people think they can live completely
+without backslashes in regular expressions.
+Others insert them everywhere just in case. 
+(We linguists call that "hypercorrectness," 
+but among the great unwashed masses, 
+the word often seems to be interpreted as
+"super correct." It really means "wrong
+for a particular reason," 
+more or less.)
+<br>
+Ordinarily, a backslash always works to 
+quote the following character in Procmail
+regular expressions, so to match a dot
+you'd use <tt>\.</tt> 
+-- that's a backslash and a dot. 
+A lone dot, of course, will match any one character.
+(It would be prudent to not count on <tt>\{</tt>
+matching a literal opening brace in all future versions
+of Procmail. An unescaped opening brace can rather safely
+be assumed to work as it always has, matching literally.)
+<br>
+The exceptions which do not necessarily match only
+themselves when backslash-escaped, 
+or even don't match anything at all, 
+are the <tt>\/</tt> special token
+and the <tt>\&#60;</tt> and <tt>\&#62;</tt>
+word-boundary operators. 
+(The characters &#60; / &#62; just match themselves.
+Repeat: To match a literal foreslash, just type a
+literal foreslash. Ditto-ditto for less-than and more-than.
+The only use for double backslash is to match
+a literal backslash character, 
+except at the beginning of a regex, 
+but you don't want to learn about that yet.
+Read the
+<a href="#backslashes">backslash part of the gotchas section</a>
+when you've grown a little bit bigger.)
+<br>
+The <tt>procmailrc</tt> manual page has 
+a (supposedly) complete listing of everything that Procmail
+does differently from Egrep.
+And remember, nothing beats testing your assumptions.
+<li>
+Redundant regular expressions will slow you down.
+<br>
+A trailing <tt>.*</tt> or <i>(something)</i><tt>?</tt>
+is always completely redundant.
+<br>
+A leading <tt>^.*</tt> doesn't serve any useful purpose, either.
+<br>
+A <tt>.*</tt> just after 
+<tt>^TO</tt> or
+<tt>^TO&#95;</tt>
+is also superfluous 
+and will actually dilute the effect of those macros, 
+because they already contain a wildcard expression at the end
+which is better bounded 
+and thus both more efficient and more user-friendly
+(unless you specifically <i>want</i> matches to start anywhere, 
+including, for example, in the middle of a word)
+than just "any character any number of times." 
+<li>
+To reiterate one of the points from the previous paragraphs,
+many neophytes don't realize that regular expressions don't 
+"look at" their context at all. 
+Yes, the regular expression "<tt>dogs?</tt>" will indeed match 
+anything which contains "dog" or "dogs", but also "dogma" and 
+"endogenous"  and any other word containing the three letters d-o-g. 
+And so, the optional s at the end is not really doing anything
+useful there. "dog" will match "dogs" just fine, and the s is not
+preventing matching on words which don't contain an s. A better 
+expression might be <tt>\&#60;dogs?\&#62;</tt> -- this will 
+require the match to be a "word" (token) of its own.
+<li>
+Redundant lock files, while harmless, will also slow you down. 
+If you receive a hundred messages a week and you have a hundred
+buddies on the same host who have similar <tt>.procmailrc</tt>s, 
+the numbers will add upp fast. 
+<br>
+A lot of model <tt>.procmailrc</tt> files you find on the Net
+will contain a <tt>LOCKFILE=some/file</tt> clause which in most
+circumstances can be seen as redundant. (It basically ensures that 
+you can only receive no more than one message at a time, which is 
+nice if you absolutely need to keep your log file clean, but potentially
+a large waste of resources as it can create numerous apparently "hanging" 
+Procmail processes waiting for their turn if you receive many mail
+messages in rapid succession.)
+<li>
+On a related note, don't change Procmail's built-in ideas of the values
+for the variables <tt>DEFAULT</tt> or <tt>SENDMAIL</tt> 
+unless you are fairly confident you know what you are doing.
+That goes doubly so for <tt>ORGMAIL</tt> -- 
+if you're changing it then you're probably going about 
+the problem the wrong way.
+<li>
+If you declare a variable and want it expanded in a condition line,
+don't forget the <tt>$</tt> modifier on the condition itself.
+<a href="#dollar">See below.</a>
+<li>
+Attempting to lock things you shouldn't lock 
+(such as <tt>/dev/null</tt>,
+or using your actual inbox as the lock file for itself&nbsp;:-)
+can leave Procmail hanging and consuming <i>lots</i>
+of resources.
+<br>
+(Attempting to lock <tt>/dev/null</tt> is special-cased
+in newer versions of Procmail so that shouldn't be dangerous.
+As for the "elegance" of attempting that&nbsp;...)
+<li>
+You frequently see stacked recipes with braces where a single
+recipe would suffice. If there's only one action and one set
+of conditions, you shouldn't need braces for any of your 
+simple newbie-level stuff.
+<div class="code"><pre>
+	:0
+	* condition
+	{
+	    :0c
+	    ! staff@example.org
+	}
+</pre></div>
+<p>
+is just a redundant paraphrase of
+<div class="code"><pre>
+	:0c
+	* condition
+	! staff@example.org
+</pre></div>
+<p>
+Don't let that <tt>c</tt> flag confuse you, it won't do anything
+until all conditions have been met.
+<a href="#flag-scope">(This could perhaps be more explicitly documented.)</a>
+<li>
+Elaborate systems where you deliver somewhere else with a :c flag
+(perhaps multiple times) and then eventually kill off the message 
+by delivering it to /dev/null can usually be cleaned up one way or another.
+<li>
+<a name="deliveredness">
+A more general phrasing of the previous tip: Make sure you understand
+the concept of "deliveredness".
+<br>
+Basically, Procmail will keep going until a recipe with a "delivering"
+action is successfully executed. Then Procmail considers its job done.
+The definition of "deliveredness" is explicated in the manuals, but
+it more or less amounts to having a message (successfully) saved 
+to a file, forwarded to another address, or written to a pipeline.
+<br>
+A corollary is that if you want Procmail to continue processing a
+message after this happens, you need to tell it so
+(usually with an f or c flag).
+Another corollary (specifically in reference to the previous paragraph)
+is that if you "deliver" a message somewhere, it's quite meaningless
+to then spawn off a clone to deliver another copy to
+<tt>/dev/null</tt>.
+</a></ul>
+<p>
+If the abstraction level of the manual pages doesn't match your taste,
+perhaps you want to try some of the tutorials on the
+<a href="links.html#tutorials">Links page</a>
+(you could even try the Rocket Science ones
+if you feel you understand the basics)
+or the
+<a href="quickref.html">Quick Reference.</a>
+<p>
+(For completeness' sake, it should be pointed out that some of the above
+rules of thumb are a bit too general. For example,
+after a <tt>\/</tt> grab operator, <tt>.*</tt> or <tt>.+</tt>
+obviously serves a useful purpose if you want to match the entire remainder
+of the line for grabbing purposes. A leading <tt>^.*</tt> can be useful
+if you want to gobble up leading newlines if you have a <tt>^</tt> or
+<tt>$</tt> later in the expression which should not be preceded by
+nothing.)
+<p>
+<a name="matching">
+<strong>Q:</strong>
+I'm having a hard time getting this <tt>\/</tt> and
+<tt>$MATCH</tt> thing to work for me. I can't seem to get
+<tt>$MATCH</tt> to contain what I expect it to. Sometimes the
+whole regular expression fails to match when I include the
+<tt>\/</tt> token. What gives?
+</a><p>
+<strong>A:</strong>
+This is a bit complicated and basically belongs in the "advanced"
+section.
+But 
+<a href="matching.html">here's a pretty good explanation.</a>
+(Thanks to Philip Guenther.)
+<p>
+<a name="asterisk">
+<strong>Q:</strong>
+Why shouldn't I use the <tt>*</tt> wildcard?
+</a><p>
+<strong>A:</strong>
+First off, make sure you understand that the regular expresision
+"<tt>a*</tt>" matches
+the empty string, and the string "a", and the string "aa", and the
+string "aaa...". Second, blanket wildcards like <tt>.*</tt> are
+often a bad idea. When you're dealing with regular expressions,
+it's usually best to be as specific as possible.
+<p>
+Example: Say you have a desire to deny all mail from the domain
+<tt>wash.edu</tt>, perhaps only temporarily but somewhat urgently
+because a single user there is harassing you.
+<p>
+Since most headers are rather easy to forge, you want to reject any
+mail with this domain name in the <tt>Received:</tt> headers,
+which are hard to falsify. (Specifically, it's hard to prevent
+"wash.edu" from occurring somewhere in the headers if you post from
+wash.edu.) So you say
+<div class="code"><pre>
+	:0
+	* ^Received:.*wash.edu
+	/dev/null
+</pre></div>
+Apart from the fact that it's always unwise to send stuff to
+<tt>/dev/null</tt>
+(if it's harassment or spam, you want to keep the evidence
+and complain to the abuser's ISP or upstream, and possibly the police),
+this recipe will match on this (fairly short) string anywhere in any
+Received: header. So if you have friends mailing you from
+<tt>hogwash.edu</tt>, you are blackholing their mail, too.
+Or if somebody is sending you legitimate mail using
+software which includes "wash.edu" in its version information
+in the headers (not too unlikely, seeing as a lot of mail tools
+come from Washington), that will be gone as well.
+<p>
+Thus, it is better to be as specific as you can. After a glimpse
+at the headers of the messages you have received so far, you
+determine that each Received: line starts with the word "from"
+and the name of a host. If that host name is in wash.edu, that
+is mail we want to reject:
+<div class="code"><pre>
+	:0
+	* ^Received: from ([^ ]+\.)*wash\.edu([ &#9;]|$)
+	/var/tmp/harassment
+</pre></div>
+For additional precision, the last set of parentheses require
+a whitespace character or newline after "edu". And the messages
+are no longer routed to <tt>/dev/null</tt>, but merely to
+a low-priority folder where they won't fill up your quota even
+if there is a lot of them coming in.
+<p>
+(Actually, this Question is made up, but various aspects of
+the Answer to it are Frequently Overlooked so I smuggled it all
+in here.)
+<p>
+(And actually, for Sendmail's Received: headers, you want to look
+at the <i>second</i> token after the "from" word. The first can
+likewise be forged and is commonly set to a bogus value by the
+sort of software people use for mailbombing people they don't like.)
+<p>
+(... Oh, and actually you probably want to leave a hole of some
+sort in the shield so that postmaster mail from wash.edu can
+make it through to your regular inbox. The most obvious tricks
+can most obviously be predicted and abused by a clever harasser,
+though. You should perhaps get on the phone to that postmaster
+person instead.)
+<hr title="end of section 2">
+<h2>
+<a name="debugging">
+Help, I get this error message&nbsp;...
+</a></h2>
+<h3>
+Troubleshooting tips
+</h3>
+<blockquote>
+<p>
+The light bulb contains the seeds of its own revolution.
+</blockquote>
+<p>
+Before you panic, try adding <tt>VERBOSE=yes</tt> to your
+<tt>.procmailrc</tt>, send yourself a test message, and examine
+the information about Procmail's actions that are written to the log.
+This tells you, in excruciating detail, about every decision Procmail
+makes while processing your <tt>rc</tt> file.
+<p>
+If you have a message which is being processed differently from what you
+had expected, save it to a file so you can rerun it through Procmail
+from the command line, or show it to others when you decide you need to
+ask for help.
+<p>
+Some common error messages are explained briefly above. 
+<a href="#syntax-colon">Go back</a>
+and look for "couldn't determine implicit lockfile".
+(Search for the error you're getting instead if this is not it.)
+<p>
+All of Procmail's own error messages and some plausible explanations
+are listed on the Procmail manual page. If you haven't before, now is
+the time to read the manual pages. Note that there are several;
+<tt>procmailrc(5)</tt> explains the syntax of the <tt>rc</tt>
+files while <tt>procmailex(5)</tt> contains some good real-world
+examples. There is also <tt>procmailsc(5)</tt> which discusses the
+scoring system.
+<p>
+Free tip: You'll avoid a lot of sarcastic replies if you make sure
+you try this <i>before</i> you post to the Procmail mailing list or
+some newsgroup about your problems.
+<p>
+<a name="experiments.rc">
+Another free tip: Here's an alternate <tt>rc</tt> file you can use
+as a skeleton for interactive experiments. 
+It will
+</a><ul>
+<li>
+tell Procmail to use a harmless subdirectory under the <tt>/tmp</tt>
+directory for all messages you feed it, 
+instead of dumping messages amid your real mail 
+(so you can safely run a bunch of contrived or dangerous tests 
+and not screw up your inbox)
+<li>
+display all log messages on standard error instead of in a log file
+<li>
+give you a chance to play with advanced features of Procmail
+you'd never dare to try in your regular <tt>.procmailrc</tt> 
+without testing them first <tt>:-)</tt>
+</ul>
+<p>
+Do note that an interactive Procmail gets a different environment and
+possibly runs on a different machine than the Procmail in your
+<tt>.forward</tt>, though.
+<blockquote><pre>
+	TMPDIR=/tmp/$USER
+	MAILDIR=$TMPDIR/procmail.out
+	DEFAULT=$MAILDIR/$USER
+	VERBOSE=yeah
+	SHELL=/bin/sh
+	
+	:0
+	* ? test -d $TMPDIR || mkdir $TMPDIR
+	* ? test -d $MAILDIR || mkdir $MAILDIR
+	{ }
+	:0E
+	{
+	    # Bail out if either directory didn't exist and couldn't be created
+	    EXITCODE=127
+	    HOST
+	}
+	
+	# ... your experimental recipes here
+</pre></blockquote>
+<p>
+With this recipe, you can use Procmail directly
+from the command line, 
+typing in experimental messages as you go along, 
+or feeding it a message on standard input, like this:
+<div class="code"><pre>
+	procmail -m experiments.rc &#60;test.mbox
+</pre></div>
+<p>
+(assuming you had saved the above example <tt>rc</tt> file 
+in <tt>experiments.rc</tt> and have a test message for it
+in the file <tt>test.mbox</tt>). 
+<p>
+The <tt>-m</tt> option is rather vaguely documented;
+it will arrange with additional safety nets by disabling
+the default delivery and treating file names as relative
+to the current directory (as opposed to your home directory,
+which makes sense when invoking Procmail from a <tt>.forward</tt>
+or similar).
+<p>
+<a href="experiments.rc">[Click here to download a copy of experiments.rc]</a>
+<p>
+(Incidentally, testing Procmail from the command line like this
+is much more convenient than sending yourself a test message 
+and waiting for Sendmail to deliver it to you.
+It also frees you from having to put diagnostic logging in your
+regular <tt>.procmailrc</tt>, or having to put verbose
+logging in your regular log file.
+FWIW,
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-02/msg00209.html">here's an old message from the mailing list</a>
+with an example of how to debug a "mystery recipe.")
+<small>
+[Nyfb abgr gur zbebavp sbyybj-hc :-]
+</small>
+<h3>
+<a name="gotchas">
+Known bugs, common gotchas, and funny quirks
+</a></h3>
+<p>
+This listing is by no means exhaustive. 
+<a href="http://www.procmail.org/todo.html">Philip Guenther's todo list</a>
+and the companion 
+<a href="http://www.procmail.org/warts.html">warts list</a>
+contains some items which are not here, although I do try to keep
+in sync with Philip generally.
+<h4>Known bugs</h4>
+<p>
+This is mostly for version 3.11pre4 and newer. If you have an older
+version, you should probably upgrade.
+<a href="HISTORY">The HISTORY file in the distribution package</a>
+contains a list of fixed bugs in earlier versions 
+(although it's not very detailed).
+<dl>
+<dt>
+<a name="memory">
+<strong>
+Procmail's memory handling is poison to some *BSD systems.
+</strong></a><dd>
+This was fixed in 3.12, although stress testing the system
+with the newest Procmail before putting it into production use 
+probably wouldn't hurt.
+<dd>
+This bug would cause trouble on at least FreeBSD systems, 
+and possibly other related *BSD:s as well
+(AIX, apparently; BSDI?, NetBSD?, OpenBSD??, NeXTStep??, others?). 
+More information about affected platforms would be welcome.
+<dd>
+If you're stuck with an older version, try simply changing 
+malloc's options.
+(Michael&nbsp;S.&nbsp;Fischer writes:
+<blockquote>
+<p>
+"Changing malloc's options seemed to do the trick for now
+(<tt>ln -s '&#60;' /etc/malloc.conf</tt>)."
+</blockquote>
+See the <i>malloc</i><b>(3)</b> man page if you're on FreeBSD 
+and wonder what this means.)
+<dt>
+<strong>
+Closure before <tt>\/</tt> doesn't work correctly.
+</strong><dd>
+See
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-06/msg00191.html">Stan Ryckman's bug report on the Procmail mailing list</a>
+for details. (See the followups in the same thread, too.)
+<dd>
+Philip Guenther writes:
+<blockquote><p>
+Actually, it has nothing particular to do with the '+' operator -- you
+get the same effect with the '*' operator.  The real problem is that if
+you have something like " +.*", the '+' is superfluous from the point
+of view of what the regex should match, but it adds to the
+combinations that procmail tries as it goes.  Along the way, procmail
+loses track of where the match &nbsp;really&nbsp; started.  Yes, it's a mess.
+The workaround is to remove the superfluous operator ('+' in this
+case).  That'll also make it match faster.
+</blockquote>
+<dd>
+A fix is expected in the near future.
+<dt>
+<strong>
+Exceeding <tt>LINEBUF</tt> can give you core dumps.
+</strong><dd>
+I'm not sure on what systems and under what circumstances
+exactly this happens. You should definitely avoid grabbing 
+huge amounts of data into MATCH and then evaluating it, 
+unless you know that your LINEBUF can accommodate all the data.
+<dd>
+I believe this should be fixed in 3.13.1.
+<dt>
+<strong>
+Inode bug in non-MH mail directories
+</strong><dd>
+The algorithm for creating the name for the next mail file
+involves the assumption that existing mail files are named
+according to their inode numbers. This is generally correct
+if Procmail has been allowed to name those files, but probably
+incorrect otherwise (e.g. if the files have been restored from
+a backup, or moved to a different file system).
+<dd>
+This behavior is changed in the current prerelease snapshot;
+Procmail now fails the delivery instead of overwriting the old file.
+This change will probably be included in the next release.
+<dt>
+<strong>
+TIMEOUT problems
+</strong><dd>
+Procmail attempts to kill off spawned shells which exceed
+the TIMEOUT setting but won't always succeed.
+<dt>
+<strong>
+Variable capture clobbers variable's old value
+</strong><dd>
+I.e. the following doesn't work as expected:
+<div class="code"><pre>
+	:0
+	variable=| echo "$variable" | tr A-Z a-z
+</pre></div>
+<dd>
+The value of <tt>variable</tt> will be empty by the time the
+<tt>echo</tt> executes.
+<dt>
+<strong>
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1996-10/msg00016.html"><tt>formail -r</tt> breaks RFC822</a>
+</strong><dd>
+Always use <tt>formail -rt</tt> if you don't know what this means.
+Perhaps you should always use it anyway.
+Never mind that the documentation says something funny about
+how the <tt>-t</tt> option implies "trusting" the sender. 
+Without <tt>-t</tt>, you stand a good chance of replying
+to the envelope sender, which is a violation of the standard.
+(See next item.)
+<dt>
+<strong>
+The precedence of different headers when doing a 
+<tt>formail -r</tt> or <tt>formail -rt</tt>
+is not documented
+</strong><dd>
+<a href="formail.html">Here's some documentation.</a>
+<dt>
+<a name="group-writable">
+<strong>
+Upgrading to 3.12/3.13/3.14 breaks Procmail on systems with
+group-writable home directories (e.g. Red Hat Linux)
+</strong></a><dd>
+This is known to the Red Hat folks, and a fixed RPM is
+apparently in the works. See
+<a href="http://developer.redhat.com/bugzilla/show%5Fbug.cgi?id=2242">http://developer.redhat.com/bugzilla/show%5Fbug.cgi?id=2242</a>
+<dd>
+(Apparently this can also bite when upgrading to Red Hat 6
+from an earlier version.)
+<dd>
+This is not a problem if Procmail was compiled correctly.
+For example, Debian has group-per-user, too, but the
+current <tt>.deb</tt> package was correctly compiled
+to reflect this.
+<dd>
+The general explanation is that Procmail was tweaked
+to be more paranoid about security issues, and will
+not accept an rc file if it is group-writable.
+This is a non-issue on systems where the only member
+of the group will be the user herself; for those
+systems, there is a <tt>GROUP&#95;PER&#95;USER</tt>
+switch in <tt>config.h</tt> which needs to be enabled
+before compiling Procmail. (This was not done for Red Hat's
+<tt>procmail-3.13-1</tt> RPM but should hopefully be fixed in
+the next. An independently fixed RPM seems to be available at
+<a href="http://cs.wilpaterson.edu/~scottw/shebang/">http://cs.wilpaterson.edu/~scottw/shebang/</a>
+but this appears not to be "official".)
+<dd>
+One of the popular error messages returned in bounces
+in this situation seems to be <tt>"Service unavailable"</tt>
+which is not very helpful. (See the
+<a href="#smrsh">smrsh question</a>
+below, too.)
+<dt>
+<a name="egrep">
+<strong>
+The manual says the regex engine is <tt>egrep</tt> compatible
+</strong></a><dd>
+'Tain't so. This statement is probably a holdover from older times 
+when basically it was, or tried to be.
+<dd>
+(Some of the documentation somehow makes some people think stuff is
+getting passed to the normal external <i>egrep</i><b>(1)</b>, 
+whichever version happens to be installed. This is certainly not
+the case; Procmail has its own built-in regex engine, which is
+roughly modeled after <tt>egrep</tt> but still its very
+own implementation with its own features and drawbacks. Read
+the rest of this section, and the manual pages.)
+<dt>
+<a name="flag-scope">
+<strong>
+The scope of flags is not explicitly documented
+</strong></a><dd>
+This is supposed to mean, some flags affect how conditions
+are matched (i.e. they basically take effect immediately when
+Procmail sees them) while others affect how the action is
+taken (if it's taken; in other words, they don't have any
+effect at all if the conditions fail).
+<dd>
+It would probably be sufficient if the manual pointed out
+this fact somewhere; the rest should come from that
+(but if the manual is augmented with a more systematic
+overview of the flags, this feature should probably be
+explicitly mentioned for each flag). The help message
+(which contains a very brief listing of the flags,
+in case you hadn't noticed) should perhaps be tweaked a bit
+as well.
+</dl>
+<h4>Common gotchas</h4>
+<p>
+The following things are frequently regarded as unintuitive or
+even "broken" by many people.
+<dl>
+<dt>
+<a name="from">
+<strong>
+There is no <tt>^FROM</tt> macro
+</strong></a><dd>
+Many people incorrectly infer that since there is
+a special <tt>^TO</tt> macro which catches all variants of 
+<tt>To:</tt>, <tt>Cc:</tt>, <tt>Resent-To:</tt>, 
+etcetera, there also ought to be a <tt>^FROM</tt> which
+would catch, say, <tt>From:</tt>, <tt>Sender:</tt>, 
+<tt>Reply-To:</tt>, and so forth. But this is in fact not
+the case, and Stephen van den Berg has repeatedly stated that
+he will not add such a special macro. 
+<dd>
+Of course, rolling your own isn't too hard. Just define a variable
+which contains the stuff you think you want in there, e.g. 
+<div class="code"><pre>
+	FROM="^(From[ 	]|(Old-|X-)?(Resent-)?(From|Reply-To|Sender):)(.*\&#60;)?"
+
+	# Use thusly:
+	:0
+	* $ ${FROM}billg@microsoft\.com
+	| $HOME/bin/throw-virtual-cake
+</pre></div>
+<dd>	This is not completely orthogonal to what <tt>^TO</tt> does;
+you use it at your own risk, of course.
+(This is provided as an example. Compare to the documentation for
+<tt>^TO&#95;</tt> and pick the things you like from both.)
+<dd>
+(Oh, and by the way, that "mysterious extra dollar sign" 
+is required to actually expand the <tt>FROM</tt> variable.
+See
+<a href="#dollar">below.)</a>
+<dt>
+<a name="backslashes">
+<strong>
+Procmail strips off all whitespace after backslash plus newline
+</strong></a><dd>
+This frequently bites newbies. Most other programs will treat
+backslash plus newline as a token delimiter. Not Procmail. 
+<div class="code"><pre>
+	:0
+	| formail -AMoo: -IFoo: -r\
+		-aBoo:
+</pre></div>
+<dd>	will actually be glued together as
+<div class="code"><pre>
+	:0
+	| formail -AMoo: -IFoo: -r-aBoo:
+</pre></div>
+<dd>	which will not work as expected. Solution: If you want a space, 
+put it before the line-continuation backslash.
+<dt> <strong>
+Backslashes at the beginning of a line are parsed
+differently from other backslashes
+</strong><dd>
+Get used to it, or use some workaround. 
+Here's one idea:
+<div class="code"><pre>
+	* Condition which wants to continue \
+	()	with leading whitespace
+</pre></div>
+<dd>	You can use something else besides
+the empty parens. The basic idea is just
+to avoid a backslash in the first column,
+which is what you'd ordinarily expect to
+work to tell Procmail that the following whitespace
+is to be taken literally. The parens work well
+as a substitute for a backslash in this particular case.
+<dd>
+Backslash as the first character of a condition has the
+same problem; similar workarounds should do:
+<div class="code"><pre>
+	* VAR ?? ()\$string which starts with a literal dollar sign
+	* VAR ?? [$]string which also starts with a literal dollar sign
+	* VAR ?? (\$)third alternative solution
+</pre></div>
+<dd>	The empty parentheses are almost an idiom among veteran Procmail 
+users, but you see all variants in regular use. 
+<dt>
+<a name="dollar">
+<strong>
+It's easy to forget the <tt>$</tt> modifier when
+interpolating a variable into a condition line
+</strong></a><dd>
+Compare these:
+<div class="code"><pre>
+	bar='quux'
+
+	:0
+	* foo$bar
+	baz
+
+	:0
+	* $ foo$bar
+	mumble
+</pre></div>
+<dd>
+The first recipe looks for "foo, newline, bar". The second looks for
+"foo" adjacent to "quux". The basic problem is that the dollar sign
+is overloaded to mean, on one hand, newline in regular expressions,
+and on the other, interpolation of environment variables. So in a
+situation where you need both mechanisms, there has to be a way to
+tell them apart. (To identify a newline in a condition which has a
+<tt>$</tt> modifier, <tt>($)</tt> should always be unambiguous.)
+<dt>
+<a name="newlines">
+<strong>
+Getting a newline into the action line is tricky
+</strong></a><dd>
+Sometimes, you'd want to write a recipe with an action line which 
+contains a newline. Let's say you have a sed script to trim
+off a pompous <tt>.signature</tt> and leave a notice
+about what happened:
+<div class="code"><pre>
+	sed '/^-- $/,$c\
+	-- \
+	sed: .signature removed'
+</pre></div>
+<dd>	and you'd like to run this over mail from a particular user. 
+But Procmail won't easily permit you to split the action line
+over several physical lines. How do you fix that?
+<dd>
+One approach is to define the newline as a variable, 
+and then interpolate that variable when you need it:
+<div class="code"><pre>
+	NL="
+"
+	:0bfwi
+	* ^From:(.*\&#60;)?dquayle?@aol\.com\&#62;
+	| sed '/^-- $/,$c\'"$NL"'-- \'"$NL"'sed: .signature removed'
+</pre></div>
+<dd>	(Don't let that quoting scare you. If you look at it closely, 
+you'll notice that those are just several quoted strings
+glued together in order to pass it all as a single argument
+to <tt>sed</tt>. The newlines are in double quotes while
+all the other stuff is in single quotes. Do pay attention
+to the first lines which define the <tt>NL</tt> variable,
+though -- that's <tt>NL</tt> equals
+double quote, newline, double quote.) 
+<dd>
+In this particular example, and many times in practice, it's
+probably neater to put the whole sed script in a variable and 
+then simply interpolate that, newlines and all:
+<div class="code"><pre>
+	SEDKLUDGE='/^-- $/,$c\
+	-- \
+	sed: .signature removed'
+
+	:0bfwi
+	* ^From:(.*\&#60;)?dquayle?@aol\.com\&#62;
+	| sed -e "$SEDKLUDGE"
+</pre></div>
+<dd>
+You can, in principle, use backslashes to escape a newline
+on the action line, but the number of backslashes you need
+for that is not easily deduced (see previous notes about
+Procmail's quirky treatment of backslashes in some situations). 
+It's often easier to just try to think of a workaround.
+<dt>
+<a name="ctrl-m">
+<strong>
+Procmail doesn't cope well with carriage returns
+in the <tt>.procmailrc</tt> file
+</strong></a><dd>
+Some people like to edit their <tt>.procmailrc</tt>
+file on a local PC and then upload the file to their
+shell account with <tt>ftp</tt>. If you do this in
+"binary" mode, the line endings will likely consist of DOS
+carriage return/line feed pairs, rather than just line
+feeds (the convention on Unix). Procmail will not ignore
+these "extra" characters, and the errors that will be logged
+will look quite odd (like this maybe:
+<div class="code"><pre>
+	"rocmail: skipped "
+</pre></div>
+<dd>
+This depends on what you use to view the log).
+Solution: upload the file again using the correct transfer
+mode, or modify it in place with a Unix editor, or
+the following shell script:
+<div class="code"><pre>
+	#!/bin/sh
+	if ! mv .procmailrc .procmailrc.old ; then
+		echo Could not move .procmailrc to .procmailrc.old >&2
+		exit 1
+	fi
+	tr -d '\015' .procmailrc.old >.procmailrc
+</pre></div>
+<dd>
+You should remove <tt>.procmailrc.old</tt> after making
+sure the new file works as intended.
+<dd>
+To discover the problem in the first place, programs like
+<i>viz</i><b>(1)</b>, <i>cat</i><b>(1)</b> <tt>-A</tt>,
+or <i>od</i><b>(1)</b> can be helpful.
+<dt>
+<strong>
+There is no way to globally modify how Procmail behaves
+when there's an error.
+</strong><dd>
+When there is an error executing an action, Procmail
+merrily skips to the next recipe and tries that instead.
+This frequently means that when the recipe that should
+have matched didn't, everything gets written to your
+<tt>$DEFAULT</tt> mailbox (or spam-filtered by
+some particularly ominous spam filter that would otherwise
+have been bypassed, if you have that sort of stuff
+near the end of your <tt>.procmailrc</tt>).
+<dd>
+For a single error-prone recipe, you can always put one
+with an <tt>:e</tt> flag immediately after it,
+but this is hardly something you want to do for each
+and every recipe.
+<dt>
+<strong>
+Procmail always requires enough memory to read in 
+the entire message it's processing.
+</strong><dd>
+This is rather self-evident, given the way Procmail works, 
+but it has some unfortunate consequences (especially
+considering the 
+<a href="#memory">FreeBSD memory issue above). </a>
+It would be nice
+if there was a back door of some sort, so you could say e.g.
+"if a message is bigger than 32 megabytes, just deliver
+it, okay?" (or maybe look at only the first 32 megabytes 
+of it when reading the recipes).
+<dd>
+It is not exactly clear what the best solution to this problem
+would be. Don't hold your breath.
+<dt>
+<a name="shell">
+<strong>
+If your login shell is a C shell 
+(<tt>csh</tt> or <tt>tcsh</tt>), 
+prepare for havoc.
+</strong></a><dd>
+Procmail works <em>very</em> badly with the C family of shells
+(you could almost say it doesn't, plain and simple, but the
+symptoms are murky and hard to put your finger on), 
+at least for some people.
+<dd>
+As a precaution, always set <tt>SHELL=/bin/sh</tt> 
+at the beginning of your <tt>.procmailrc</tt>
+<dd>
+(If you are forced to work with <tt>t?csh</tt> 
+and would like to look further into this, the FAQ
+author has some ideas for things to check.)
+<dt>
+<a name="ARGS">
+<strong>
+<tt>$@</tt> is only available to external programs
+</strong></a><dd>
+This is actually documented (all right, in the <tt>BUGS</tt> 
+section of the manual, so perhaps it's not a feature <tt>:-)</tt> 
+-- if you need to use <tt>$@</tt> internally, you'll have to go
+via an external program such as <tt>echo</tt>:
+<div class="code"><pre>
+	:0ir
+	ARGS=| echo "$@"
+</pre></div>
+<dd>	Using <tt>"$ARGS"</tt> subsequently is still not 
+exactly the same as <tt>"$@"</tt> is to the shell. 
+<dt><strong>
+<tt>$SENDMAILFLAGS</tt> gets passed in double-quoted
+by the <tt>!</tt> action
+</strong><dd>
+You won't be able to change SENDMAILFLAGS to a string
+containing whitespace because the whitespace gets passed
+to Sendmail as part of the argument. You can bypass this
+by changing all occurrences of <tt>!</tt> actions
+with
+<div class="code"><pre>
+	| $SENDMAIL $SENDMAILFLAGS ...
+</pre></div>
+<dd>
+but probably (er, make that hopefully), 
+forthcoming (hopefully forthcoming) versions of Procmail 
+should be fixed and not quote the flags.
+<dt> <strong>
+Diagnostics in the log file don't tell you which line
+in the <tt>.rc</tt> file the error is happening on
+</strong><dd>
+Run the problem message through Procmail again with 
+<tt>VERBOSE=yes</tt> and it should become apparent
+where the problem is. 
+<dt> <strong>
+<tt>formail -A</tt> or <tt>-I</tt> 
+don't imply <tt>-X</tt>
+</strong><dd>
+If you use formail's <tt>-A</tt> or <tt>-I</tt> flags
+in a command which also uses <tt>-X</tt>, you have to 
+explicitly add an <tt>-X</tt> for the fields you just
+added. 
+<dd>
+In other words, 
+<div class="code"><pre>
+	formail -rt -XTo: -A"X-Loop: me@my.isp"
+</pre></div>
+<dd>	will actually kill the <tt>X-Loop</tt> header 
+immediately after inserting it. 
+You have to extract it explicitly, even though you just added it:
+<div class="code"><pre>
+	formail -rt -XTo: -A"X-Loop: me@my.isp" -XX-Loop:
+</pre></div>
+<dt> <strong>
+<tt>formail</tt> has a fixed order for parsing its arguments
+</strong><dd>
+This means you sometimes have to feed the output of formail 
+to another instance of formail to achieve the end result you
+want.
+(Given this, it's surprising how seldom you need to in
+practice <tt>:-)</tt>
+<dt> <strong>
+Older versions of
+<tt>formail</tt> and <tt>lockfile</tt> won't tell
+you what their version number is.
+</strong><dd>
+This was fixed in 3.12, but if you're stuck with an older
+version, well, you're stuck. (But you really should upgrade.)
+<dd>
+You can look inside the binary
+with strings(1) -- however, you will probably only find 
+a date but no version number. (Dates in April 1997 seem to
+correspond to the versions that come with version 3.11pre7 
+of Procmail. [pre5 and pre6 were also issued around April.])
+</dl>
+<h4>Funny quirks</h4>
+<ul>
+<li>
+The <tt>\/</tt> operator is a bit unwieldy. The way that it changes
+the longest-match behavior of the regex engine will bite you one day
+if it hasn't already.
+See 
+<a href="#matching">the related question in the previous section.</a>
+<li>
+There is no general way to limit what gets grabbed into <tt>MATCH</tt>
+-- either you get everything after the <tt>\/</tt> operator, or nothing
+at all. It would be nice to be able to specify a trailing context for what
+you want to match, which would still not get copied into <tt>MATCH</tt>.
+<li>
+The <tt>$\VAR</tt> interpolation operator will add a set of empty
+parentheses at the beginning of the interpolated value.
+<li>
+No mechanism exists for running a program without feeding it a message on 
+standard input. (You can use the <tt>i</tt> flag to suppress warnings
+about data not being read, but it's a kind of a kludge.)
+<li>
+Procmail doesn't have a convenient way to tell what version of Procmail
+you're running from inside an <tt>.rc</tt> file.
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-08/msg00316.html">There is a patch for this.</a>
+It will probably be adopted in slightly modified form in a coming release.
+<li>
+It's not exactly clear what kind of comsat notice should be generated
+when delivering to a program. Currently, it's as if the program had
+been a file. Your comsat will probably be confused all over.
+<li>
+Some people think the manual needs improvement.
+<li>
+It is not obvious what the difference between a "quirk" and a "gotcha" is, 
+exactly, nor for that matter always what the difference between a 
+"gotcha" and a "bug" is. If you're a speculative type, speculate.
+</ul>
+<h3>Related quick questions</h3>
+<p>
+<a name="startup">
+<strong>Q:</strong>
+What are some typical installation problems?
+</a><p>
+<strong>A:</strong>
+Here are some of the most typical problems with getting Procmail to run 
+in the first place:
+<ul>
+<li>
+<a name="smrsh">
+If you seem never to be able to execute Procmail from your
+<tt>.forward</tt> file, it could be that your site is
+using 
+</a><a href="ftp://info.cert.org/pub/tools/smrsh/"><tt>smrsh</tt>, </a>
+the Sendmail Restricted Shell, for mail delivery.
+In this case, you should get a bounce message saying
+something like
+"procmail not available for sendmail programs" or
+"Cannot use &#60;metacharacter&#62; in command".
+In the former case,
+your admin has to explicitly tell <tt>smrsh</tt> 
+that Procmail is a program you are allowed to 
+call up from your <tt>.forward</tt>
+(if you are -- the whole point of <tt>smrsh</tt>
+is to restrict what the user is allowed to invoke;
+but as Per Hedeland notes, there's not a lot of
+point in using <tt>smrsh</tt> nowadays in any case).
+In the latter case, you need to simplify your
+<tt>.forward</tt> file into something <tt>smrsh</tt>
+allows and understands.
+<br>
+If you want to restrict what programs
+a user is allowed to use, but still use Procmail,
+look for a compile-time fix in
+an upcoming version of Procmail, though.
+The administrator will then be able to restrict
+which programs the user's Procmail can execute&nbsp;...
+and then you might even be able to persuade your
+admin to install Procmail as your local MDA
+for this feature alone.
+<br>
+Related but different is the error messages
+"Address &#60;foo@bar&#62; is unsafe for mailing to programs".
+This is produced by Sendmail itself
+if the permissions on the directory
+containing the <tt>.forward</tt> file are too lax
+(i.e. anybody is allowed to overwrite
+your <tt>.forward</tt> or something like that).
+<br>
+It could also be that you're running Red Hat or some other system
+where your home directory is group writable, without the group-writable
+option compiled into Procmail; see the
+<a href="#group-writable">Red Hat problem</a>
+in the Bugs and Gotchas section for a discussion.
+<br>
+Thanks to Per Hedeland for corrections
+and amplifications to this answer.
+<li>
+Another "mysterious" condition to watch out for is when 
+mail is actually usually processed on a different host
+than the one where you installed Procmail. 
+<a href="#appendix-mx">See Appendix B.</a>
+One of the typical symptoms is that you can send yourself
+test messages which get processed by Procmail, but
+mail from the outside world bypasses Procmail completely
+or doesn't even get delivered. 
+(Mail to the local host from yourself usually gets processed
+locally, whereas outside mail always comes via the mail
+server. You can look at <tt>Received:</tt> lines from
+old messages to find out what routes mail to you usually
+takes -- the lines closest to the top are the most important.
+If the mail server is a different architecture, 
+or can't mount your home directory, or whatever, 
+you will have problems. Ask your site admin for help.)
+<li>
+A good safety measure is to put 
+<tt>SHELL=/bin/sh</tt> 
+right at the top of your <tt>.procmailrc</tt>. 
+<br>
+There are various things that will not work, but instead either fail
+rather mysteriously or produce very unexpected results if you try
+to run Procmail scripts under <tt>tcsh</tt>. Some things to look out
+for are pipelines which just don't do what you expect them to, 
+or error codes which never get passed back to Procmail.
+</ul>
+<p>
+See also various points in 
+<a href="#faq-toc">Stephen's original Procmail FAQ.</a>
+<p>
+Your humble FAQ author has a web page with some debugging tips at
+<a href="http://www.iki.fi/era/mail/procmail-debug.html">http://www.iki.fi/era/mail/procmail-debug.html</a>
+<p>
+<a name="forward">
+<strong>Q:</strong>
+What are all those mysterious things I'm supposed to stick in my
+<tt>.forward</tt> file?
+</a><p>
+<strong>A:</strong>
+First off, for the record, you don't need a <tt>.forward</tt>
+if Procmail is your local MDA. Ask your admin. 
+<p>
+If Procmail is not your local MDA, you need something more or less
+like what the manual suggests. Look at the <tt>NOTES</tt>
+section of the <i>procmail</i><b>(1)</b> manual page -- this is
+tailored by Procmail's installation script depending on what MTA
+you have installed, so if the manual page's suggestion looks very
+different from the following (usually much simpler; see 
+<a href="#forward-other-mtas">below)</a>
+then the manual page's suggestion is definitely worth a try
+before you try this.
+<p>
+The following is not exactly the same as what Procmail's manual
+page suggests, because it has some decorations which people have
+come up with on their own, which have become rather widespread
+and thus are probably worth a bit of explanation.
+So, here's one popular variation:
+<div class="code"><pre>
+"|IFS=' '&#38;&#38;p=/usr/local/bin/procmail&#38;&#38;test -f $p&#38;&#38;exec $p -f-||exit 75#whatever"
+</pre></div>
+<p>
+(That should all be on a single line. Unwrap it if it appears wrapped.
+Unwarp it if it appears warped. The surrounding double quotes are
+significant, and should be included in the file.)
+<br>
+This is just a simple (but slightly convoluted) shell script. 
+<br>
+Whitespace is often left out as much as possible, partly out of paranoia,
+partly because people want it all to fit onto a single line in their editor.
+<br>
+Please note that this is <em>not</em> guaranteed to work out of the box. 
+Your first attempt at a <tt>.forward</tt> should be what your local
+manual page suggests (and please, people, change
+<tt>#whatever</tt> to your own login name with a hash mark in front).
+<p>
+Here's what it does:
+<ul>
+<li>
+The double quotes are required in order to tell Sendmail that
+this is all just a single directive.
+<li>
+The pipe character just after the leading quote
+[-- you can try to put it just before the leading quote
+if you have problems with getting this variant to work,
+just make sure you don't let any whitespace slip in --]
+tells Sendmail to try to execute this and feed the mail 
+message to it on standard input. 
+<li>
+The <tt>&amp;&amp;</tt> "and" connective means, do the next
+action only if the previous action(s) succeeded. 
+<li>
+The <tt>||</tt> "or" connective means, do the next
+action if the preceding action(s) failed.
+<li>
+<tt>IFS=' '</tt> sets the shell's "internal field separator"
+to a single space. This is mostly just in order to prevent some
+old Sendmail hacks which were based on setting the IFS to something
+else.
+<li>
+The variable <tt>p</tt> is set to where-ever you expect 
+to find your Procmail binary. This allows us to use the convenient
+shorthand <tt>$p</tt> instead of this longish pathname, 
+and also means that if you ever move it, there is only one place
+where you need to remember to change it.
+<li>
+The <tt>test</tt> will fail if the file named in <tt>$p</tt>
+doesn't exist. 
+<li>
+The <tt>exec</tt> replaces this script we're currently executing
+with Procmail if the binary is successfully loaded.
+The parameter <tt>-f-</tt> says to Procmail to regenerate missing
+<tt>From&#95;</tt> lines and update the timestamp on existing ones.
+<li>
+The <tt>exit</tt> only happens if either the <tt>test</tt> or
+the <tt>exec</tt> failed. If this is the case, the exit code
+number 75 is passed back to Sendmail, which interprets it as a
+temporary mailer failure and requeues the message (we hope). 
+<i>(See also the  
+<a href="#exitcode">EXITCODE topic</a>
+elsewhere in this FAQ.)</i>
+<br>
+Note that if the <tt>exec</tt> succeeded, <tt>sendmail</tt> will 
+never reach here. Whatever the <tt>exec</tt> executes replaces 
+whatever was reading the <tt>.forward</tt> file and whatever exit code 
+that returns will be returned instead. 
+<li>
+The <tt>#comment</tt> doesn't do anything, but serves to make
+sure your <tt>.forward</tt> file is unique, in case your site
+is running a braindead over-optimizing Sendmail.
+<i>(See the
+<a href="faq.html#11">explanation for this in Stephen's original FAQ.)</a>
+</i>
+</ul>
+<p>
+<a name="forward-other-mtas">
+If your MTA is not Sendmail, something reasonably simple like
+</a><div class="code"><pre>
+	"|/usr/local/bin/procmail -f-"
+</pre></div>
+is probably good enough. You might even get bounces with syntax
+errors if you try the complex Sendmail <tt>.forward</tt> style.
+Anyway, the documentation for your MTA should hopefully tell you
+all you need to know.
+<p>
+(If you have a hard time even figuring out what your local MTA is,
+<a href="#appendix-mx">the appendix on figuring out the mail flow</a>
+might be worth reading for background information and a trick or two.)
+<p>
+The Filtering Mail FAQ has a section with
+<a href="http://www.faqs.org/faqs/mail/filtering-faq/section-18.html">more <tt>.forward</tt> file variants you can try</a>
+if the one in the manual page and the ones given above don't seem to
+cut it.
+(You will find the same information in
+<a href="http://www.ii.com/internet/robots/procmail/qs/">Infinite Ink's Procmail Quick Start,</a>
+too.)
+<p>
+<strong>Q:</strong>
+I have this recipe which I basically copied from someone's working
+<tt>.procmailrc</tt> but it gives me funny errors such as 
+"Badly placed ()'s" or "formail: not found" or "formail: formail: cannot open".
+What's happening here?
+<p>
+<strong>A:</strong>
+The first error message is a Csh error message (also "Too many ('s") 
+-- add the following to your <tt>.procmailrc</tt> and try again: 
+<div class="code"><pre>
+	SHELL=/bin/sh
+</pre></div>
+<p>
+The second and third errors comes from a Bourne shell which can't find the 
+command named <tt>formail</tt>. It probably means that your 
+<tt>PATH</tt> is not set up properly, or that a program 
+which the recipe needs doesn't exist on your system. (You might also
+see "/bin/sh: formail: cannot open" which makes a lot more sense than
+the example above. Don't ask me why some Bourne shells will print the
+command name twice.)
+<p>
+It could also be because the recipe author used the (somewhat dubious)
+convention of defining commands as Procmail variables and using these
+variables in the actual recipes:
+<div class="code"><pre>
+	:0
+	* ? $FORMAIL -XFrom: -XSender: | $FGREP cyberpromo.com
+        /dev/null
+</pre></div>
+<p>
+The above will only work if the variables FORMAIL and FGREP are set 
+to suitable values such as <tt>FORMAIL=/usr/local/bin/formail</tt>
+and <tt>FGREP=/usr/bin/fgrep</tt> earlier in your 
+<tt>.procmailrc</tt>. (And you can't just snatch these values
+from here either -- ask your local gurus [or the recipe author] 
+to help you out if you don't understand what this does.)
+<p>
+<a name="yikes">
+<strong>Q:</strong>
+Yikes! Where did my mail go??
+</a><p>
+<strong>A:</strong>
+Usually, to a file in your MAILDIR. Look in the log for clues
+(you <em>were</em> using the logging facility, yes? Yes?)
+and in your MAILDIR for files called something funny such as
+"*" or ":0:" or "# I wonder if Procmail allows comments here" or
+"forwardee@address.net" (the quotes are not part of the file names and
+these file names are not necessarily representative).
+<p>
+<a name="old-syntax">
+<strong>Q:</strong>
+Okay, I looked in the log, and it said it wrote it all to the file 
+<tt>"*"</tt>. Problem is, I don't know why -- I'm sure this recipe 
+was correctly transcribed from the manual page snippet I saw. 
+Here's the relevant <tt>VERBOSE</tt> log excerpt:
+</a><div class="code"><pre>
+	procmail: Skipped "^Subject:.*test"
+	procmail: Locking "*.lock"
+	procmail: Opening "*"
+	procmail: Unlocking "*.lock"
+</pre></div>
+<p>
+<strong>A:</strong>
+Make sure you are using a reasonably new version of Procmail.
+According to archeologists, versions prior to 3.something don't
+understand the 
+<a href="#zero"><tt>:0</tt> syntax</a>
+<p>
+<a name="dev-console">
+<strong>Q:</strong>
+Why is Procmail writing to the console? Can I stop that?
+</a><p>
+<strong>A:</strong>
+It's not, unless you specifically messed with this setting when you
+compiled it. Unmess and recompile. Another popular mistake is to 
+somehow enable the MMDF message separator string (<tt>^A^A^A^A</tt>,
+four ASCII 01:s) before compiling. (This setting is the first thing
+in <tt>config.h</tt> and is kind of easy to uncomment so it's not
+all that hard to change it by mistake if you're using, uh, ahem,
+something else than the One True Text Editor.)
+<p>
+<a name="log-entries">
+<strong>Q:</strong>
+What are these fields that get written to the log?
+</a><p>
+<strong>A:</strong>
+In order of appearance
+<ul>
+<li>	the <tt>From&#95;</tt> line of the original
+(which conveniently includes a fresh date stamp, 
+which you can use for various things such as 
+determining the approximate time of day 
+without calling <i>date</i><b>(1)</b> for each 
+incoming message);
+<li>	The <tt>Subject:</tt>;
+<li> the delivery point -- either a file, 
+in your <tt>MAILDIR</tt> if it doesn't have an explicit path 
+(see previous question, by the way), or
+a shell script pipeline, 
+which will be your local Sendmail or imitation 
+in the case of a forwarding recipe;
+<li>	and the size of the message in bytes, on the same line.
+</ul>
+<p>
+This is documented under <tt>LOGABSTRACT</tt> in the procmailrc manual page.
+<p>
+<a name="formail-dupe">
+<strong>Q:</strong>
+I copied the recipe from the <tt>procmailex</tt> manual page
+for checking for duplicates, but now I get a lot of log entries 
+saying this invocation of <tt>formail</tt> is failing. What's up?
+</a><p>
+<strong>A:</strong>
+It's supposed to work that way. What the recipe does is, if 
+formail detects a duplicate, it will <i>succeed</i>, which 
+makes Procmail think the message is now delivered. 
+<p>
+<strong>Q:</strong>
+Uh, I'm not sure I understand that.
+<p>
+<strong>A:</strong>
+It's a bit of a play with side effects. 
+For reference, here's that recipe again:
+<div class="code"><pre>
+	:0Wh:msgid.lock
+	| formail -D 8192 msgid.cache
+</pre></div>
+<p>
+Let's paraphrase this recipe as a dialog. 
+There are no conditions, so the action line is done for every message
+that gets as far as this recipe. The <tt>h</tt> flag says to only
+show the headers of the message to the action line, and the <tt>W</tt>
+flag says to wait for the program in the action line to finish 
+(so we can look at Formail's exit code). 
+<br>
+Procmail says, "hey formail, save this message for me." 
+<br>
+Formail eats the message (actually just the headers, because of the
+<tt>h</tt> flag), extracts the Message-Id, and checks if it's 
+already in the cache file.
+If not, formail says "sorry, no can do." Procmail catches this error,
+says "aw shucks, you couldn't save it? I have to continue processing 
+this message then" and wanders off to the next recipe.
+<br>
+However, if the Message-Id was already in the cache, Formail doesn't
+generate an error, and Procmail (somewhat stupidly, it might seem) 
+assumes Formail took care of that message 
+(i.e. saved it somewhere, for example)
+and that is is thus now delivered and no longer a problem of Procmail's.
+<p>
+<a name="trunc">
+<strong>Q:</strong>
+I have a filter which works fine most of the time, 
+but sometimes it will fail and I get a log message 
+that Procmail has "rescued" lost data. Huh? Why is that?
+</a><p>
+<strong>A:</strong>
+It's a feature. Normally, you want Procmail to keep track
+of what your recipes are doing, and salvage your data if
+something goes wrong with one of them. If you have a 
+recipe like this:
+<div class="code"><pre>
+	# Old Stan always writes boring messages, 
+	# we only really need to see the first five lines of 'em
+	:0fbw
+	* ^From: stanislaus@poland\.com
+	| head -5
+</pre></div>
+<p>
+it will work some of the time, when the message from Stan is short
+enough, but that's a coincidence. With a longer message, though, Unix
+starts paying attention to what is happening, because it will have to
+buffer some of the data, and then when the buffered data is never
+read, an error occurs
+(specifically, a <tt>SIGPIPE</tt> signal is generated).
+The error is passed back to Procmail, and
+Procmail tries to be nice and give you back your original message as
+it was before this malicious program truncated it. Never mind that in
+this case you <em>wanted</em> to truncate the data. Anyway, the fix is
+easy: Just add an <tt>:i</tt> flag to the recipe
+(<tt>:0fbwi</tt> instead of <tt>:0fbw</tt>) to make Procmail
+ignore the error.
+<p>
+<a name="comsat">
+<strong>Q:</strong>
+<tt>biff</tt> works just fine for notifying me of mail in my 
+system mailbox, but I don't seem to get notifications for mail 
+delivered to mailboxes in my home directory, or it keeps telling me I
+have mail in the system mailbox when in fact it was delivered to a
+different mailbox. How can I fix that? 
+</a><p>
+<strong>A:</strong>
+Procmail by default sends a notification message for all delivered
+messages. The <tt>COMSAT</tt> pseudovariable controls this; 
+see the documentation for details. So for starters, make sure you have 
+<tt>COMSAT</tt> set to the right thing -- in a verbose log, you 
+should see something like
+<div class="code"><pre>
+	procmail: Notified comsat: "you@offset:file"
+</pre></div>
+<p>
+for each delivered message.
+<p>
+Unfortunately, many systems come with an ancient version of 
+comsat(8) which doesn't pay attention to the last part of
+this notification. Thus, you will see apparently random biff notices, 
+or none at all for mail delivered outside your system spool.
+<p>
+The solution is to [get your admin to] install a comsat daemon 
+which understands the newer, extended form of the comsat protocol.
+<p>
+<a name="netscape">
+<strong>Q:</strong>
+How do I get Procmail and Netscape to cooperate?
+</a><p>
+<strong>A:</strong>
+Netscape is not good about file locking and you will find that
+it forgets which messages have already been read every time Procmail
+appends to a folder.
+<a href="http://www.deja.com/getdoc.xp?AN=413408946">(Peter B. West has diagnosed this in some detail.)</a>
+You can use Procmail to tag messages and use Netscape's filtering
+capabilities for the last mile or e.g.read your folders over IMAP
+and let Procmail deliver to the IMAP server instead.
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-12/msg00025.html">(suggested by Mike de Laine).</a>
+<p>
+Netscape's JavaScript filtering capabilities are
+<a href="http://www.iecc.com/cgi-bin/artget?t19990806021">allegedly not all that bad,</a>
+if you can find the
+<a href="http://developer.netscape.com/library/documentation/communicator/jsguide4/mail.htm">documentation.</a>
+<hr title="end of section 3">
+<h2>
+<a name="advanced">
+How do I ...?
+</a></h2>
+<h3>
+Running Procmail
+</h3>
+<p>
+This section attempts to explain a little something about the context
+in which Procmail runs. Specifically, you need to understand this if
+you wonder why you can't match on the BCC header, how to cope with
+many users sharing the same POP mailbox, or generally want to do
+something like a virtual domain.
+<p>
+If that's not something you worry about, you should perhaps still read
+the next section.
+But if you want to skip directly to the other questions,
+<a href="#bcc">you can click here.</a>
+<h3>
+<a name="bcc-explanation">
+Why Headers Don't Matter
+</a></h3>
+<p>
+Learn the following by heart:
+<blockquote><p>
+SMTP doesn't care what's in the headers of a message.
+It goes where the envelope says. The headers don't matter.
+The headers <strong>don't matter</strong>.
+The message goes where the envelope says.
+</blockquote>
+<p>
+What, the astute reader asks, does this have with Procmail to do?
+<p>
+Well, Procmail is frequently used to handle mail. And Procmail can
+only look at what's in a message's headers. And since the headers
+might just contain more or less anything, trying to let Procmail
+figure out whom a message for is pretty futile.
+<p>
+Nevertheless, this is something a lot of people are trying to do.
+<p>
+If you are content with the answer "Procmail is the wrong tool for this,"
+you can stop reading now and 
+<a href="#bcc">skip to the next question.</a>
+<p>
+Let's take an example. The following message
+looks like it was sent from <tt>foo@bar.net</tt>
+to <tt>nospam-list@nospam.org</tt>.
+And yet, it was actually sent by some mailing list package
+at <tt>nospam.org</tt> and landed in your inbox, 
+because you're a subscriber to <tt>nospam-list@nospam.org</tt>. 
+How can this be?
+<div class="code"><pre>
+	From nospam-list-request@nospam.org  Sun Nov 15 18:39:39 1998
+	Received: by yourhost from nospam.org and so on and so forth
+	From: Frank O. Olsen &#60;foo@bar.net&#62;
+	To: People Who Don't Want Unwanted Mail &#60;nospam-list@nospam.org&#62;
+	Subject: How?
+
+	How do I get off this list?
+
+	--&#32;
+	Frank
+	&#60; ... 18 lines of .signature trimmed ... &#62;
+</pre></div>
+<p>
+When a message is transferred over an SMTP connection, it's encapsulated.
+It's kind of like the message is nicely folded into an envelope,
+and the programs which handle it just look at whatever is scribbled
+onto the envelope. Then when the message reaches the MTA at the final
+destination, this program (typically Sendmail or Qmail) opens the
+envelope and delivers the actual message.
+<p>
+What happens when the Sendmail at <tt>nospam.org</tt>
+sends the above message is that it passes in the -request address as the
+envelope sender (which turns up in the From&#95; pseudo-header)
+and your address as the envelope recipient. Fine and dandy, says
+your local MTA, and asks nospam.org to follow up with the actual message.
+Only at this stage are the headers (and the body, of course) transmitted
+-- obviously, what's in the message itself doesn't matter anymore, 
+because the envelope data is what says where the message came from 
+and where it should go.
+<p>
+The Bcc: header, as implemented in e.g. Sendmail, is really just a
+special case of this: Before sending the message, Sendmail copies
+any Bcc: recipients from the headers to the envelope, zaps the Bcc:
+headers, and sends it off just like any other message.
+<p>
+Normally this doesn't affect Procmail a lot, because in the typical
+scenario, Procmail already knows implicitly who a message is for --
+the envelope sender data determines whose <tt>.forward</tt> (if
+applicable) and/or <tt>.procmailrc</tt> gets read, and all of this
+is nicely sorted out by the time your Procmail recipes get a chance
+to do anything like deliver the message somewhere. 
+<p>
+But what if you want to use your account as a switchboard for many
+other addresses? Procmail is a fairly nice program for this sort of
+application, but if you are feeding mail for several distinct
+recipients into your switchboard <tt>.procmailrc</tt>, you have
+to make sure you also somehow tell Procmail where the message should
+ultimately go.
+<p>
+Here are some ways to accomplish that:
+<ul>
+<li>
+The actual headers or the body contents determine where the message
+should go, and you don't really care about any of the envelope information.
+If you merely want to forward everything with "Precedence: junk" 
+to somewhere else, this is trivial to do 
+and precisely what Procmail was made for.
+<li>
+Make sure the MTA passes in the relevant information on Procmail's
+command line when it starts up. This is rather simple if you have
+control over the MTA, but virtually impossible if Procmail is invoked
+via your <tt>.forward</tt> file.
+<li>
+Make sure the relevant information is in the headers.
+It is technically fairly easy in most MTA:s to add something like
+<tt>X-Envelope-To:</tt> or <tt>Apparently-To:</tt> to the
+headers before passing it on to Procmail for delivery.
+<li>
+Be unsure of whether the information is there, and try to wing it
+anyhow. This is a surprisingly popular option, but it's by no
+means trivial to get it working acceptably, and factually impossible
+to make completely watertight. Some cases you should think about
+now rather than later include:
+<ul>
+<li>
+Are you sure there isn't a better tool for what you are
+trying to do? Check out Sendmail's virtusertable and
+related constructs, for example. For simple applications,
+even plain old aliases work superbly. For POP,
+Fetchmail is a popular solution which relies on some
+heuristics when it can't get the envelope information.
+You can try to emulate these heuristics in Procmail,
+but it's definitely not easy (and why not just use
+fetchmail then. Check out its "multidrop" facility).
+<li>
+How do you cope when more than one user at your
+site is 
+<a href="#cc-many">Cc:ed the same message?</a>
+<li>
+How do you cope with mailing lists? They typically use
+something technically similar to BCC (see above example).
+</ul>
+<p>
+<a href="#x-envelope-to">Some of the "related questions" below</a>
+discuss some of these issues to some extent.
+</ul>
+<p>
+The default settings with Sendmail 8.9.x for Procmail as LDA don't
+actually pass in the actual envelope recipient, but at least with
+plussed addresses you get the part after the plus (as in, if I get
+mail to <tt>era+pr@iki.fi</tt> I'd have access to the information
+that it was sent to something +pr, but I don't know if it was sent
+specifically to <tt>era</tt> or to an alias which points to this
+address).
+<p>
+With Sendmail, using the Procmail mailer (not just Procmail as the
+default delivery agent) is a solution which works nicely (but you
+can't invoke that from plain aliases, you have to use something like
+the mailertable). 
+<small>(Thanks to Philip Guenther for information about how to do
+this with Sendmail.)</small>
+<p>
+With qmail, you can have the MTA insert envelope information into
+the headers which subsequently get stripped by the local delivery
+agent. This is nice for POP sites where both the upstream and the
+local host run qmail.
+<small>(Thanks to Bart Schaefer for this information.)</small>
+<h3> Related quick questions </h3>
+<p>
+<a name="bcc">
+<strong>Q:</strong>
+Why can't I match on the <tt>BCC:</tt> header? 
+</a><p>
+<strong>A:</strong>
+You can't match on the <tt>BCC:</tt> header because it is not
+present in the message you receive. See
+<a href="#bcc-explanation">above.</a>
+This is what the "Blind" in "Blind Carbon Copy" stands for; 
+<em>none</em> of the recipients are supposed to see 
+who's been <tt>BCC:</tt>ed. 
+<small>
+(Okay, so the spec has a few more twists. 
+This is how Sendmail does it. 
+Some other mailers will show the BCC list
+to the people who are being BCC:ed.)
+</small>
+<p>
+<strong>Q:</strong>
+The <tt>Received:</tt> header seems to often contain something like
+<tt>Received: from elsewhere (...) by somewhere (...) 
+<em>for &#60;recipient@host.domain&#62;</em></tt> even if the
+recipient was Bcc:ed -- can't I rely on that "for" part? 
+<p>
+<strong>A:</strong>
+No. Next question? 
+<p>
+The problem is that 
+<i>(a)</i> not all MTA:s add this information, 
+and 
+<i>(b)</i> even if yours sometimes does, 
+it might not always. 
+E.g. Sendmail won't stamp the recipient in the Received: header
+if the message was sent to several recipients at your site.
+<p>
+<a name="virtdom">
+<strong>Q:</strong>
+How do I implement a virtual domain in Procmail?
+</a><p>
+Or, is Procmail even the right tool for this?
+<p>
+<strong>A:</strong>
+The short answer is no; don't.
+See the section
+<a href="#bcc-explanation">Why Headers Don't Matter,</a>
+above.
+<p>
+If you stubbornly refuse to take no for an answer, you might want to
+look at 
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-04/msg00289.html">Chris Lindsey's "solution"</a>
+<p>
+It is an unfortunate fact that many sites offer "virtual hosting" without
+providing a robust way to forward mail to the client with all the information
+intact. A working vitual host setup needs to forward the envelope information
+of every message to the downstream, so that the recipient information
+can reliably be recovered, or maintain separate mailboxes for each user
+at the upstream (not normally a viable or desirable solution).
+Unfortunately, providers are only slowly realizing why this is necessary,
+and good information on how to do this right is apparently not easy
+to come by. If you are having problems with your upstream, persuade them
+to give you your money back if they can't solve this problem to your
+satisfaction.
+<p>
+<a name="cc-many">
+<strong>Q:</strong>
+How can Procmail figure out who to Cc: when there are several recipients?
+</a><p>
+<strong>A:</strong>
+If you're asking this, you should probably be reading the
+answer to the previous question first. The rest of this is just
+a demonstration of how futile this is.
+<p>
+It has been asked a number of times if it's possible to implement a
+good forwarding scheme which can take care of things like Cc:s to
+different users in the same virtual domain. 
+<p>
+Here's what you might have started out with:
+<div class="code"><pre>
+	:0
+	* ^TO_jill@mydomain\.virtual
+	! jill@real.address
+
+	:0
+	* ^TO_jane@mydomain\.virtual
+	! jane@somewhere.else
+</pre></div>
+<p>
+The problem now is that if something comes in 
+<tt>To:</tt> both <tt>jane</tt> and <tt>jill</tt>,
+(with infinite variations of Cc:s, Resent-To:, etc) 
+it will only be forwarded to <tt>jill</tt>. (Or, if you have
+a <tt>:c</tt> flag on each recipe, the recipients will each
+get one copy per local recipient of the same message. 
+Or, if your upstream already exploded the message into one copy
+per recipient at your site, jill will get both her own copy and
+jane's, or both will get two copies. Or, you mess up while trying
+to fix this and your mail server goes into a headspin and you wake
+up the next morning in Elbonia.)
+<p>
+The short answer is that Procmail is not the right tool for this.
+<p>
+If you really want this to work, you will also want 
+<tt>BCC:</tt>s to work
+<a href="#bcc">(see the <tt>BCC</tt> question above),</a>
+which is usually not possible without tweaking your Sendmail
+configuration. In which case you might as well implement some or all
+of the actual forwarding mechanism in Sendmail, which is the more
+appropriate tool anyway. 
+<p>
+If you are set on getting this to work anyway, see the
+<a href="#kevorkian">"Kevorkian" answer below.</a>
+<p>
+The basic problem is that when mail gets delivered into mailboxes at
+the upstream, the envelope information (like who the message is for)
+is usually discarded. So you shouldn't <i>deliver</i> into a mailbox
+that is not the correct mailbox, you should continue to
+<i>transport</i> the mail until you are ready to deliver to the final
+destination.
+<p>
+You can tweak Sendmail to copy the envelope recipient information into 
+the message header (see
+<a href="#x-envelope-to">below),</a>
+but you don't have to do that if you don't deliver the message prematurely.
+<p>
+In a typical my-home-computer-is-my-domain setting, 
+you could instead transport mail to your home computer using UUCP. 
+<tt>fetchmail</tt> can also handle this for you, allowing you to have
+all mail for your domain delivered to a single POP account with the
+envelope information intact. (Look for "multidrop" in the
+<tt>fetchmail</tt> documentation. It appears that it actually relies
+more or less on the headers, not on the actual envelope recipient data.
+But if envelope information is available, fetchmail can use it.)
+<p>
+<strong>Q:</strong>
+Procmail is broken in this respect, isn't it? 
+<p>
+<strong>A:</strong>
+No. If every problem begins to look like a nail, 
+you need to have more tools than just the hammer
+in your toolbox.
+<p>
+<a href="#virtdom">Search backward for "stubborn"</a>
+if you really really want to do this anyway.
+<p>
+<strong>Q:</strong>
+But I don't want to bug my upstream every time I create a new local address.
+<p>
+<strong>A:</strong>
+You bug your upstream to set this up correctly for you, once.
+(If they insist on having a list of your local users available
+before they can deliver your mail correctly, it means they 
+<i>want</i> to be bugged. And you are a paying customer, correct?
+Anyway, having a list of users at the upstream makes sense for
+some things; if they want one, you should agree on a procedure 
+for updating this list which is as painless as possible for both parties. 
+<tt>man rdist</tt> and all that.)
+<p>
+<a name="x-envelope-to">
+<strong>Q:</strong>
+Yada yada yada.
+So how do I set up this under Sendmail so that Procmail
+does get hold of the envelope recipient information?
+</a><p>
+<strong>A:</strong>
+<a href="http://www.sendmail.org/faq/">The Sendmail FAQ</a>
+contains a
+<a href="http://www.sendmail.org/faq/section3.html#3.29">section which explains how to</a>
+set up a virtual user table entry
+which then gets processed
+-- ironically, by Procmail and Formail --
+at delivery at the upstream,
+adding an <tt>X-Envelope-To</tt> header
+with the recipient's address.
+<p>
+Miquel van Smoorenburg has written
+a patch to do something similar
+for Sendmail 8.9.2
+which can be found at
+<a href="ftp://ftp.cistron.nl/pub/people/miquels/sendmail/8.9.2-envto+etrnprog.dif">ftp://ftp.cistron.nl/pub/people/miquels/sendmail/8.9.2-envto+etrnprog.dif</a>
+-- allegedly this, or something like it,
+was being considered for distribution 
+with Sendmail 8.10.
+I can't find it in the 8.11 distribution, though.
+(Maybe I'm not very talented.)
+<p>
+See also
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1996-11/msg00251.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1996-11/msg00251.html</a>
+which is a tangentially relevant message
+about this from Philip Guenther.
+<a href="sendmail.txt">(Or look at this local copy.)</a>
+<p>
+The Fetchmail FAQ has
+<a href="http://www.tuxedo.org/~esr/fetchmail/fetchmail-FAQ.html#T1">a Sendmail rule for adding Delivered-To:</a>
+to all mail before delivering it. This has to be added to
+the upstream's Sendmail configuration, obviously.
+(But this is not foolproof; it works by expanding <tt>$u</tt>
+when it is set, but it will be unset in the same situations where
+Sendmail will also not add a "for &#60:recipient&#62;" part
+to the Received: line. Thanks to Adam Megacz for pointing this out.)
+<p>
+Adam Megacz has a web page which explains some of these issues at
+<a href="http://www.megacz.com/mail.setup.html">http://www.megacz.com/mail.setup.html</a>
+<p>
+<a name="kevorkian">
+<strong>Q:</strong>
+But I <i>want</i> to shoot myself in the foot.
+Won't you help me?
+</a><p>
+<strong>A:</strong>
+<a href="kevorkian.pl">Download a copy of <tt>kevorkian.pl</tt></a>
+(never mind the Simpsons references). See the
+<a href="#cc-many">Cc: to many question above</a>
+for details.
+<small>
+(If you just want to look at the script, but your browser wants to
+download it and/or execute it, try the copy named
+<a href="kevorkian.txt">kevorkian.txt</a>
+instead.)
+</small>
+<p>
+<h3>
+Unrelated quick questions
+</h3>
+<p>
+This is the kitchen sink.
+<p>
+<a name="split">
+<strong>Q:</strong>
+I have a recipe which I would like to run on many messages which are
+already in one big happy mailbox file. How can I tell Procmail to not 
+treat them all as a single long message?
+</a><p>
+<strong>A:</strong>
+You don't, you use <tt>formail</tt> to split it it back into
+separate messages and feed each into its own little procmail process.
+<p>
+<div class="code"><pre>
+	formail -s procmail experiments.rc &#60; test.mbox
+</pre></div>
+<p>
+(This will use the recipes in the rc file <tt>experiments.rc</tt>.)
+<p>
+You may want to add an <tt>-n</tt> switch if you have 
+a large amount of messages to process, but you should be
+really, really sure you understand the implications before you try it.
+(In other words, RTFM.)
+<p>
+<a name="time">
+<strong>Q:</strong>
+How do I do different actions depending on the time of day, day of week,
+etc?
+</a><p>
+<strong>A:</strong>
+The "brute force" answer is to run <i>date</i><b>(1)</b> each time
+you receive a message, and compare the results against some regular
+expression, but a simple and efficient shortcut is to use the date
+stamp which is already in the <tt>From&#95;</tt> line -- it will
+be in your (machine's) local time zone and reasonably close to 
+(usually within seconds or even split-seconds of)
+the message's arrival.
+<p>
+Here's an example which forwards messages elsewhere, but only on
+weekdays between 9 and 5. (Actually, until 16:59:59.)
+<div class="code"><pre>
+	:0
+	* ^From [^ &#9;]+[ &#9;]+(Mon|Tue|Wed|Thu|Fri) ... ... .. \
+		([ 0]9|1[1-6]):[0-5][0-9]:[0-5][0-9]
+	! frankz@golden.net
+</pre></div>
+If you want to save to a folder with today's date, you can similarly
+extract the time out of this time stamp and use that as part of the
+folder name:
+<div class="code"><pre>
+	:0                     # Wed   Aug 14 15:59:59     +0300 1994
+	* ^From [^ &#9;]+[ &#9;]+... \/... .. ..:..:.. [+-]?.... ....
+	{
+	    FROM&#95;=$MATCH
+
+	    :0
+	    * FROM&#95; ?? ^^\/[a-z][a-z][a-z]
+	    { MONTH=$MATCH }
+
+	    # Exercise: Make sure month name is always properly capitalized,
+	    #  and/or convert it to a month number
+
+	    :0
+	    * FROM&#95; ?? ^^... \/([ 0][0-9]|1[0-2])
+	    { DAY=$MATCH }
+
+	    :0   # Y10K problem! :-)
+	    * FROM&#95; ?? ()\/[1-9][0-9][0-9][0-9]$$
+	    { YEAR=$MATCH }
+
+	    # Should probably bail out here if any of MONTH DAY YEAR unset
+
+	    :0:  # save to daily-yyyy-mmm-dd
+	    daily-$YEAR-$MONTH-$DAY
+	}
+</pre></div>
+The mailing list archives have numerous variations on this theme.
+<p>
+<a name="formail-rtzx">
+<strong>Q:</strong>
+I can extract the sender's email address with <tt>formail -zxFrom:</tt> 
+but this still often results in something like 
+<tt>Donaldus Anas &#60;don@see.va&#62;</tt>
+or <tt>don@see.va (Donaldus Anas)</tt>. 
+How can I trim this down to just <tt>don@see.va</tt>?
+</a><p>
+<strong>A:</strong>
+The canonical way to get the sender's trimmed-down address is
+<div class="code"><pre>
+	formail -rtzxTo:
+</pre></div>
+<p>
+This looks a bit counter-intuitive, but it works fine,
+provided that you don't mind the fact that <tt>formail -rt</tt> will
+prefer e.g. the value of <tt>Reply-To:</tt> over <tt>From:</tt>. 
+<p>
+This will in fact do two things, which is not apparent if you're not too
+familiar with formail. One: It will generate a reply header 
+(<tt>formail -rt</tt>). Two: Out of this new header, it will extract 
+the <tt>To:</tt> field (<tt>formail -zxTo:</tt>). By happy 
+coincidence, the generated reply address will only contain the actual 
+email terminus,  without the full name or other comments. Wallah.
+<p>
+None of this is important if you merely want to find an address to
+send off a reply to (all you need for that is <tt>formail -rt</tt>
+and pass it to Sendmail). An address with a full name will do just
+fine for replying; any decent mail program should accept that
+(although you probably need to put it in double quotes to pass it as a
+single argument). For keeping a database of addresses, though, the
+stripped-down version is better (but still not perfect, and keep in
+mind that the host.domain part is not case sensitive).
+<p>
+Typical newbie mistake: <tt>formail -rtzxFrom:</tt>;
+this will actually return nothing at all, but you could in fact
+expect it to return <i>your own</i> address. 
+<p>
+If this approach doesn't suit you for some reason, you could always 
+post-process the address through some simple script which 
+successively strips off layers of comments and whitespace. 
+A fully RFC822-compliant script isn't trivial to write, but for
+many purposes, a simple <tt>sed</tt> script will probably do.
+(If you're truly masochistic, try to figure out how to get 
+<tt>sendmail</tt> to strip the address and hand it back 
+to you&nbsp;<tt>:-)</tt>
+<p>
+Perhaps you also want to look at <tt>formail -rD</tt> which keeps
+record of a limited number of addresses and expires the oldest ones as
+it gets fed new addresses.
+<p>
+<a name="exitcode">
+<strong>Q:</strong>
+I've seen all these recipes which use <tt>EXITCODE=</tt> 
+but how can I tell what exit codes to use?
+</a><p>
+<strong>A:</strong>
+The file 
+<tt>/usr/include/sysexits.h</tt>
+should contain a good listing. If not, ask your system
+administrator where to get this information. 
+These exit codes are fairly standardized but you should still not be
+surprised if something turns out to be different at your site. Some
+things are also probably more or less Sendmail-centric.
+<p>
+If you use Qmail instead of Sendmail, the codes will be completely
+different. See the Qmail documentation.
+<p>
+(The mechanism when you use this from Procmail is that Procmail
+quits with the specified error code, and the calling program
+is expected to catch that and act accordingly, i.e. generate
+a bounce message in most situations. If you are calling Procmail
+from a program which doesn't do this, there will obviously be
+no bounce. So if you test Procmail from your shell prompt and
+you see <tt>**Bounced**</tt> or <tt>**Requeued**</tt> 
+in the log, it only really means Procmail quit with a non-zero exit
+code.)
+<p>
+If your <tt>$SENDMAIL</tt> is in fact not a real Sendmail,
+it probably doesn't care about Procmail's exit code. At least Smail is
+rumored to behave this way. Bottom line, as always: test your recipes.
+<p>
+Not all programs return sensible error codes. If you see "mailer died
+with error 12 and a half" in a bounce message, it probably means the
+recipient ran his own home-grown filter on your message and it just
+happened to die with a more or less random and nonstandard exit code.
+Procmail, of course, is an excellent wrapper to put around such
+misbehaving programs. 
+<p>
+<a name="bounce">
+<strong>Q:</strong>
+How can I prevent my <tt>.forward</tt> from being included in 
+<tt>sendmail</tt>'s bounce messages?
+</a><p>
+I am rejecting some unwanted messages by setting <tt>EXITCODE</tt>
+to a suitable value 
+<a href="#exitcode">(see separate question about that)</a>
+but the generated bounce will include my <tt>.forward</tt> file, 
+which will reveal to a human reader that my account in fact does exist, 
+and it won't really allow me to explain the reason for the bounce, either. 
+Can I make the bounce include a better explanation to the receiver
+of the bounce, or otherwise customize it?
+<p>
+<strong>A:</strong>
+If your site is using Procmail as your local MDA, you shouldn't have
+this problem. Perhaps you can persuade your admin to install Procmail
+site-wide, in which case you will have more control over generated
+bounce messages in general. 
+<p>
+If that's not an option, your best bet is probably to simply 
+generate an autoreply which looks like a bounce message, instead
+of letting sendmail generate the bounce message for you. 
+Required reading: 
+<a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc1894.html">RFC1894,</a>
+or get one of the existing bounce generators 
+(there's at least one; see the
+<a href="links.html#proc-util">Links page</a>
+for more information).
+<p>
+<a name="mime">
+<strong>Q:</strong>
+How can I extract (or kill) MIME parts from composite messages?
+</a><p>
+<strong>A:</strong>
+While there is nothing inherently very complicated about MIME multipart 
+messages, the problem is not particularly a Procmail problem. 
+You cannot write a Procmail recipe or a sed script which can parse them
+on its own because the MIME format is -- after all -- complicated enough 
+to require a bit more muscle than simple regular expressions. 
+<p>
+Jari Aalto's Procmail library has a component which attempts to do it
+anyway. See the 
+<a href="links.html#pm-code">Links page</a>
+for details.
+<p>
+You can write your own Perl script to pick apart the messages 
+(recommended: get the Perl MIME module instead of inventing your own wheel)
+or use a dedicated program such as <tt>munpack</tt> to handle them.
+(See the
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/mail/mime-faq/.html">MIME FAQ</a>
+for pointers.)
+<p>
+An unsound thing to do, which people ask about a lot anyway, is to kill 
+all MIME messages. This should be easy (all compliant MIME messages 
+contain a <tt>Mime-Version:</tt> header) but not smart, because MIME
+is merely an extension technology, not a sign that the message contains
+anything in particular that people usually want to filter with this measure 
+(such as a huge file attachment, or HTML-encrypted message text, or
+text in the Latin-1 character set or a number of other character sets,
+including the default 7-bit US-ASCII, or anything else that MIME can be a
+vehicle for). Again, reading up on MIME would probably be a good idea if
+you are thinking about this.
+<p>
+<a name="vacation-etc">
+<strong>Q:</strong>
+How do I implement a "vacation" program? A spam auto-responder? 
+</a><p>
+<strong>A:</strong>
+Look at the <tt>procmailex</tt> man page. 
+For an even simpler solution 
+(in that it's less reading for you and 
+presumably a better and more stable solution than you could build on your 
+own in a couple of hours), 
+get Alan K. Stebbens's Procmail library (see
+<a href="links.html#aks">directions on the Links page)</a>
+and tweak to suit your needs.
+<p>
+If unsolicited bulk e-mail, aka spam, is a problem for you, 
+your best defense is to get your ISP to filter your mail 
+at the SMTP and/or router level. 
+The next best option is to install one of 
+the many existing Procmail antispam packages.
+The
+<a href="links.html#antispam">Links page has pointers to a host of'em.</a>
+If you want to discuss the minutiae of detecting spam, a dedicated
+spam list is probably a better forum than the Procmail-L mailing list.
+<p>
+Bouncing unwanted messages is not necessarily a smart thing to do.
+<hr title="end of section 4">
+<h2>
+<a name="links">
+Where can I learn more?
+</a></h2>
+<h3>
+A small links collection
+</h3>
+<p>
+<ul>
+<li>
+The
+<a href="links.html">companion links page</a>
+to this FAQ page 
+has a lot more links.
+The below links are all there, along with a host of others. 
+Check it out.
+<li>
+There is now an official Procmail site at
+<a href="http://www.procmail.org/">http://www.procmail.org/</a>
+<li>
+A Procmail Quick Reference by yours
+truly (still considered a beta version) is at
+<a href="quickref.html">http://www.iki.fi/era/procmail/quickref.html</a>
+<li>
+Another links and information collection is
+Infinite Ink's
+site. Start at the <a href="http://www.ii.com/internet/robots/">Mail Filtering and Robots page</a> 
+-- and do check out their
+<a href="http://www.ii.com/internet/robots/procmail/qs/">Procmail Quick Start</a>
+-- you'll find
+lots of Procmail-related links, as well as mounds of other useful
+information. 
+<li>
+There is an archive for the Procmail mailing list.
+Valuable snippets and tips are posted to the list
+every week. The volume is typically around a dozen
+messages a day.
+Thanks to Achim Bohnet, there is also
+a searchable hypertext version of the
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/">archive of the Procmail-L mailing list</a>. 
+<li>
+Jari Aalto has created a
+<a href="http://www.procmail.org/jari/pm-tips.txt">Procmail Tips Page</a>
+(there's also an
+<a href="http://www.procmail.org/jari/pm-tips.html">HTML version</a>
+but the rendering of some of the recipes is funny, IMHO)
+which you can also retrieve by 
+<a href="mailto:jari.aalto@poboxes.com?subject=send%20pm-tips.txt">e-mailing <tt>jari.aalto@poboxes.com</tt></a>
+with the Subject: send pm-tips.txt
+<br>
+Warning/Guarantee: The tips page is large -- much larger than this FAQ --, 
+and has a lot of diversions into general comments about fighting spam,
+programming style, and other tangential topics.
+Still, a very useful resource.
+</ul>
+<dl><dt><strong>Kudos</strong>
+<dd>
+This Procmail FAQ draws heavily on Nancy McGough's excellent collection of mail
+filtering resources. If you only bookmark one web page this year, make
+sure it's an Infinite Ink one!
+<dd>
+This FAQ would also be impossible -- and perhaps unnecessary&nbsp;<tt>:-)</tt> 
+-- were it not for the Procmail mailing list. If you're serious
+about Procmail, you need to be on this list. It also happens to be one
+of the most helpful bunches of people on the 'Net. 
+No names mentioned, in order not to offend those I'd no doubt forget
+to remember -- you know who you are!
+<dd>
+Finally, none of this would be even remotely possible without the skill,
+dedication, and genius of Procmail's author, <b>Stephen R. van den Berg. </b>
+The 'Net community owes you one, Stephen.
+</dl>
+<p>
+<hr title="End of FAQ">
+<h2>
+<a name="contact-info">
+Contact and copyright information
+</a></h2>
+<p>
+The official location of this page is 
+<a href="http://www.iki.fi/era/procmail/mini-faq.html">http://www.iki.fi/era/procmail/mini-faq.html</a>
+-- please use this redirector URL instead of whatever it happens to
+point to when referring to this page.
+<div class="buttons">
+<A HREF="http://validator.w3.org/"><IMG SRC="http://validator.w3.org/images/vh40.gif" ALT="Valid HTML 4.0!" HEIGHT=31 WIDTH=88></A>
+</div>
+<div class="buttons">
+*
+<a href="links.html">To Links page</a>
+*
+<a href="http://www.iki.fi/era/feedback.html">Feedback and comments are most welcome!</a>
+<small>
+(But please don't send technical questions. See
+<a href="#discussion">above.)</a>
+</small>
+*
+</div>
+<p>
+Copyright: I wrote it with the help of others. 
+<a href="http://www.gnu.org/">Way to go.</a>
+<p>
+The 
+<a href="index.html#todo">cover page</a>
+has a "to do" section with some ideas.
+If you think you can help out
+with any of them, it would be very much appreciated.
+<p>
+A text-only version of this 
+Procmail FAQ is also available by e-mail 
+(via Procmail of course); 
+send a message to 
+<a href="mailto:era+pr@iki.fi?subject=send%20procmail-faq">era+pr@iki.fi</a>
+with a
+Subject: header containing only the words <tt>send procmail-faq</tt>
+<br>
+...&nbsp;to get a copy of the <tt>experiments.rc</tt> file, use
+<a href="mailto:era+pr@iki.fi?subject=send%20experiments.rc"><tt>send experiments.rc</tt></a>
+<p>
+<small>
+$Id: mini-faq.prep,v 1.358 2001/04/09 09:59:17 era Exp $
+</small>
+<hr title="end of postlude">
+<h1>
+<a name="appendix-folders">
+Appendix A -- Folder Formats
+</a></h1>
+<p>
+This appendix lists some common (and some less common) 
+mail folder formats.
+<p>
+A "folder," in this sense, is merely another name for a file
+or directory which contains mail messages.
+<dl>
+<dt><b>
+Berkeley <tt>mbox</tt> format
+</b><dd>
+This is a flat file, with no explicit message delimiter
+in the classical sense. Each line starting with the five
+characters "From&nbsp;" and preceded by either an empty line or
+beginning of file is the beginning of a new message.
+<dd>
+Some exciting more or less incompatible variants of this
+format exist, however the one used by Sendmail and BSD
+<tt>mailx</tt> is by far the most common these days.
+<dt><b>
+MMDF format
+</b><dd>
+Used by the MMDF mailer; flat file, each message is separated
+by a string of four ctrl-A's. Procmail can be configured
+relatively simply at compile-time to use this instead of
+Berkeley format for file folders.
+<dt><b>
+MH format
+</b><dd>
+This is a one-message-per-file format, where a directory
+forms the folder and the files in it are messages (the
+only exceptions are control and cache files used by
+certain MUAs). The file names are numbers (not necessarily
+in sequence), or numbers preceded by commas.  The files
+with names starting with commas correspond to deleted
+messages. 
+<dd>
+Procmail can deliver to MH directories but doesn't know
+how to update the associated control and cache files.
+For that reason, some people prefer to pipe messages to
+the MH <tt>rcvstore</tt> program instead of delivering
+straight to an MH folder.
+<dd>
+Used by the Rand MH system and derivatives.
+<dt><b>
+"Mail directory" or "MSGPREFIX" format
+</b><dd>
+Similar to MH format, except the file naming conventions are
+different.
+<dd>
+More details welcome.
+<dt><b>
+Maildir format
+</b><dd>
+A fairly robust format, 
+used by Qmail.
+Supported natively since Procmail version 3.14.
+<dd>
+Not directly understood by earlier versions of Procmail
+(pre-3.14), but you can always call up an external program
+for each delivery, or get a patch to Procmail. 
+<dd>
+A Maildir folder is a directory, with three subdirectories
+named "tmp", "new", and "cur". Messages are written into
+"tmp", then moved to "new" to commit the delivery. As messages
+are read, they're moved from "new" to "cur", and renamed to
+append flags for the message status. 
+These files are "rigid," the contents are not changed when
+a message's status changes.
+In Maildir folders the files have long, complex names intended
+to ensure that all filenames are unique,
+even across different machines.
+<dd>
+Maildir is the only file-oriented mail folder format
+that requires no locking.
+<dt><b>
+MBX format
+</b><dd>
+Not directly understood by Procmail, but you can get an
+external program and use that do deliver to MBX.
+Used by some IMAP systems (?)
+<dd>
+Ian McNish writes:
+<blockquote>
+Procmail can write to mbx formatted mail folders via 
+the 'dmail' utility. dmail is included in the UW imap-util 
+distribution.
+Usage:
+<code><pre>DELIVER&#95;LOCAL&#95;MAILER = /local/bin/dmail
+MAILDIR = $HOME/.Mail
+DEFAULT = $MAILDIR/inbox
+:0 w
+| $DELIVER&#95;LOCAL&#95;MAILER +inbox</pre></code>
+</blockquote>
+Thanks for this information!
+(More details still welcome.)
+<dt><b>
+BABYL format
+</b><dd>
+This is the format used by RMAIL, the mail mode that GNU Emacs
+supports out of the box. It consists of one file per folder with
+an interesting separator between the messages and a copy of 
+each message's original headers before the message itself.
+In practice, you deliver new mail into an mbox-format spool file 
+(or something else, if you figure out how to teach the 
+Emacs <tt>movemail</tt> utility how to handle new formats)
+and let Emacs import mail from there using the 
+<tt>rmail-get-new-mail</tt> command
+(normally on the <tt>g</tt> key).
+The command <tt>set-rmail-inbox-list</tt>
+allows you to tell RMAIL where to get new mail from
+(you have to issue this separately for each RMAIL folder,
+but only once; the setting is saved in the BABYL headers)
+and it allows you to get mail from more than one spool file
+if you wish.
+<dd>
+The BABYL format is not understood by any sane programs
+except <tt>formail</tt> with the <tt>-B</tt> option.
+<dd>
+Emacs has a command for converting BABYL back to mbox format
+if you should ever happen to start up RMAIL by mistake
+(<tt>M-x unrmail</tt>).
+<dt><b>
+nnml
+</b><dd>
+Not understood by Procmail, but included here for
+completeness' sake. A format specific to the newsreader
+Gnus (which also has a lot of mail handling functions
+built in).
+</dl>
+<hr title="End of Appendix A">
+<h1>
+<a name="appendix-mx">
+Appendix B -- Figuring Out the Mail Flow
+</a></h1>
+<p>
+For a lot of reasons, it would be good if you could figure out as
+much as possible about how mail is being processed on the host(s) 
+where you intend to run Procmail.
+<p>
+Here's a quick rundown of what you can do to learn more about
+how mail flows on your site.
+(If you're the postmaster of a site and don't know these things
+already, you're probably in deep trouble. This is primarily meant
+for the end users. For the benefit of your users, it would be nice
+if you could document these things e.g. on your site's web pages.)
+<p>
+If all you have is a single host which serves all the needs 
+of all your users, 
+you can probably stop reading here (unless you're curious).
+<p>
+If your ISP or company has several relatively autonomous hosts, each
+might be capable of receiving and sending mail. Modern installations
+often try to delegate mail processing to one central "smart host"
+and refuse at least external mail on the other machines (users'
+workstations, database servers, web servers etc). An unfortunate
+number of sites with old software are running a number of essentially
+uncontrolled and unmanaged mail servers, which is confusing both
+to users and administrators, and probably means there is ample 
+opportunity for spammers and other abusers to find security holes.
+<p>
+The typical scenario on modern sites is to have one big dedicated
+server which is responsible for delivering mail to local users. Other
+hosts are only relaying stuff to the smart host, and preferably
+don't accept outside mail at all. Making changes to the mail
+configuration means you change the configuration of the smart host,
+and don't have to worry about the "stupid clients," which should
+perhaps even be behind a firewall.
+<p>
+DNS, the Domain Name System, allows each domain (and even each host)
+to have an <i>MX (Mail Exchanger) record</i> which tells others
+where to route mail for this particular host. Unfortunately, many
+clients erroneously fail to look for MX records, and will blindly
+bypass this redirection and try to send to the named host. For this
+reason, hosts whose names are going to be, or have been, visible to
+users outside your domain should probably be equipped to at least 
+relay mail to the main MX host.
+<p>
+Internal hosts, inside the firewall or in the same domain, often
+don't care about MX hosts and are able to send mail directly to
+local users (one way or another). In effect, the same configuration
+as for "stupid hosts" can be used for this, too -- just let the
+"stupid hosts" forward to the main MX machine. (This is what secondary
+MX hosts are often set up to do as well.)
+<p>
+You can find out which hosts are designated as MX hosts with any
+standard DNS lookup tool. <i>nslookup</i><b>(1)</b> is the classical
+tool for this, but you you might want to see if you have 
+<i>host</i><b>(1)</b> and/or <i>dig</i><b>(1)</b> installed, too.
+<p>
+Here's an example with <tt>nslookup</tt>:
+<div class="code"><pre>
+$ <b>nslookup -q=mx rwth-aachen.de</b>
+Server:  localhost
+Address:  127.0.0.1
+
+Non-authoritative answer:
+rwth-aachen.de	preference = 20, mail exchanger = mail.rwth-aachen.de
+rwth-aachen.de	preference = 30, mail exchanger = Campino.Informatik.rwth-aachen.de
+
+Authoritative answers can be found from:
+rwth-aachen.de	nameserver = nets1.rz.rwth-aachen.de
+rwth-aachen.de	nameserver = deneb.dfn.de
+rwth-aachen.de	nameserver = ns.nic.de
+rwth-aachen.de	nameserver = Urmel.Informatik.rwth-aachen.de
+mail.rwth-aachen.de	internet address = 137.226.144.9
+Campino.Informatik.rwth-aachen.de	internet address = 137.226.116.240
+nets1.rz.rwth-aachen.de	internet address = 137.226.144.3
+deneb.dfn.de	internet address = 192.76.176.9
+ns.nic.de	internet address = 193.196.32.1
+Urmel.Informatik.rwth-aachen.de	internet address = 137.226.112.21
+</pre></div>
+<p>
+The output from <tt>nslookup</tt> is slightly messy. Among all the
+unrelated information about name servers etc, this simply says that
+the hosts <tt>mail</tt> and <tt>Campino.Informatik</tt> do MX
+for Aachen. By having a lower preference number (zero means most
+preferred), <tt>mail</tt> is the primary MX host.
+<p>
+In general terms, hosts with lower preference numbers should be
+preferred over the ones with higher numbers, which would often be
+off-site hosts which are merely set up to queue the mail if and when
+the main MX is down, and then forward there when it comes back up
+again. Some spammers have found that secondary MX hosts are often less
+well-protected than the main MX host and try to relay spam via a
+secondary.
+<p>
+If you don't have access to command-line DNS tools, there are numerous
+WWW services which allow anybody to use these same tools via a simple
+WWW form interface.
+<p>
+To find out what MTA a host is running, you can telnet to its port 25
+-- the greeting you see should contain at least the name of the MTA,
+and in the case of Sendmail also the version of both the binary and
+the configuration file. (Type <tt>quit</tt> to terminate the
+telnet connection.)
+<p>
+If you have collected mail for some time, a quick look at the
+<tt>Received:</tt> headers of those messages should be enough
+to give you a good impression of how things are working in practice.
+Still, don't forget to check DNS for secondary MXes and other
+interesting phenomena if you write recipes which need to know which
+hosts are "local" or "allowed" in some sense.
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-3025449-1";
+urchinTracker();
+</script>
+</body>
+</html>

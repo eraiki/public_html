@@ -1,0 +1,198 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+ <head>
+  <title>Revision history for quickref</title>
+ </head>
+ <body><pre>
+revision 2.27
+date: 1999/11/28 17:27:31;  author: era;  state: Exp;  lines: +28 -8
+</pre>
+Yikes -- character class trick example in regex section was wrong.
+Thanks to Rejo Zenger and Philip Guenther for the discussion on the
+list.
+
+<hr>
+<pre>
+revision 2.26
+date: 1999/08/06 14:25:03;  author: era;  state: Exp;  lines: +27 -1
+</pre>
+Some minor tweaks, including a note that the options are not described
+here. (Anybody wanna volunteer?)
+
+<hr>
+<pre>
+revision 2.24
+date: 1999/06/24 11:17:29;  author: era;  state: Exp;  lines: +13 -6
+</pre>
+Terminology by fiat: ":0 flags:lock" thing is now called "colon line"
+(David agreed with me, so this must be a good idea :-)
+
+<hr>
+<pre>
+revision 2.23
+date: 1999/06/05 12:17:28;  author: reriksso;  state: Exp;  lines: +4 -1
+</pre>
+You can stack $ modifiers to force multiple substitution passes
+(amazing, huh? Thanks to Philip for this revelation)
+
+<hr>
+<pre>
+revision 2.22
+date: 1999/04/13 18:30:58;  author: reriksso;  state: Exp;  lines: +7 -2
+</pre>
+Still at version 3.11pre7, regrettably
+
+<hr>
+<pre>
+revision 2.21
+date: 1999/04/13 18:26:32;  author: reriksso;  state: Exp;  lines: +8 -2
+</pre>
+Corrected description of what happens when you set HOST to a bogus
+value (I had this explained to me a long time ago by David Tamkin but
+it slipped through the cracks at that time, sorry)
+
+<hr>
+<pre>
+revision 2.16
+date: 1999/04/13 18:11:19;  author: reriksso;  state: Exp;  lines: +9 -1
+</pre>
+Action line: emphasize that action flags (c and friends) don't kick in
+until the action is actually attempted
+
+<hr>
+<pre>
+revision 2.15
+date: 1999/04/13 18:08:39;  author: reriksso;  state: Exp;  lines: +6 -1
+</pre>
+Action line: emphasize that if you want multiple actions, you need a
+prelude line (and perhaps conditions, and flags) for each (and
+probably a set of braces around the whole construct). [Possibly I
+should have an example, too.]
+
+<hr>
+<pre>
+revision 2.14
+date: 1999/03/01 14:00:29;  author: reriksso;  state: Exp;  lines: +7 -2
+</pre>
+Messed up and/or clarified the explanation of the f flag a little bit
+more
+
+<hr>
+<pre>
+revision 2.11
+date: 1998/12/11 09:26:23;  author: reriksso;  state: Exp;  lines: +13 -2
+</pre>
+Link to FAQ and Links
+
+<hr>
+<pre>
+revision 2.10
+date: 1998/10/23 06:40:45;  author: reriksso;  state: Exp;  lines: +6 -2
+</pre>
+Point out that \&#60; and \&#62; are actually identical (thanks to rohee)
+
+<hr>
+<pre>
+revision 2.9
+date: 1998/09/24 05:52:04;  author: reriksso;  state: Exp;  lines: +7 -1
+</pre>
+Explicate how MAILDIR is actually cd(1) in disguise
+
+<hr>
+<pre>
+revision 2.8
+date: 1998/09/09 06:24:44;  author: reriksso;  state: Exp;  lines: +111 -17
+</pre>
+Fleshed out some descriptions a bit; more on when to use and not use
+lock files; exceeding LINEBUF can lead to crashes
+
+<hr>
+<pre>
+revision 2.5
+date: 1998/07/04 19:46:35;  author: reriksso;  state: Exp;  lines: +4 -5
+</pre>
+HTML 4.0 Transitional checked, http://validator.w3.org/
+
+<hr>
+<pre>
+revision 2.0
+date: 1998/07/04 16:03:02;  author: reriksso;  state: Exp;  lines: +1321 -1812
+</pre>
+Holger Wahlen's &#60;dl&#62; rendering hereby replaces the tables rendering I
+had been using before.
+
+Recent additions and fixes include a flesh-out of variable
+substitution, including $\VAR and ${VAR:-value} and friends; the $#,
+$$, $?, $_, and $- variables; empty action; slightly more on scoring
+
+<hr>
+<pre>
+revision 1.20
+date: 1998/06/24 09:02:20;  author: reriksso;  state: Exp;  lines: +36 -3
+</pre>
+Clarification and expansion of character class rules
+
+<hr>
+<pre>
+revision 1.17
+date: 1998/06/15 14:06:06;  author: reriksso;  state: Exp;  lines: +76 -3
+</pre>
+Variable substitution and backticks
+
+<hr>
+<pre>
+revision 1.14
+date: 1998/05/22 11:21:07;  author: reriksso;  state: Exp;  lines: +11 -6
+</pre>
+Generalized the modifiers section; slightly sick because the size and
+var modifiers should be treated as such, too
+
+<hr>
+<pre>
+revision 1.12
+date: 1998/05/22 11:09:41;  author: reriksso;  state: Exp;  lines: +26 -4
+</pre>
+Added scoring
+
+<hr>
+<pre>
+revision 1.10
+date: 1998/05/22 11:00:49;  author: reriksso;  state: Exp;  lines: +207 -101
+</pre>
+First round of Holger's changes; middle check-in
+
+<hr>
+<pre>
+revision 1.7
+date: 1998/05/08 09:04:20;  author: reriksso;  state: Exp;  lines: +35 -11
+</pre>
+Various minor clarifications and corollaries
+
+<hr>
+<pre>
+revision 1.6
+date: 1998/05/08 07:52:20;  author: reriksso;  state: Exp;  lines: +24 -8
+</pre>
+Rick Troxel's various comments (thanks!)
+
+<hr>
+<pre>
+revision 1.5
+date: 1998/05/08 07:41:42;  author: reriksso;  state: Exp;  lines: +43 -1
+</pre>
+Add nbsp;s in empty table cells to make the divisions clearer
+
+<hr>
+<pre>
+revision 1.4
+date: 1998/05/02 19:36:37;  author: reriksso;  state: Exp;  lines: +7 -1
+</pre>
+Link to Holger's &#60;dl&#62; rendering
+
+<hr>
+<pre>
+revision 1.1
+date: 1998/04/24 22:54:48;  author: reriksso;  state: Exp;
+Initial revision
+ </pre></body>
+</html>

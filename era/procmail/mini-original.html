@@ -1,0 +1,245 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Procmail Mini-FAQ v1.0</title>
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Procmail Mini-FAQ v1.0</h1>
+<p>
+<blockquote>
+<strong>
+This is included here for historical purposes only.
+This is known to contain miscellaneous warts, errors, typos,
+and broken links.
+For hopefully more accurate information, consult the
+<a href="mini-faq.html">most recent version of the Procmail Mini-FAQ</a>
+</strong>
+</blockquote>
+<blockquote>
+[March 1999:
+I've added some annotations, like this one, as a bit of 
+commentary.]
+</blockquote>
+This is a draft FAQ for Procmail, the mail processing utility. 
+<p>
+This document is a minimalist attempt at answering the most often
+asked questions and straightening out the most frequent misconceptions
+about Procmail. This is no substitute for the manuals, and indeed
+mostly contains pointers to the manuals and other similar resources, as
+well as a small collection of links to more information.
+<p>
+Please take a minute to skim through at least the 
+<a href=" 			#contents">Contents section</a>
+below, so you know which issues are discussed here. 
+<p>
+The author's contact information is 
+<a href="#contact-info">at the bottom of this page</a>
+<a name="contents"><h2>
+Contents
+</h2></a>
+<ul>
+<li>
+<a href="#description">What is Procmail?</a>
+Description, availability, and installation
+<li>
+<a href="#syntax">How do I use wildcards in Procmail?</a>
+... and other syntax issues
+<li>
+<a href="#debugging">Help, I get this error message&nbsp;... </a>
+Troubleshooting tips
+<li>
+<a href="#links">Where can I learn more?</a>
+Small links collection
+</ul>
+<a name="description"><h2>
+What is Procmail? 
+</h2></a>
+<h3>
+Description, availability, and installation
+</h3>
+Procmail is a mail processing utility, which can help you filter your
+mail, sort incoming mail according to sender, Subject line, length of
+message, keywords in the message, implement an ftp-by-mail server, and
+much more. 
+<p>
+Procmail is also a complete drop-in replacement for your MDA. 
+(If this doesn't mean anything to you, you don't want to know.)
+<p>
+Procmail runs under Unix. See Infinite Ink's <a href="http://www.jazzie.com/ii/internet/mailbots.html">Mail Filtering and Robots page</a>
+for information about related utilities for other platforms 
+(there aren't that many). 
+<p>
+The recommended version of Procmail to install is 
+<strong>
+3.11pre4
+</strong>.
+You can download it from the <a href="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">main Procmail site</a>
+or get it from a <tt>comp.sources.unix</tt> mirror. 
+<blockquote>
+[The documentation stated new versions would get posted
+to <tt>comp.sources.misc</tt> long after Stephen had
+stopped doing this. Of course, I even got the newsgroup
+wrong.]
+</blockquote>
+The installation procedure is fairly straightforward but probably not
+the first thing you should attempt after you get a Unix account. 
+<p>
+You can't just snatch somebody's copy, because the installation
+procedure needs to determine where your mail spool is, what kinds of
+file locking should be employed, etc. 
+<p>
+The distribution comes with a 
+<a href="faq.txt">simple FAQ</a>
+(text only, no HTML)
+which covers many issues faced when first getting acquainted with
+Procmail, ranging from where the manual pages go to rather technical
+issues. 
+<p>
+This FAQ does not try to delve into any of the "deep" issues, although
+some of them are rather frequently brought up on the Procmail mailing
+list. You might want to look at the <a href="http://www-users.informatik.rwth-aachen.de/~berg/archive/procmail">Best of Procmail archive</a>
+for solutions before you mail the list about your problem.
+<p>
+<h3> Related quick questions </h3>
+<strong>Q:</strong>
+What if Procmail is already installed by another user on my host? 
+<p>
+<strong>A:</strong>
+Could be. Ask around. Yes, one installation per site should suffice.
+<p>
+<a name="syntax"><h2>
+How do I use wildcards in Procmail? 
+</h2></a>
+<h3>
+... and other syntax issues
+</h3>
+Procmail uses regular expression syntax, which is more complicated but
+also vastly more versatile than the "glob" wildcards used in many
+shells for matching file names (where pr*mail matches anything which
+starts with "pr" and ends with "mail"). 
+<p>
+Briefly, the regular expression to match anything that begins with
+"pr" and ends with "mail" is <code>^pr.*mail$</code> but for practical
+purposes, e.g. in a Subject: line, you might want to try the following
+recipe:
+<blockquote><pre>
+:0:
+* ^Subject: pr.*mail
+procmail-mail
+</pre></blockquote>
+This says: Anything that begins with "Subject: pr" and contains the
+string "mail" somewhere after that is to be saved in the folder
+<code>procmail-mail</code>. 
+<p>
+The neat stuff starts when you want to include "procmail" but exclude
+"pro-mail" and "ProMail" while still looking for anything else that
+begins with "pro" and also contains "mail", but this tutorial ends
+here. 
+<p>
+Any beginners' book about Unix will contain a more detailed tutorial
+on regular expressions, most likely in conjunction with examples using
+the <code>grep</code> and <code>sed</code> programs. For reference,
+the manual page for <code>egrep</code> (an extended <code>grep</code>)
+contains a concise listing of regular expression operators. 
+<p>
+<h3>Related quick questions</h3>
+<strong>Q:</strong>
+Wouldn't it be much simpler to just use glob-like patterns? 
+Does this mean I have to learn something new again? Ugh. 
+<p>
+<strong>A:</strong>
+Yes. Don't bother with Procmail if you want something simple and stupid. 
+<p>
+<strong>Q:</strong>
+Why doesn't this work? 
+<blockquote><pre>
+:0:
+* ^TO:.*|*reguler ixpressiun full of synutsax errors as weel as typoes**.*
+! mailto:dev@null  # this isnt correct is it? Help!
+</pre></blockquote>
+<blockquote>
+[I'm sorry, but at the time, I thought this was hilarious.
+I guess I still do&nbsp;<code>:-]</code>
+</blockquote>
+<strong>A:</strong>
+Various syntax errors notwithstanding (read the manual), 
+you shouldn't use a wildcard after the ^TO macro. Try this: 
+<blockquote><pre>
+:0 # no need to lock /dev/null ...
+* ^TOregular expression without syntax errors or typos
+/dev/null
+</pre></blockquote>
+<p>
+<a name="debugging"><h2>
+Help, I get this error message&nbsp;...
+</h2></a>
+<h3>
+Troubleshooting tips
+</h3>
+<blockquote>The light bulb contains the seeds of its own revolution.</blockquote>
+<blockquote>
+[This is the punch line from the old joke
+"How many Marxists does it take to change a light bulb?"
+Another case where I just couldn't help myself, I'm afraid.
+As a matter of fact, it's still in the FAQ, for hysterical reasons,
+although I don't expect many people will appreciate it.
+Anyway, it's supposed to mean
+"You can and should learn to help yourself."]
+</blockquote>
+Before you panic, try adding <code>VERBOSE=yes</code> to your
+<code>.procmailrc</code> and examine the information about Procmail's
+actions that are written to the log. This tells you, in excruciating
+detail, about every decision Procmail makes while processing your
+<code>rc</code> file. 
+<p>
+The error messages and some plausible explanations are listed on the
+Procmail manual page. If you haven't before, now is the time to read
+the manual pages. Note that there are several; <code>procmailrc</code>
+discusses the syntax of the <code>rc</code> files while
+<code>procmailex</code> contains some nifty examples. 
+<a name="links"><h2>
+Where can I learn more?
+</h2></a>
+<h3>
+Small links collection
+</h3>
+<ul>
+<li>
+The definitive links and information collection is Infinite Ink's
+site. Start at the <a href="http://www.jazzie.com/ii/internet/mailbots.html">Mail Filtering and Robots page</a> -- you'll find
+lots of Procmail-related links, as well as lots of other useful
+information. 
+<li>
+Procmail itself can be downloaded from the <a href="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">main Procmail site</a>. 
+<li>
+Also check out the <a href="http://www-users.informatik.rwth-aachen.de/~berg/archive/procmail">Best of Procmail archive</a>. 
+<li>
+<a href="http://reality.sgi.com/aks/mail/procmail-lib.html">Alan Stebbens's Procmail library</a> is very useful both as a direct
+plug-in and as an example of advanced Procmail techniques. You'll find
+all the autoresponders you ever thought you wanted, and then some.
+Highly recommended!
+</ul>
+<dl><dt><strong>Kudos</strong>
+<dd>
+This FAQ draws very heavily on Nancy McGough's excellent collection of
+mail filtering resources. If you only bookmark one web page this year,
+make sure it's an Infinite Ink one! And <strong>thanks, Nancy.</strong>
+</dl>
+<p>
+<hr size=1>
+<a name="contact-info">
+The official location of this page</a> is 
+<a href="http://www.iki.fi/~era/procmail/mini-faq.html">http://www.iki.fi/~era/procmail/mini-faq.html</a>
+-- please use this redirector URL instead of whatever it happens to
+point to when making references to this page.
+<p>
+Version information: <br>
+&#36;Id: mini-faq.prep,v 1.1 1996/12/11 15:41:51 reriksso Exp &#36;
+<p>
+Please <a href="http://www.iki.fi/era/feedback.html">mail me</a> with any feedback or comments to this FAQ! 
+
+</body>
+</html>

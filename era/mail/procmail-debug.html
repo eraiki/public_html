@@ -1,0 +1,806 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Debugging Procmail Recipes: Some Tips</title>
+<link rev="made" href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Debugging Procmail Recipes: Some Tips</h1>
+<p>
+<p>
+This is just an assortment of ideas for those who are interested in
+making sure their Procmail recipes work as intended <i>before</i>
+you put them in your real <code>.procmailrc</code> file.
+<p>
+There are also some thoughts for when you have trouble with
+<a href="#startup">getting procmail to run in the first place.</a>
+<p>
+If you find any errors or otherwise wish to comment, please do
+<a href="http://www.iki.fi/era/feedback.html">get in touch!</a>
+<p>
+If you have questions about any of this, hopefully you should find
+an answer on my
+<a href="http://www.iki.fi/era/procmail/">other Procmail pages.</a>
+<h3>
+<a name="toc">
+Table of Contents
+</a></h3>
+<ul>
+<li>
+<a href="#remarks">Opening Remarks</a>
+<li>
+<a href="#framework">A Framework</a>
+<li>
+<a href="#examining">Examining What's Going On</a>
+<ul>
+<li>
+<a href="#logging">Learn to Use the Log</a>
+<li>
+<a href="#envdump">Getting Information About Procmail's Environment</a>
+<li>
+<a href="#tmpfile">Saving Data to a Temporary File</a>
+<li>
+<a href="#bcc-self">Sending Yourself Diagnostic Messages</a>
+<li>
+<a href="#log-more">Additional Logging</a>
+</ul>
+<li>
+<a href="#startup">Getting Procmail to Run in the First Place</a>
+<ul>
+<li>
+<a href="#installed">Is Procmail Installed Correctly?</a>
+<li>
+<a href="#host">Are Things Happening on the Host Where You Think</a>
+They Should Happen?
+<li>
+<a href="#invoking">Do You Know How to Run Procmail in Your Setting?</a>
+<li>
+<a href="#diagnostics">Is Procmail Doing What You Think</a>
+it Should be Doing?
+<li>
+<a href="#system-log">Do the system log files tell you anything?</a>
+<li>
+<a href="#chmod">Check For Permission Problems</a>
+<li>
+Desperation, Part II:
+<a href="#trace">Can You Run Procmail Under a Debugger?</a>
+<li>
+<a href="#chat">Can You Talk to the MTA?</a>
+<li>
+<a href="#deliver">Talk to the MTA Some More</a>
+<li>
+<a href="#bounce">Do You Get a Bounce Message?</a>
+</ul>
+<li>
+Oh No, It's
+<a href="#links">One of His Link Collections Again</a>
+</ul>
+<h2>
+<a name="remarks">
+Opening Remarks
+</a></h2>
+All too often, you get bounces from people who put together a quick
+and dirty Procmail recipe and never got around to verifying that it
+worked right. (I've been guilty of this myself, a number of times.
+It's just too easy to forget to test things that are "easy".)
+<p>
+Besides the obvious wish to avoid snafus with your mail -- whether 
+those include embarrassing bounces to the senders or not -- there are
+a number of additional reasons you might want to play around with
+Procmail. For one thing, when you can fool around without the risk
+of losing mail, it's much easier and safer to really try to learn how the
+program works. Until I got some experience with debugging Procmail recipes, 
+I was too chicken to even try out -- much less learn -- any of the 
+advanced constructs.
+<p>
+An often cited maxim is RTFM. I'd like to coin another principle which
+I think is just as important: <i>Try It And See What Happens.</i> 
+This is of course <strong>not</strong> to be construed as 
+"put some crufty hack in your production <code>.procmailrc</code> 
+and see if you lose any mail".&nbsp;<code>:-)</code>
+<h2>
+<a name="framework">
+A Framework
+</a></h2>
+First of all, it's probably a good idea to keep a skeletal
+<code>.procmailrc</code> file around. There's not much you can put
+in there by default but on the other hand, if you really just want to
+try something quick and dirty, you'll probably be too lazy to put in
+the obligatory 
+<code>SHELL=/bin/sh DEFAULT=/tmp/$LOGNAME</code> yada yada
+and thus end up shooting yourself in the foot one way or another 
+more often than you'd like.
+<p>
+The
+<a href="http://www.iki.fi/era/procmail/mini-faq.html">(not so mini) FAQ</a>
+comes with a skeletal
+<a href="http://www.iki.fi/era/procmail/experiments.rc">experiments.rc</a>
+which should do as a starting point. It's something I cooked up for
+the FAQ and so I wanted to keep it clean and simple. Needless to say,
+my own "skeletal" <code>.procmailrc</code> is not exactly clean and simple
+-- I tend to leave in my old experiments just in case I'd like to pick up
+on them again later
+(and thus I end up shooting myself in the foot one way or another
+more often than I like&nbsp;<code>:-)</code>
+<p>
+Here are some highlights from mine:
+<blockquote><pre>
+	SHELL=/bin/sh           # always always always always always always
+	MAILDIR=$HOME/scratch   # this is a symlink to a scratch disk
+	DEFAULT=$HOME/scratch/prc.out
+	VERBOSE=${VERBOSE:-yeah}
+</pre></blockquote>
+That last one is important; it lets me pass in <code>VERBOSE=no</code>
+on the command line if I want to override it. This is a useful construct
+for a lot of things -- actually the <code>LOGFILE</code> setting in my
+real files follows this convention (so I can debug a module on its own
+and get logging somewhere else than in my regular <code>procmail.log</code>
+if I run it with <code>LOGFILE</code> unset. In other words, 
+<code>LOGFILE</code> normally gets set in my top <code>.procmailrc</code>,
+obviously, and the module will not override it, but if I start up the
+module on its own, it will redirect logging elsewhere.)
+<p>
+The first line is also important. Procmail's inability to interact with
+some csh:s and tcsh:s is probably the biggest source of frustrating and
+"inexplicable" Procmail problems. (It's still not clear to me why this
+happens, or why Procmail is not compiled by default to always use
+<code>/bin/sh</code> unless specifically instructed otherwise.)
+<h2>
+<a name="examining">
+Examining What's Going On
+</a></h2>
+<!-- Is this ugly HTML or what -->
+<dl>
+<dt>
+<blockquote>
+The most effective debugging tool is still careful thought,
+coupled with judiciously placed print statements.
+</blockquote>
+<dd>
+-- Brian W. Kernighan, in the paper
+<a href="http://www.de.freebsd.org/de/7thEdManVol2/beginners/beginners.html"><i>Unix for Beginners</i></a>
+(1979)
+<!-- This FreeBSD HTML copy is horribly malformatted [all centered! Yes!] -->
+</dl>
+<h3>
+<a name="logging">
+Learn to Use the Log
+</a></h3>
+<p>
+It is useful to be able to see what Procmail is doing at various stages
+of processing. The fundamental tool for this is the log file, although
+for interactive tests, it's usually nicer to not set <code>LOGFILE</code>
+to anything, in which case any logging will be sent to standard error.
+<p>
+Obviously, you will need some familiarity with what goes in the log
+so you can decode it. The normal <code>LOGABSTRACT</code> fields are 
+explained in the manual, and most of the rest (what you get with
+<code>VERBOSE</code> logging) should be fairly easy to understand.
+<p>
+Here are some things which are not so self-evident:
+<ul>
+<li>
+With <code>VERBOSE</code> logging, you get to see when a
+shell is spawned and when it's not. This is because Procmail
+formats the "executing ..." log entry differently depending
+on how it's executing a program. If a shell is being invoked,
+the entire command line is displayed as one long string,
+verbatim. When Procmail is doing the <code>exec</code> itself,
+it puts commas between the arguments (so you can see how it
+parsed them).
+<li>
+There will be a time stamp with Procmail's process-id written
+to the log once a second, so you can see how time passes.
+</ul>
+Very often, your own little <code>LOG=</code> messages can be the
+most useful part of the log file. Don't be afraid to log too much --
+you never know when you are going to need to see what exactly is
+going on. 
+<p>
+On the other hand, most logging should probably be enabled only 
+when you are debugging.
+You could of course use <code>LOG={VERBOSE:+"Message"}</code>
+but I find this cumbersome to type in (and it's probably also a
+slight waste of resources when you're not debugging) --
+I just take care to format my code so that I can enable my diagnostic
+logging messages with a trivial search-and-replace operation
+(i.e. always use a particular spacing pattern before the
+<code>LOG=</code> assignments so I can replace those with
+<code>#LOG=</code> and vice versa. Commenting and uncommenting like
+this doesn't work all that trivially if you have multi-line log strings,
+obviously). 
+<p>
+Tangentially, you should also pay attention to your
+<a href="#system-log">system's log files.</a>
+<h3>
+<a name="envdump">
+Getting Information About Procmail's Environment
+</a></h3>
+<p>
+Don't forget that Procmail actually gives you the opportunity to
+run basically any command on the host where the mail is being processed.
+That means you can make it e.g. identify itself. Here's one thing that is
+easy to rig and use:
+<blockquote><pre>
+	:0
+        * ^Subject: envdump please$
+	{
+	    LOG="envdump: uname -a
+`uname -a`
+envdump: ls -l / /var /var/spool /var/spool/mail /var/spool/mail/$LOGNAME
+`ls -l / /var /var/spool /var/spool/mail /var/spool/mail/$LOGNAME`
+envdump: ls -l /usr/local/bin/procmail
+`ls -l /usr/local/bin/procmail`
+envdump: (done)
+"
+	    :0
+	    /dev/null
+	}
+</pre></blockquote>
+You should probably use a different Subject: line
+(otherwise others who have read this page can fool around with your server).
+Clearly, anything that you are wondering about which can be found
+out by some sort of Unix command line can be included in this recipe.
+Output goes to the log file as usual.
+<p>
+Just to make the obvious explicit, you'd trigger this by sending yourself
+a test message which matches the Subject: regular expression.
+<h3>
+<a name="tmpfile">
+Saving Data to a Temporary File
+</a></h3>
+<p>
+Another useful trick you are going to need is saving the message
+you're dealing with in a temporary file, so you can examine what
+was there at some point during Procmail's execution. This is usually
+no more complicated than
+<blockquote><pre>
+	:0c
+	/tmp/tmpdir/.
+</pre></blockquote>
+where <code>/tmp/tmpdir</code> is a directory you have made sure
+exists and is writable. (You can append to an mbox file, too, of course,
+or use any other folder format you find convenient. In practice,
+I end up writing to mbox files most of the time, although having
+individual messages as separate files in a directory makes some things
+simpler.)
+<p>
+In more involved cases, <code>tee</code> is your friend. To see
+what exactly goes into a Sendmail invocation you are having problems
+with, try something like
+<blockquote><pre>
+	:0
+	* conditions, probably (including loop checking)
+	| ( whatever ) \
+	  <b>| tee /tmp/tmpdir/$$ \</b>
+	  | $SENDMAIL $SENDMAILFLAGS
+</pre></blockquote>
+(The expression <code>$$</code> expands to the process-id of your 
+currently running Procmail. Use <code>tee -a</code> to append to
+an existing file.)
+<p>
+If you're creating a lot of diagnostic files, it's good form
+to remember to clean up after yourself. Your system administrator
+might have set up a partition other than <code>/tmp</code> for
+your temporary files (on many Unix systems, the <code>/tmp</code>
+disk is rather small, and/or sacred for the use of the system
+administration. Many places have a <code>/scratch</code> disk
+for users' temporary file storage needs. This is usually not
+backed up, and probably subject to disappear without notice if
+one of the "real" disks needs to be replaced or something).
+<h3>
+<a name="bcc-self">
+Sending Yourself Diagnostic Messages
+</a></h3>
+<p>
+If you are having trouble with a recipe which sends a response
+of some sort, you could add an address of your own to the recipient
+list. That means you will receive a copy of the outgoing message
+(if indeed it's going out at all. Make sure to check it's not
+stuck in the queue before you assume nothing is happening).
+<p>
+In order to better reflect reality, and also in order to
+avoid creating mail loops, this should probably be a remote address
+(perhaps Hotmail if you don't have any "real" addresses in other
+domains, or a friend who doesn't mind receiving oodles of test
+messages&nbsp;... a good way to find out who are <i>not</i> your <i>true</i>
+friends).
+<p>
+If you are constructing your response message's headers on the
+fly, and sending it off with <code>sendmail -t</code>, just add
+a Cc: or Bcc: header with your debugging address.
+<blockquote><pre>
+	:0
+	* some conditions, no doubt
+	| ( formail -yada yada \
+	        <b>-I "Bcc: deodorant-tester@hotmail.com" \</b>
+		-and yaaada ) \
+	  | $SENDMAIL $SENDMAILFLAGS -t
+</pre></blockquote>
+If you are explicitly naming the recipient(s) on Sendmail's
+command line, you can just add more addresses.
+<p>
+On the other hand, if you aren't sure the message you are generating
+is even syntactically valid, it's probably better to simply replace
+the call to Sendmail with a save to a temporary file where you can
+examine the generated response message. Remember, if you can send
+it from the command line, it will probably work from within Procmail,
+too (and vice versa. But see the <code>tee</code> trick in the
+previous section if you want the best of both worlds).
+<h3>
+<a name="log-more">
+Additional Logging
+</a></h3>
+<p>
+(The subhead should perhaps read "Beyond Last Resort".&nbsp;<code>:-)</code>
+<p>
+If you suspect your Sendmail or your shell of being faulty, 
+or just want to be really sure of what they are doing,
+you can start messing around with their flags. 
+<p>
+I am willing to bet money that you are on the wrong track if you are
+seriously considering this. I am also willing to bet that if you don't
+have <code>SHELL=/bin/sh</code> right at the top of your 
+<code>.procmailrc</code>, adding that will solve your problem.
+<p>
+To get a few lines in the log file for each command the shell
+executes, add something like
+<blockquote><pre>
+	SHELLFLAGS=${SHELLFLAGS:--}vx
+</pre></blockquote>
+You can probably omit either <code>x</code> or <code>v</code>
+-- see the manual page for your shell to find out what they do.
+(The output is usually slightly unreadable but still decipherable.)
+<p>
+In the same vein, it might be useful to pass a <code>-v</code> flag
+to Sendmail to see what it's up to. (See
+<a href="#sendmail-v">below</a>
+for what the results look like.)
+<p>
+Other programs you use might also have the capability to
+produce optional extended information about what they are doing.
+In your own scripts, this is always a good facility to provide.
+<p>
+In Perl, liberally sprinkle your code with
+<code>warn "$0: reached checkpoint after init\n" if $debug;</code> --
+in shell scripts, this is a little bit harder to do idiomatically.
+Here's one approach:
+<blockquote><pre>
+	#!/bin/sh
+	IFDEBUG=:
+	case $1 in --debug) shift ; IFDEBUG= ; IFNODEBUG=: ;; esac
+	# ... real option processing here
+	$IFDEBUG	echo "$0: reached checkpoint after init" >&2
+	# ...
+</pre></blockquote>
+I define <code>IFNODEBUG</code> as the complement of <code>IFDEBUG</code>
+because I often find it useful (unlike in Perl scripts, but I guess
+in the end it's not all that strange -- it's more important in shell
+scripts to have things in a particular order, etc).
+If you decide your script is sufficiently debugged at some point,
+cleaning out the debugging stuff is again a matter of regex search and
+replace. (Corollary to Murphy's law: This will break your script, or
+ruin your day when you find that you need to put that stuff back in
+somehow.)
+<h1>
+<a name="startup">
+Getting Procmail to Run in the First Place
+</a></h1>
+This is not particularly something I wanted to write about, but here
+are some quick tips if you seem to not be able to get Procmail to do
+anything at all. If you think you know what you are doing, you will
+probably want to go over this list more or less in reverse order.
+<h3>
+<a name="installed">
+Is Procmail Installed Correctly?
+</a></h3>
+<p>
+Can you run Procmail from the command line and not get a
+core dump?
+<blockquote><pre>
+	$ <b>procmail -v</b>
+</pre></blockquote>
+If this works as expected, what happens if you actually
+try to deliver a message?
+<blockquote><pre>
+	$ <b>procmail DEFAULT=/dev/null VERBOSE=yes /dev/null &#60;/dev/null</b>
+</pre></blockquote>
+This means: Run Procmail. The place to deliver mail to is
+<code>/dev/null</code> unless the <code>rc</code> file says
+otherwise. We want verbose logging (to standard error, as long
+as <code>LOGFILE</code> doesn't get set to something) and
+use <code>/dev/null</code> as the <code>rc</code> file
+(i.e., effectively, just deliver to <code>DEFAULT</code>).
+The message to deliver is standard input, which is
+redirected to come from <code>/dev/null</code> as well.
+<p>
+Here are the results of a sample run:
+<blockquote><pre>
+	procmail: [8532] Thu Mar 25 15:08:16 1999
+	procmail: Rcfile: "/dev/null"
+	procmail: Assigning "MAILDIR=/home/era"
+	procmail: Assigning "LASTFOLDER=/dev/null"
+	procmail: Opening "/dev/null"
+	  Folder: /dev/null							      0
+</pre></blockquote>
+<p>
+If this works as expected, are you sure the permissions on the
+Procmail binary are such that e.g. Sendmail can run it?
+(When called from your own private <code>.forward</code>,
+Procmail only needs to have execute permissions set for yourself,
+of course.)
+<h3>
+<a name="host">
+Are Things Happening on the Host Where You Think They Should Happen?
+</a></h3>
+<p>
+Many sites have a designated mail host which mounts users'
+home directories over NFS or something, but which has completely
+its own idea of what's in e.g. <code>/usr/local/bin</code> and
+so if you installed Procmail on a different host, your problems
+might simply boil down to this fact.
+<p>
+The FAQ has
+<a href="http://www.iki.fi/era/procmail/mini-faq.html#appendix-mx">an appendix with more information on this.</a>
+<p>
+There is a nasty twist to watch out for:
+In principle, the mail host could have mounted the user's home
+directory under a different name than what the user sees in
+interactive logins. Thus some absolute path names you try to
+write to might not be valid on the mail host. See
+<a href="#diagnostics">below.</a>
+<h3>
+<a name="invoking">
+Do You Know How to Run Procmail in Your Setting?
+</a></h3>
+<p>
+This means: If your site is not using Sendmail, do you know what
+mechanism you should use to invoke Procmail?
+<p>
+If Procmail is installed as your MDA, you should be able to
+use it simply by creating a <code>.procmailrc</code> file in
+your home directory. If you are unsure of whether Procmail
+is your MDA, this is easy enough to test: Create a minimal
+<code>.procmailrc</code> with <code>LOGFILE</code> set, 
+send yourself mail (perhaps from a Hotmail account or something)
+and see if stuff appears in the log file you designated.
+<p>
+The
+<a href="http://www.iki.fi/era/procmail/advanced"><code>advanced</code> document</a>
+from the distribution contains some tips for installing Procmail
+as your MDA but I am unaware of any good collection of tips
+for forwarding using different MTA:s other than the only
+indirectly relevant discussion in the
+<a href="http://www.qz.to/~eli/faqs/addressing.html">Mail Addressing FAQ</a>
+by Eli the Bearded, which contains some tips for MMDF and
+Exim users (and Qmail, to a lesser extent).
+<p>
+For Sendmail and compatibles, if Procmail is not your MDA,
+you will need to create a <code>.forward</code> file with
+reasonably strict permissions. The manual page for Procmail
+has instructions (they differ slightly depending on other
+factors in your installation, which the Procmail installation
+script figures out before it creates the manual pages).
+<p>
+The <code>.forward</code> file seems to be the mechanism of
+choice in most other environments, too, although the syntax
+of the file apparently varies with different MTA:s.
+<h3>
+<a name="diagnostics">
+Is Procmail Doing What You Think it Should be Doing?
+</a></h3>
+<p>
+If you can get Procmail to produce output somewhere (i.e. it runs
+and you can write to the log or to some file in your home directory)
+it's probably a good idea to put in some diagnostic tests in your
+.rc file (perhaps you should install a testing <code>.procmailrc</code>
+for now and put back the real <code>.procmailrc</code> you want to
+use when you have sorted out your problems).
+<p>
+Some useful things to get into these diagnostics include
+<ul>
+<li>	the result of <code>uname -a</code>
+<li>	an <code>ls -l</code> on Procmail itself and associated files
+<li>	perhaps something like <code>df</code> to see what's mounted
+and where
+<li>	whatever else you think you are uncertain of or have
+reasons to doubt, such as the contents of some of 
+Procmail's built-in variables (what exactly was matched
+by the regex you have problems with? Try adding an 
+<code>\/</code> operator and examine what gets assigned 
+to <code>MATCH</code> [but do note that MATCHing modifies
+Procmail's longest-match behavior with certain 
+regular expressions])
+</ul>
+<p>
+See
+<a href="#envdump">the remarks on logging on the first half of this page.</a>
+<p>
+A very confusing misfeature is Procmail's inability to cooperate with
+csh-related shells. This is probably one of the most important reasons
+for problems which are not trivial to diagnose. Before you do anything
+else, put in <code>SHELL=/bin/sh</code> at the top of your
+<code>.procmailrc</code> file. Actually you should get in the habit
+of putting this at the start of all your Procmail scripts. As long
+as your login shell is not a csh or tcsh, you probably won't even notice
+the difference -- until you try to share your scripts with someone
+less fortunate.
+<h3>
+<a name="system-log">
+Do the system log files tell you anything?
+</a></h3>
+<p>
+The first place to check, if you have the permissions, is your
+system's log file. If you try to run Procmail and nothing happens,
+some sort of logging information is virtually certain to get
+written somewhere.
+<p>
+Unfortunately, not all admins feel comfortable leaving the log files
+readable to mortal users.
+<p>
+Also unfortunately, the locations of various log files are not
+very firmly standardized. Some places to look are <code>/var/log</code>
+or <code>/var/adm</code> -- if you have permission to look there.
+But the <b>syslog</b><i>(3)</i> interface documentation
+and/or the <b>syslogd</b><i>(8)</i> manual page
+should tell you what you need to know.
+<p>
+If Procmail doesn't have permission to do anything, it will spew
+something to the system console. On modern systems, console log
+messages will also be written to a file somewhere, typically something
+like <code>/var/log/messages</code>.
+<p>
+Sendmail usually logs every message it tries to deliver, either to
+its own log file (perhaps <code>/var/log/mail.log</code> or perhaps
+even into the regular <code>/var/log/messages</code> file)
+<p>
+As with all log files, you should probably have a look at them sometime
+just to get a feel for what's supposed to be there when the system is
+working.
+<h3>
+<a name="chmod">
+Check For Permission Problems
+</a></h3>
+<p>
+The permissions of the <code>.procmailrc</code> file
+need to be rather tight. <code>chmod 600 .procmailrc</code> is
+probably not a bad idea before you proceed with testing.
+<p>
+The same applies to <code>.forward</code>, if you need one.
+<p>
+Procmail 3.13 will also check the permissions on your home
+directory, and bail out if they are too lax (i.e. anybody who
+can write there can overwrite your <code>.procmailrc</code>
+with a sinister one).
+<p>
+(Incidentally, the most frequently asked question from Red Hat
+users recently has been "how come Procmail stopped working
+when I upgraded". Red Hat has group write permissions on
+everything, which is okay because each user is in her own
+group, but the guys who made the 3.13.1-1 RPM didn't bother
+to tell Procmail when they compiled it. See the
+<a href="../procmail/mini-faq.html#group-writable">FAQ</a>
+for a bit more on this.)
+<p>
+It's also a good idea to check for write permission in various
+other places; files which control what's supposed to happen
+should generally be writable only by owner, and directories
+where Procmail will need to write out logging information or
+mail will obviously need to be writable.
+<h3>
+<a name="trace">
+Desperation, Part II:
+Can You Run Procmail Under a Debugger?
+</a></h3>
+<p>
+Different Unix variants offer different tracing, debugging, and
+profiling programs, but usually something like a call tracer is
+available. (Not so under e.g. HP-UX, where the call tracing facility
+is powerful enough to be a security hole, and so it is usually
+made unavailable to mortal users.)
+<p>
+On Linux, look for <code>strace</code>.
+On SunOS/Solaris, try <code>truss</code>.
+On various BSD-derived systems, <code>trace</code> is probably
+the thing you're looking for.
+<p>
+Whatever it's called, by running Procmail (or any other program)
+via the call tracer, it executes as normal, but you also get a file
+(perhaps on standard error or standard output) with all the system
+calls made by the program you're tracing. That means, among other
+things, that you get to see which files it attempts to open and
+how and when it tries to allocate memory.
+<p>
+Like the headline suggests, this is for truly desperate situations
+(but fooling around with the call tracer just to familiarize yourself
+with the facility is probably time well spent).
+<p>
+If you are comfortable with a source debugger, compiling Procmail and
+single-stepping through the code can be a great way to understand the
+program.
+<h3>
+<a name="chat">
+Can You Talk to the MTA?
+</a></h3>
+<p>
+This might be too complicated for newbies, but nothing really
+beats a direct telnet to the SMTP port on the mail host.
+If you don't know the protocol, a brief overview of RFC821
+might be in place here -- it's by no means complicated.
+You want to understand <code>HELO</code>, <code>MAIL FROM</code>,
+<code>RCPT TO</code>, <code>VRFY</code>, <code>EXPN</code>. and 
+<code>QUIT</code>.
+<blockquote><pre>
+$ <b>telnet host.name.here 25</b>
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 host.name.here ESMTP Sendmail 8.8.5/8.8.0; Thu, 25 Mar 1999 16:29:52 +0200 (EET)
+<b>helo buddy</b>
+250 host.name.here Hello era@iki.fi [194.100.45.83], can you behave yourself?
+<b>vrfy era</b>
+550 era... User unknown
+<b>expn era</b>
+550 era... User unknown
+<b>quit</b>
+221 host.name.here closing connection
+Connection closed by foreign host.
+</pre></blockquote>
+<p>
+Of course, in this case, the host might simply have been configured
+to not reveal anything about its local users, in order to foil
+spammers and other abusers. You can try to actually type in a real
+mail message and see what kind of response to get, but at that
+point, it's probably already better to work with a couple of layers
+of convenient wrapping between yourself and the raw SMTP connection.
+<p>
+Here's a session which worked out better:
+<blockquote><pre>
+$ <b>telnet kantti.helsinki.fi 25</b>
+Trying 128.214.205.12...
+Connected to kantti.helsinki.fi.
+Escape character is '^]'.
+220 kantti.Helsinki.FI ESMTP Sendmail 8.8.8/8.8.5-SPAMmers-sod-off; Thu, 25 Mar 1999 16:39:18 +0200 (EET)
+<b>helo foo</b>
+250 kantti.Helsinki.FI Hello reriksso@tuuri.ling.helsinki.fi [128.214.78.4], pleased to meet you, unless you are a SPAMmer
+<b>expn reriksso</b>
+250 Era Eriksson &#60;"|ifs=' ' &#38;&#38; p=/etc/local/bin/procmail &#38;&#38; test -x $p &#38;&#38; exec $p -yf- || exit 75 #reriksso"@kantti.Helsinki.FI&#62;
+<b>quit</b>
+221 kantti.Helsinki.FI closing connection
+Connection closed by foreign host.
+</pre></blockquote>
+<h3>
+<a name="deliver">
+Talk to the MTA Some More
+</a></h3>
+<p>
+This is unfortunately specific to Sendmail and compatibles.
+Tips for other MTA:s will be gratefully accepted.
+<p>
+To see whether the MTA is willing to accept mail for the user 
+in question, you need to have shell access on the mailhost 
+and run this there:
+<blockquote><pre>
+	$ <b>sendmail -bv username</b>
+	username... deliverable: mailer local, user username
+</pre></blockquote>
+<p>
+If you get an answer mentioning a remote host name and so forth, 
+it means you are on the wrong host, and need to figure out where 
+the mail ultimately gets delivered.
+<p>
+<a name="sendmail-v">
+To actually try to deliver something and watch while Sendmail
+is doing it, try this:
+</a><blockquote><pre>
+	$ <b>sendmail -v username &#60;/dev/null</b>
+	username... Connecting to local...
+	username... Sent
+</pre></blockquote>
+<p>
+If there is an error, sendmail will be delivering a bounce message
+back to you using normal means.
+<p>
+Here is a more involved session, namely one involving a
+<code>.forward</code> file:
+<blockquote><pre>
+	$ <b>sendmail -v era &#60;/dev/null</b>
+	/home/era/.forward: line 1: forwarding to era@iki.fi
+	era@iki.fi... Connecting to mail.iki.fi. via esmtp...
+	era@iki.fi... Connecting to mail2.iki.fi. via esmtp...
+	220 taas.iki.fi ESMTP Sendmail 8.8.8/8.8.8; Thu, 25 Mar 1999 16:53:17 +0200 (EET)
+	&#62;&#62;&#62; EHLO away.lingsoft.fi
+	250-taas.iki.fi Hello era@away.lingsoft.fi [128.214.78.4], pleased to meet you
+	250-EXPN
+	250-VERB
+	250-8BITMIME
+	250-SIZE
+	250-DSN
+	250-ONEX
+	250-ETRN
+	250-XUSR
+	250 HELP
+	&#62;&#62;&#62; MAIL From:&#60;era@away.lingsoft.fi&#62;
+	250 &#60;era@away.lingsoft.fi&#62;... Sender ok
+	&#62;&#62;&#62; RCPT To:&#60;era@iki.fi&#62;
+	250 &#60;era@iki.fi&#62;... Recipient ok
+	&#62;&#62;&#62; DATA
+	354 Enter mail, end with "." on a line by itself
+	&#62;&#62;&#62; .
+	250 QAA26453 Message accepted for delivery
+	era@iki.fi... Sent (QAA26453 Message accepted for delivery)
+	Closing connection to mail2.iki.fi.
+	&#62;&#62;&#62; QUIT
+	221 taas.iki.fi closing connection
+</pre></blockquote>
+<p>
+(You should perhaps not try to deliver to a nonexistent user
+just to see what it looks like, unless you are the postmaster
+or know for a fact that the local postmaster will not also get
+a copy of the needless bounce message. Signed, been there,
+done that. Blush.)
+<p>
+There are numerous debugging options you can pass in to Sendmail
+in order to see -- even in excruciating detail -- what's going on
+at every stage of the delivery process. See the documentation
+for ideas.
+<h3>
+<a name="bounce">
+Do You Get a Bounce Message?
+</a></h3>
+<p>
+If things work out okay this far, chances are the problem is not
+with Procmail itself anymore. Some possibilities:
+<dl>
+<dt>	Procmail was compiled for the wrong architecture
+<dd>	You would see something like "unknown mailer error 1"
+in the bounce message if this is the case
+(but this message will of course vary between architectures)
+<dt>	Something in the <code>.procmailrc</code> file is wrong
+<dd>	If you get a log file, examining that should be helpful
+</dl>
+<p>
+If you get really desperate, you could always add various debugging aids
+to either the <code>.forward</code> file or to your <code>.procmailrc</code>,
+if things get as far as to actually starting up Procmail. The second
+alternative is vastly preferrable; logging diagnostics directly from the
+<code>.forward</code> file is always hairy.
+<p>
+A thread from the Procmail mailing list which touches on this briefly
+is at
+<a href="http://www.xray.mpe.mpg.de/mailing-lists/procmail/1997-09/msg00526.html">http://www.xray.mpe.mpg.de/mailing-lists/procmail/1997-09/msg00526.html</a>
+-- the mailing list will obviously have lots of other old threads
+about troubleshooting different scenarios; try a search for e.g. some
+string you get in the bounce message and see if you get any promising
+matches.
+<p>
+The first half of this page also has some
+<a href="#examining">remarks on logging.</a>
+<h2>
+<a name="links">
+Oh No, It's One of His Link Collections Again
+</a></h2>
+<p>
+The new Kernighan / Pike book has a
+<a href="http://cm.bell-labs.com/cm/cs/tpop/debugging.html">debugging chapter,</a>
+parts of which is available on-line.
+<p>
+If you thought this was boring, you'll hate the
+<a href="http://www.iki.fi/era/procmail/">Procmail FAQ</a>
+by yours truly. It comes with an even more boring
+<a href="http://www.iki.fi/era/procmail/links.html">even more extensive links page,</a>
+too.
+<p>
+And then there's
+<a href="http://www.procmail.org/">http://www.procmail.org/</a>
+and the
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/">searchable archive of the Procmail mailing list</a>
+where you can look for problems similar to your own.
+<hr>
+<small>
+$Id: procmail-debug.prep,v 1.25 1999/09/14 02:46:56 reriksso Exp $
+</small>
+
+</body>
+</html>

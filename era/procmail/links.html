@@ -1,0 +1,1447 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Procmail Links</title>
+<meta name="description" content="Resources related to Procmail, the Unix mail-processing utility">
+<meta name="keywords" content="procmail, mail processing, mail filtering, mail filters">
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Procmail Links</h1>
+<p>
+To keep the <a href="mini-faq.html">Procmail FAQ</a> at a manageable size, I've opted to list 
+only the most central web links in the FAQ itself. 
+This page, then, is more of a kitchen-sink collection. 
+<p>
+The URL of this page is 
+<a href="http://www.iki.fi/era/procmail/links.html">http://www.iki.fi/era/procmail/links.html</a>
+and it is mirrored at the following sites:
+<dl>
+<dt> North America
+<dd>
+<a href="http://mirror.ncsa.uiuc.edu/procmail-faq/">http://mirror.ncsa.uiuc.edu/procmail-faq/</a>
+<dd>
+<a href="http://n.base.org/procmail/links.html">http://n.base.org/procmail/links.html</a>
+<dd>
+<a href="http://www.moongroup.com/docs/procmail/">http://www.moongroup.com/docs/procmail/</a>
+<dd>
+<a href="http://www.linuxguru.com/docs/faq/procmail/">http://www.linuxguru.com/docs/faq/procmail/</a>
+<dt>	Europe
+<dd>
+<a href="http://www.xs4all.nl/~sister/mirror/procmail/">http://www.xs4all.nl/~sister/mirror/procmail/</a>
+</dl>
+<p>
+Please use a mirror if you can.
+<h2>
+<a name="toc">
+Table of Contents
+</a></h2>
+<ul>
+<li>
+<a href="#central">Central Information</a>
+(links to the Procmail package itself, documentation, etc)
+<ul>
+<li>
+<a href="#collections">Other Procmail Link Collections</a>
+</ul>
+<li>
+<a href="#tutorials">Procmail Tutorials</a>
+(introductory texts and "howto" documents)
+<li>
+<a href="#pearls">Pearls from the Mailing List</a>
+<li>
+<a href="#applications">Procmail Applications</a>
+(various library files or systems implemented in Procmail)
+<ul>
+<li>
+<a href="#antispam">Spam-Fighting Tools</a>
+(this must be one of the most widespread uses of Procmail)
+<ul>
+<li>
+<a href="#netabuse">Net Abuse / Spam-Fighting Resources</a>
+(stuff without a direct Procmail connection,
+but perhaps useful for filtering spam)
+</ul>
+</ul>
+<li>
+<a href="#utilities">Procmail Utilities</a>
+(tools for summarizing log files, enhancing Procmail's functionality, etc)
+<li>
+<a href="#examples">Procmail Pages of the Rich and Famous</a>
+(example <code>.procmailrc</code> files, musings on mail filtering, etc)
+<li>
+<a href="#tangential">Tangential Information</a>
+<ul>
+<li>
+<a href="#prerequisites">Introductory Material</a>
+(primarily about Unix mail handling;
+check out these links if all this other stuff looks like Klingon to you)
+<li>
+<a href="#standards">Related Internet RFC:s</a>
+(standards documents specifying various mail-related protocols etc)
+<li>
+<a href="#other">Other Assorted Information</a>
+<ul>
+<li>
+<a href="#faqs">Various FAQs</a>
+(useful e-mail tricks, FAQs for various e-mail programs and protocols)
+<li>
+<a href="#links">Other Related Documents and Link Collections</a>
+(filtering theory; more mail and RFC-related stuff; manual pages&nbsp;...)
+<li>
+<a href="#usenet">Usenet</a>
+(newsgroups of interest)
+<li>
+<a href="#competition">Competing Efforts</a>
+(other filtering programs for Unix and other platforms)
+</ul>
+</ul>
+</ul>
+<p>
+You will also doubtlessly find a few broken links. 
+Please <a href="http://www.iki.fi/era/feedback.html">mail me</a> about those so I can fix them, 
+for the surfing pleasure of coming generations. 
+<p>
+<small>
+Version information:
+<br>
+$Id: links.prep,v 1.279 2001/04/03 06:39:19 era Exp $
+<br>
+The
+<a href="links-versions.html">version history</a>
+details recent developments
+</small>
+<hr>
+<h2>
+<a name="central">
+Central information
+</a></h2>
+<p>
+Just to keep this link collection reasonably self-contained, 
+here is a fleshed-out repeat of the central links mentioned in the FAQ itself. 
+<p>
+I also try to include links to "competing" link collections. 
+I do not wish to hijack information from other sites and thus
+I hope you will check out what these other collections have to
+offer. 
+Please <a href="http://www.iki.fi/era/feedback.html">mail me</a> if you have links to other collections you 
+think I should include.
+<ul>
+<li>
+For completeness' sake, a link back to my attempt at a <a href="mini-faq.html">Procmail FAQ</a>
+and to a 
+<a href="quickref.html">Procmail Quick Reference</a>
+(which is still a beta version, but hopefully useful to somebody).
+<li>
+An official home page for Procmail is being developed at
+<a href="http://www.procmail.org/">http://www.procmail.org/</a>
+<ul>
+<li>
+<a name="mirrors">
+The source is also available from the following sites
+(get the newest version; definitely avoid 3.10.)
+</a>
+<ul>
+<li>
+<a href="ftp://ftp.psg.com/pub/unix/procmail/">ftp://ftp.psg.com/pub/unix/procmail/</a>
+<li>
+<a href="ftp://ftp.ucsb.edu/pub/mirrors/procmail/">ftp://ftp.ucsb.edu/pub/mirrors/procmail/</a>
+<li>
+<a href="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/</a>
+<li>
+<a href="ftp://ftp.fu-berlin.de/pub/unix/mail/procmail/">ftp://ftp.fu-berlin.de/pub/unix/mail/procmail/</a>
+<br>
+<a href="ftp://ftp.fu-berlin.de/pub/unix/mail/smartlist/">ftp://ftp.fu-berlin.de/pub/unix/mail/smartlist/</a>
+<li>
+<a href="ftp://ftp.net.ohio-state.edu/pub/networking/mail/procmail/">ftp://ftp.net.ohio-state.edu/pub/networking/mail/procmail/</a>
+<li>
+<a href="ftp://ftp.fdt.net/pub/unix/packages/procmail/">ftp://ftp.fdt.net/pub/unix/packages/procmail/</a>
+<li>
+<a href="ftp://ftp.tamu.edu/pub/mirrors/procmail/">ftp://ftp.tamu.edu/pub/mirrors/procmail/</a>
+<li>
+<a href="ftp://ftp.kfki.hu/pub/packages/mail/procmail/">ftp://ftp.kfki.hu/pub/packages/mail/procmail/</a>
+<li>
+<a href="ftp://giswitch.sggw.waw.pl/pub/unix/procmail/">ftp://giswitch.sggw.waw.pl/pub/unix/procmail/</a>
+<li>
+<a href="ftp://ftp.solarisguide.com/pub/procmail/">ftp://ftp.solarisguide.com/pub/procmail/</a>
+<li>
+<a href="ftp://ftp.win.ne.jp/pub/network/mail/procmail/">ftp://ftp.win.ne.jp/pub/network/mail/procmail/</a>
+<li>
+<a href="http://www.ring.gr.jp/archives/net/mail/procmail/">http://www.ring.gr.jp/archives/net/mail/procmail/</a>
+<li>
+<a href="ftp://ftp.ring.gr.jp/pub/net/mail/procmail/">ftp://ftp.ring.gr.jp/pub/net/mail/procmail/</a>
+<li>
+<a href="ftp://ftp.stealth.net/pub/mirrors/ftp.procmail.org/pub/procmail/">ftp://ftp.stealth.net/pub/mirrors/ftp.procmail.org/pub/procmail/</a>
+</ul>
+<li>
+A snapshot of the in-development sources is updated daily at
+<a href="http://www.procmail.org/procmail-snapshot.tar.gz">http://www.procmail.org/procmail-snapshot.tar.gz</a>
+<li>
+There is also a
+<a href="http://www.procmail.org/todo.html">todo list</a>
+with plans for future releases.
+<li>
+If you are interested in the development of the next version,
+you might also want to
+<a href="mailto:procmail-dev-request@cuci.nl?subject=subscribe">subscribe to the <code>procmail-dev</code> mailing list.</a>
+</ul>
+<li>
+The Procmail mailing list is a valuable resource and shock-full
+of helpful and knowledgeable people. 
+<a href="listhelp.txt">General help and subscribe/unsubscribe instructions are available </a>
+(actually this is the standard SmartList blurb).
+There is also a (slightly tongue-in-cheek [NOT])
+Unsubscribe FAQ by Sean Straw at
+<a href="http://www.professional.org/procmail/unsubscribe.html">http://www.professional.org/procmail/unsubscribe.html</a>
+and a brief introduction to the various
+Procmail and SmartList-related mailing lists at
+<a href="http://www.procmail.org/era/lists.html">http://www.procmail.org/era/lists.html</a>
+<a href="lists.html"><small>(local mirror)</small></a>
+<br>
+The list discussions are archived in part or in full at least
+at the following sites:
+<ul>
+<li>
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail">Achim Bohnet's HyperMail archive</a>
+is definitely the most popular. Probably it's also the most
+complete, going back to October 1995.
+<li>
+<a href="http://styra.lidac.liu.se/~bive/listor/">Link&ouml;ping University's MHonArc archive</a>
+has a partial archive.
+<li>
+If you try searching on Alta Vista, there's 
+an obnoxious archive at 
+<a href="http://alt.venus.co.uk/">http://alt.venus.co.uk/</a>
+which gives loads of hits but which never really seems to be up.
+</ul>
+If you are unable or unwilling to use the WWW archives, 
+try to find a web-to-mail server (see the 
+<a href="#useful-e-mail">"useful things by e-mail" links below)</a>
+you can use. The Procmail listserv only stores a limited
+number of the most recent messages. (If that's what you want,
+mail the
+<a href="mailto:procmail-request@informatik.rwth-aachen.de?subject=help">mailing list server</a>
+with the word "help" in the <code>Subject:</code> line
+and you'll get 
+<a href="archive.txt">[somewhat terse] instructions</a>
+for how to access the archive by e-mail.)
+<ul>
+<li>
+The
+<a href="#pearls">"Pearls" section below</a>
+has some good tips from the mailing list.
+<li>
+The <a href="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/best%5Fof%5Fprocmail%5Flist.gz">Best of Procmail archive</a> compilation contains a wealth of
+good tips (although some of them are wearing a bit old, 
+the archive being from 1995. There's a
+<a href="http://members.xoom.com/procmail/best-of-procmail-list/">surfable mirror in the Mirror Cupboard</a>
+but it lacks an index and a search engine).
+<li>
+Jari Aalto has gathered
+<a href="http://www.procmail.org/jari/pm-tips.html">his own "best of" compilation</a>
+in one big happy HTML file (a 
+<a href="http://www.procmail.org/jari/pm-tips.txt">text version also available).</a>
+See also
+<a href="#ssjaaa">Jari's entry in the Rich and Famous section.</a>
+</ul>
+<li>
+<a name="manpages">
+Online copies of the Procmail manual pages are available from many places.
+You can probably find a multitude of sites with a web-based manual page
+server which have the Procmail pages -- try
+</a><a href="http://www.altavista.digital.com/cgi-bin/query?what=web&amp;text=yes&amp;q=%2B%22autonomous+mail+processor%22+%2B%22autoforwarding+mailbox+found%22&amp;pg=q">this Alta Vista search</a>
+or look at my crude text-only local copies from the 3.11pre7 distribution
+(the various <tt>man2html</tt> hits you'll get on Alta Vista 
+are not necessarily or even likely for the newest version):
+<ul>
+<li>
+<a href="procmail.0"><tt>procmail(1)</tt></a>
+<li>
+<a href="procmailex.0"><tt>procmailex(5)</tt></a>
+<li>
+<a href="procmailrc.0"><tt>procmailrc(5)</tt></a>
+<li>
+<a href="procmailsc.0"><tt>procmailsc(5)</tt></a>
+<li>
+<a href="formail.0"><tt>formail(1)</tt></a>
+<li>
+<a href="lockfile.0"><tt>lockfile(1)</tt></a>
+</ul>
+<li>
+I keep some files from the Procmail distribution underneath this web page
+for easy reference: 
+<dl>
+<dt>
+<a href="faq.html">FAQ</a>
+<dd>
+(that's the locally made HTML version; the
+<a href="faq.txt">text-only original</a>
+is also here);
+<dd>
+Frequently Asked Questions, Stephen van den Berg's original FAQ.
+Mostly addresses compilation and getting started.
+<dt>
+<a href="README"><code>README</code></a>
+<dd>
+Mostly lists compelling reasons to install Procmail :-)
+<dt>
+<a href="HISTORY"><code>HISTORY</code></a>
+Version history for Procmail, incomplete
+<dt>
+<a href="INSTALL"><code>INSTALL</code></a>
+<dd>
+Installation notes
+<dt>
+<a href="advanced"><code>examples/advanced</code></a>
+<dd>
+Discusses the following administrative issues:
+<ul>
+<li>	Shared home directories in a diverse environment
+<li>	Installing Procmail as your site-wide MDA
+(with Sendmail, ZMailer, smail, or mailsurr)
+<li>	Changing the mail spool directory for all users
+<li>	Security considerations
+</ul>
+</dl>
+<li>
+Some of the stuff here is (experimentally) mirrored at the (experimental)
+<a href="http://members.xoom.com/procmail/">Procmail Mirror Cupboard.</a>
+</ul>
+<h3>
+<a name="collections">
+Other Procmail Link Collections
+</a></h3>
+<p>
+So far, only a handful. Please <a href="http://www.iki.fi/era/feedback.html">mail me</a> if you learn about others.
+<dl>
+<dt>
+<a href="http://www.procmail.org/">http://www.procmail.org/</a>
+<dd>
+The official Procmail site will naturally have a collection of related links
+(small but focused; I believe all of them are also in this collection,
+though).
+<dt>
+<a href="http://www.ii.com/internet/robots/procmail/">Infinite Ink's Procmail Page</a>
+<dd>
+This is a good switchboard site with links to all sorts 
+of Procmail-related stuff. Again, in the below listing, I have tried to 
+avoid duplicating links which are already available from 
+the Infinite Ink page. Check it out. 
+<dt>
+<a href="http://www.spamfree.org/resources/procmail.html">FREE's Procmail Anti-Spam Links</a>
+<dt>
+The
+<a href="http://directory.mozilla.org/">Open Directory Project's</a>
+matches on
+<a href="http://directorysearch.mozilla.org/cgi-bin/search?search=procmail">Procmail</a>
+constitute a good virtual link collection. The bulk of it is in their
+<a href="http://directory.mozilla.org/Computers/Software/Internet/Clients/Mail/Unix/Procmail/">Procmail category.</a>
+<dt>
+<a href="http://www.yahoo.com/">Yahoo</a>
+has a similar directory, but it's IMHO not as well maintained.
+<a href="http://search.yahoo.com/bin/search?p=procmail">Still, try a search on "Procmail".</a>
+</dl>
+<p>
+You can probably find some other useful sites by starting with this
+<a href="http://www.altavista.digital.com/cgi-bin/query?pg=q&amp;text=yes&amp;q=%2bprocmail+%2dhost%3adigiweb%2ecom+%2dhost%3auiuc%2eedu+%2dhost%3admt%2ecsiro%2eau+%2dhost%3amiranova%2ecom+%2dhost%3alidac%2eliu%2ese+%2dhost%3adigiweb%2eie+%2dhost%3avenus%2eco%2euk+%2dhost%3ampg%2ede+%2dhost%3akiruna%2ese+%2dhost%3awww%2eredhat%2ecom">canned Alta Vista search for "procmail".</a>
+<br>
+This merely attempts to strip out sites which have archives of the
+Procmail mailing list and/or otherwise a lot of Procmail material, on 
+the theory that if you've looked around a little bit you will already
+have seen the stuff they can offer. What is left then is a very disparate
+collection of lone Procmail-related pages
+(presently, some 3,000 hits). 
+<br>
+In and of itself, this is not particularly useful; you should
+refine the search to suit your needs before you actually use it. 
+<br>
+(Of course, in many situations, the mailing list archives contain
+exactly the stuff you're looking for. This one is primarily useful if
+you've been reading the Procmail mailing list yourself and are
+looking for information you know is not in the archives. I managed to
+find a couple of the Rich and Famous pages and a few of the tutorials
+using variants of this. Caveat Utilitor: A lot of the stuff you find
+will be very old.)
+<h2>
+<a name="tutorials">
+Procmail Tutorials
+</a></h2>
+<p>
+There are several good tutorials for Unix newbies, although many of them 
+are more or less tied to the site where they were written. For the most 
+part, these tutorials do not presuppose a lot of knowledge about Unix
+or mail handling on Unix.
+<p>
+None of the material in the "howto" section is exactly rocket science, 
+either -- let's just say it contains a lot less of this "pause now
+if your head hurts already" nonsense.
+<p>
+If you're only interested in spam filtering, check out the
+<a href="#antispam">spam-fighting section</a>
+below instead.
+<ul>
+<li><b>Newbie-level material</b>
+<br>
+Many of the documents towards the end of this list
+contain some minor glitches or inaccuracies. 
+But they all have their merits when it comes to 
+presenting the issues, and none of the examples
+should be dangerous or anything.
+(You might want to check out the
+<a href="mini-faq.html#efficiency">pitfalls section of the FAQ</a>
+for some typical problems if you'd like to try to figure out 
+where they go wrong.)
+<ul>
+<li>
+Infinite Ink's
+<a href="http://www.ii.com/internet/robots/procmail/qs/">Procmail Quick Start</a>
+is a nice Procmail tutorial 
+and has a good discussion of general issues.
+This used to be part of the older "Filtering Mail FAQ" which is
+still available from the same site as well.
+<li>
+<a href="jimd.html">A tutorial by Jim Dennis</a>
+walking you through how to refuse mail from certain addresses, 
+touching upon other "standard" uses of Procmail along the way
+-- by and large an early version of
+<a href="http://www.ssc.com/lg/issue14/procmail.html">Linux Gazette's "Mini-Tutorial",</a>
+also by Jim Dennis
+<br><small>(approx. 20 k)</small>
+<li>
+Catherine A. Hampton's 
+<a href="http://www.spambouncer.org/proctut.shtml">"Getting Started with Procmail"</a>
+<li>
+<a href="http://www.inwa.net/~m3047/procmail/procmail-guide.html">Halcyon's Procmail Guide</a>
+is a good introduction if you're familiar with Unix basics
+<li>
+Ian Sobroff's 
+<a href="http://www.gl.umbc.edu/~ian/procmail.html">Procmail How-To Page</a>
+at the UMBC
+or the
+<a href="http://www.umbi.umd.edu/computing/procmail.html">close derivative</a>
+on another Maryland server
+<li>
+Joe Gross's tutorial seems to have disappeared from the Net but
+<a href="http://members.xoom.com/procmail/uiuc/">the Mirror Cupboard has a copy</a>
+<li>
+<a href="http://www.math.uiuc.edu/consult/use&nbsp;system/email/filter.html">Another UIUC page</a>
+<li>
+<a href="http://is.dal.ca/~infowww/notes/procmail.html">Procmail with Pine</a>
+for Dalhousie University
+<br>(warning: terribly Netscape-dehanced page design)
+<li>
+<a href="http://brown.digiweb.com/support/help/procmail.html">Digiweb's Procmail</a>
+page,
+<a href="http://www.mclsys.com/digiboard/email.htm">Tony McLaughlin's Email Page,</a>
+and
+the venerable
+<a href="http://home1.inet.tele.dk/nsa/proc/">!@&#191;&amp;ing&nbsp;Procmail!!!</a>
+<li>
+Oh, and
+<a href="http://www.iki.fi/era/">yours truly</a>
+has written a little
+<a href="http://www.iki.fi/era/mail/procmail-presentation.html">Introduction to Procmail,</a>
+too.
+</ul>
+<li><b>Brief howto-type documents</b>
+<ul>
+<li>
+<a href="http://ssil.uoregon.edu/~trenton/autopage/page7547.html">Phil Edwards</a>
+walks you through reading the man pages <code>:-)</code>
+<br>
+<small>
+[The formatting of this page is funny; look at the HTML source instead]
+</small>
+<li>
+<a href="tony.html">An example / cookbook message cooked up by Tony Nugent</a>
+covering somewhat more advanced techniques, including MIME decoding,
+stripping of PGP headers and .signatures, and eliminating duplicate
+messages.
+<br><small>(roughly 7 k)</small>
+<li>
+Samuel Mikes has written a 
+<a href="http://www.cs.hmc.edu/~smikes/emacs/vm-procmail.html">FAQ about using Procmail with VM,</a>
+the Emacs mail reader. Probably worth a look even if you wonder about 
+interfacing Procmail with some other Emacs mail mode.
+<li>
+Concordia University has a
+<a href="http://alcor.concordia.ca/topics/email/auto/procmail/">Procmail intro</a>
+with a heavy slant towards rejecting spam and other unwanted mail. 
+<li>
+<a href="http://www.inet-images.com/support/autoresponder.html">Internet Images Worldwide</a>
+has a short but very concise example of an autoresponder setup.
+<li>
+<a href="http://www.homeport.org/~adam/akr.html">Adam Shostack's PGP Automatic Key Retrieval script</a>
+<li>
+Adam Megacz has
+<a href="http://www.megacz.com/mail.setup.html">a page which explains domain routing with Procmail</a>
+(and without, too, to some extent)
+for people with their own little domain name
+and a cooperative but busy upstream provider.
+</ul>
+</ul>
+<p>
+See also the next section, "Pearls from the Mailing List",
+for some practical examples of how to accomplish slightly
+tricky things with Procmail.
+<p>
+The Procmail pages in the
+<a href="#examples">"Rich and Famous" section (below)</a>
+also contain suitable working examples, including several 
+approaches to refusing junk mail, vacation recipes, 
+ftp-by-mail servers, etc. 
+<p>
+The
+<a href="mini-faq.html">Mini-FAQ</a>
+basically assumes you are somewhat familiar with the manuals
+and with "normal" stuff people do with Procmail. It does have
+an introductory section, though, and some tips for debugging 
+your recipes.
+<h2>
+<a name="pearls">
+Pearls from the Mailing List
+</a></h2>
+<p>
+Here's a collection of pointers to good articles in the on-line
+archives of the Procmail mailing list.
+<p>
+Many of these are answers to recurring questions, but above all,
+all of them should be worth a look simply because they are good
+examples of coding style and problem solving.
+(Dsiclaimer: Okay, maybe not my own&nbsp;<code>:-)</code>
+<p>
+The archive server doesn't always manage to find all messages in
+a thread, so if you get the feeling you are missing part of the
+picture, you may want to dive up to the "Thread Index" for the
+month you are looking at, and look for related messages.
+<dl>
+<dt>
+<a name="match">
+MATCH grabbing
+</a><dd>
+This is a useful trick to add to your toolbox.
+Frequently, people use something like
+<code>SUBJECT=`formail -XSubject:`</code>
+when they would not need to call an external program
+at all.
+It's a simple optimization, although understanding
+the syntax is a bit challenging if you haven't
+worked a lot with Procmail's advanced constructs.
+<dd>
+The FAQ has a
+<a href="mini-faq.html#pass-envar">short aside about this topic</a>
+but you might want to look at the following
+treatment of the subject from the mailing list:
+<dd>
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/2000-02/msg00232.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/2000-02/msg00232.html</a>
+(but do read the entire thread)
+<dt>
+<a name="pager">
+Forwarding to a pager
+</a><dd>
+One of David Tamkin's classics; his
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-03/msg00200.html">pager forwarding recipe.</a>
+(You might also want to look at
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-12/msg00125.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-12/msg00125.html</a>
+which is about chunking a long message into shorter pieces for a pager.
+Another thread is at
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-07/msg00167.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-07/msg00167.html</a>
+with some additional ideas about chunking messages.
+The archive missed some follow-ups; look at the threaded index for
+cues. Also check out the thread
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-07/msg00325.html">"Condition with BODY length?")</a>
+<dt>
+<a name="copy-header">
+How to reply with a copy of the headers you are replying to
+</a><dd>
+Another pearl by David: a <code>sed</code> script for sending
+bounces which include the headers of the bounced message
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1996-09/msg00071.html">(version 1</a>
+and
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-02/msg00203.html">version 2)</a>
+<dt>
+<a name="count-recipients">
+Counting the number of recipients
+</a><dd>
+A frequently wanted item from the archives is the Canonical Recipe for
+Counting the Number of Recipients. This is trickier than it seems at
+first because you have to use <code>Resent-</code> headers if they
+are present, and try to parse out the actual addresses from each line.
+This version was mostly hashed out by David Tamkin and Philip Guenther.
+A summarized version is at
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-08/msg00073.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-08/msg00073.html</a>
+<dt>
+<a name="external-file">
+Keeping a list of spammers (or other addresses) in a file
+</a><dd>
+Another one from the archives, on how to keep your spammers list in 
+an external file which Procmail reads
+(by yours truly, no less <code>:^)</code>:
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-12/msg00100.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-12/msg00100.html</a>
+<dd>
+Here's a slightly different tack on the same topic:
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1999-03/msg00115.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1999-03/msg00115.html</a>
+-- this is more about keeping stuff in lists than about spammers.
+<dd>
+And here's a posting specifically about killfiling mail from certain
+people -- not particularly spammers:
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/2000-02/msg00231.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/2000-02/msg00231.html</a>
+<dt>
+<a name="cron-notify">
+Sending a periodic notification about new mail
+</a><dd>
+And here's a thread where David Tamkin and Bennett Todd develop
+a method for sending a notification when there's new mail, but
+only send one notification per day (or whatever period you choose):
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-12/msg00007.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-12/msg00007.html</a>
+(read the follow-ups, too -- notice
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1998-12/msg00013.html">this one, by Rik Kabel, as well.)</a>
+<dt>
+<a name="signature">
+Trimming signatures
+</a><dd>
+David Tamkin's take on trimming long <code>.signature</code> blocks:
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-05/msg00683.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-05/msg00683.html</a>
+... and an older sketch by yours truly:
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1996-09/msg00028.html">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1996-09/msg00028.html</a>
+</ul>
+<p>
+There's an old archive file called "Best of the Procmail List"
+which is still available from the Procmail distribution sites.
+<a href="#ssjaaa">Jari's Procmail Tips page</a>
+started out as a condensed (and later, expanded&nbsp;<code>:-)</code>
+version of that file.
+<hr>
+<h2>
+<a name="applications">
+Procmail Applications
+</a></h2>
+<p>
+This section includes some good examples of more-complicated 
+mail processing systems and library files.
+Many of these are systems you can install and 
+use without delving into the details of how they work or
+even necessarily learning how to use Procmail on its own. 
+<p>
+Again, some of the 
+<a href="#examples">"Rich and Famous" pages below</a>
+would fit in this category, too.
+<dl>
+<dt>
+<a name="aks">
+Alan Stebbens' Procmail library
+</a><dd>
+This is a collection of
+"jigsaw pieces" 
+-- smallish Procmail scriptlets -- 
+for building an advanced mail handling system.
+Just install the whole package and use the parts you want;
+the examples include an autoresponder and an 
+"ftp by mail" system. 
+<dd>
+You can get it by e-mail from Alan's Mailer Daemon at 
+<a href="mailto:alan.stebbens@software.com?Subject=send procmail library"><tt>alan.stebbens@software.com</tt></a>
+(use the Subject line "send procmail library" 
+-- without the quotes, of course)
+or get a
+<a href="http://members.xoom.com/procmail/aks-lib/">mirrored copy from the "Procmail Mirror Cupboard"</a>
+on Xoom.
+<dt>
+<a name="pm-code">
+Jari Aalto's Procmail library
+</a><dd>
+Like the previous item, this contains a number of
+small plug-in functions you can call from your own scripts.
+Included are a MIME attachment killer/extractor, an autoresponder which
+requires the correspondent to know a secret cookie before it will
+respond, a parser for different kinds of dates, and a lot more.
+<dd>
+The primary location for this is now
+<a href="http://www.procmail.org/jari/">http://www.procmail.org/jari/</a>
+<dt>
+SmartList
+<dd>
+This must be the prime example of a Procmail application 
+in widespread use. 
+It is a mailing list server (a la Listproc and Majordomo) 
+written entirely in the form of Procmail scripts. 
+<dd>
+Available from the <a href="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">main Procmail site</a> and mirrors.
+<dd>
+Here's 
+<a href="http://www.attention.com/smartlist1.html">a copy of the <tt>INTRO</tt> file.</a>
+You can find more information in the SmartList distribution.
+You'll also want to check out the
+<a href="http://www.hartzler.net/smartlist/SmartList-FAQ.html">SmartList FAQ</a>
+which is now maintained by Peter Hartzler.
+<dt>
+Procmail with Perl embedded
+<dd>
+This is a somewhat experimental offering by Eli the Bearded.
+<dd>
+Available from
+<a href="ftp://ftp.netusa.net/users/eli/procmail3.11p7-perl.tar.gz">ftp://ftp.netusa.net/users/eli/procmail3.11p7-perl.tar.gz</a>
+</dl>
+<h3>
+<a name="antispam">
+Spam-Fighting Tools
+</a></h3>
+<p>
+Procmail makes for a very nice framework for filtering spam,
+although your provider should also offer other front-line
+defenses such as total blocking of all connections from
+known spam factories.
+<p>
+If you are merely looking for a way to put Procmail to use
+for blocking unwanted mail,
+it's probably best to simply download one of the prepackaged
+solutions listed here. 
+<p>
+Check out the link to Leah Roberts' link site 
+<a href="#collections">above.</a>
+Most of the below sites are listed there, and some other useful ones
+as well.
+<ul>
+<li>
+<a href="ftp://ftp.netcom.com/pub/wj/wje/release/sg-howto">Spamgard(tm),</a>
+a password-based spam deflector by Bill Evans.
+<li>
+Catherine A. Hampton's
+<a href="http://www.spambouncer.org/">Spam Bouncer</a>
+both bounces and auto-replies to unwanted mail.
+<li>
+Gregory Sutter's
+<a href="http://www.pobox.com/~gsutter/junkfilter/">junkfilter</a>
+reportedly catches 90-95% of the author's spam.
+<li>
+<a href="http://www.css.tayloru.edu/~bbell/spam-filter">Bob's Spam Filter</a>
+comes with a pretty good introduction on setting up Procmail.
+<li>
+Steven Tucker's
+<a href="http://www.nacs.net/~classics/procmail/">spamkill filter </a>
+is easy to configure even without learning Procmail's language.
+<li>
+The Simple Procmail Anti-Spam Template, or
+<a href="http://www.netnerds.net/spast/">SPAST</a>
+by Chrissy LeMaire,
+allows you to filter on keywords in files. Not the best possible approach,
+but it makes it easy to get started.
+<li>
+Another package is 
+<a href="ftp://boombox.micro.umn.edu/pub/spamtrap/">Spamtrap</a>
+by Farhad Anklesaria, who describes it thus:
+"nothing startlingly new here, just a convenient package that we are
+using and that anyone else is welcome to."
+<li>
+<a href="http://www.css.tayloru.edu/~bbell/spam-filter">Bob's Spam Filter</a>
+is pretty much run-of-the-mill, and requires some slight adaptation,
+but it's simple and straightforward.
+<li>
+Walter Dnes'
+<a href="http://www.interlog.com/~waltdnes/spamdunk/spamdunk.htm">Spamdunk</a>
+is intended for Procmail newbies (and incidentally his pages include
+a nice
+<a href="http://www.interlog.com/~waltdnes/spamdunk/regexp.htm">regular expression primer</a>
+for the Unix challenged).
+<li>
+Timo Salmi has created a passwording 
+<a href="http://www.uwasa.fi/~ts/info/spamfoil.html">"spamfoil" filter</a>
+which comes with extensive comments
+(mostly geared towards newbies).
+<li>
+You might also want to check out
+John Hardin's
+<a href="ftp://ftp.rubyriver.com/pub/jhardin/antispam/procmail-kit.html">"anti-spam-and-other-garbage rules" package.</a>
+This also has a very informative companion page, called
+<a href="ftp://ftp.rubyriver.com/pub/jhardin/antispam/procmail-security.html">"Enhancing E-Mail Security with Procmail".</a>
+<li>
+<a name="nocem-e">
+Don Doumakes has implemented
+</a><a href="http://www.novia.net/~doumakes/abuse/">NoCeM for E-mail,</a>
+a rather novel concept; when you come up with a good Procmail
+recipe, you PGP sign it and send it off to a <tt>nocem-e</tt>
+mailing list. 
+<br>
+On the receiving end, you have software to automatically add recipes
+from people you trust, with the option to add recipes from other
+people manually.
+<ul>
+<li>
+To subscribe to Don's list, see the instructions on
+<a href="http://www.novia.net/~doumakes/abuse/">his Abuse page.</a>
+(Don's page also has many links to non-Procmail spam tools.)
+<li>
+Dougal Campbell has started up a general 
+<a href="http://spam.gunters.org/nen-list.html"><tt>nocem-e-notices</tt> mailing list</a>
+<li>
+[The original NoCeM is for Usenet and works rather differently; 
+<a href="http://www.cm.org/">http://www.cm.org/</a>
+has an introduction and some tools.]
+</ul>
+(Beta.) 
+<li>
+<a href="http://spam.abuse.net/tools/forrep">forrep,</a>
+a script by Doug Muth which uses Formail to pick out appropriate
+complaint addresses from a spam message.
+The above link is to an old version which used <code>formail</code>;
+the newest version uses only <code>sh</code> and is available at
+<a href="http://www.claws-and-paws.com/unix/forrep.sh.html">http://www.claws-and-paws.com/unix/forrep.sh.html</a>
+<li>
+<a href="http://www.rdrop.com/users/billmc/adcomplain.html">adcomplain</a>
+is a similar script by Bill McFadden.
+<li>
+<a href="http://cliffs.ucsd.edu/terry/spamometer/">spamometer,</a>
+a Perl script by Terry Jones for determining if a message is spam 
+(or rather, actually, a framework for hooking up your own spam-detecting
+Perl functions).
+</ul>
+<h4>
+<a name="netabuse">
+Net Abuse / Spam-Fighting Resources
+</a></h4>
+<p>
+The following links don't necessarily have a lot with Procmail to do,
+but may be useful to you if you are looking for more information 
+about spam, or filtering lists you can use, etc
+<ul>
+<li>
+Spam links
+<ul>
+<li>
+<a href="http://spam.abuse.net/">Fight Spam on the Internet!</a>
+<br>
+This is not really all you need to know about spam 
+and net.abuse but it's a good start and has some good 
+forward links. 
+<li>
+<a href="http://www-fofa.concordia.ca/spam/web.html">Concordia University's spam links</a>
+are definitely worth a look, too. 
+(Quite a few Procmail-related links, by the way.)
+</ul>
+<li>
+Spam recipe collections
+<br>	Many sites publish their own lists of 
+blocked domains which you can download and use in your own 
+Procmail recipes. Due to the nature of the problem,
+blacklists grow outdated fairly quickly nowadays, but
+some of these contain other useful stuff too:
+<ul>
+<li>
+<a href="http://alcor.concordia.ca/topics/email/auto/procmail/spam/">Concordia University</a>
+<br>
+A collection of recipes; there are various cocktails to choose from,
+including the best of the others listed below.
+<li>
+<a href="http://www.cs.cuc.edu/~sopwith/nospam/"><tt>spamkiller</tt></a>
+by Elliot Lee has a similar combo, which includes a copy of AOL's
+(old) filters, an (old) Cyberpromo filter, and some additional stuff.
+<li>
+<a href="http://www.panix.com/rc.shared"><tt>panix.com</tt></a>
+<li>
+<a href="http://www.rahul.net/dhesi/nojunk.txt"><tt>rahul.net</tt></a>
+(not Procmail-compatible out of the box -- 
+does anybody have a good conversion script?)
+<li>
+<a href="http://www.telebyte.com/stopspam/">Telebyte</a>
+with their local installation instructions and a 
+broad selection of scripts to pick and choose from
+<li>
+<a href="http://members.aol.com/macabrus/"><code>macabrus@aol.com</code></a>
+maintains various FAQs with lots of useful addresses and IP numbers
+you can use. 
+<li>
+<a href="http://www.vortex.com/mailblock.html">Vortex.com</a>
+makes available their list of <code>smtpd</code> blocked sites.
+This should be rather easy to transform into a set of
+Procmail recipes.
+<li>
+<a href="http://www.netaxs.com/people/spamkill/howto.html">Net Access' UCE filter</a>
+has some brief instructions for how to set up a spam filter of
+your own. This assumes you have already set up Procmail and understand
+a bit of how it works. (You'll also probably want to request a copy of
+Net Access' own filtering rules.)
+<li>
+<a href="http://www.telerama.com/">Telerama</a>
+have a 
+<a href="http://www.lm.com/procmail-sample.txt">simple score-based filter </a>
+which they offer as a model for how to roll your own. The list
+of blocked domains is hopelessly outdated, but it's useful as
+a starting point for your own experiments.
+</ul>
+Thanks to the providers of these services!
+</ul>
+<h2>
+<a name="utilities">
+Procmail Utilities
+</a></h2>
+<p>
+This section has links to programs which are not necessary
+for operating Procmail but which can be helpful in 
+configuring Procmail, writing advanced scripts, 
+diagnosing problems in your setup, and other associated chores.
+<ul>
+<li>
+<a name="proclint">
+<code>proclint</code>, a program for checking your Procmail recipe
+files for various errors, is available as part of 
+Alan Stebbens' Procmail library
+</a><a href="#applications">(see above).</a>
+<li>
+<a name="proc-util">
+Eli the Bearded has created a Perl program called
+</a><a href="ftp://ftp.netusa.net/users/eli/proc-util.tgz"><code>bounce</code></a>
+which creates MIME bounce messages. 
+<li>
+<a name="hashd">
+In the same package, you'll also find
+</a><a href="ftp://ftp.netusa.net/users/eli/proc-util.tgz"><code>hashd</code>, </a>
+a generalized duplicate checker.
+<li>
+<a name="mdate">
+A program by Gary Funck called
+</a><a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-02/msg00178.html"><code>mdate</code></a>
+tries to canonicalize date stamps as found in mail messages. (It's
+probably not 100% effective, as per
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-02/msg00185.html">the comments in the associated discussion thread.)</a>
+<li>
+<a name="filter2procmail">
+Martin Ramsch has written a 
+</a><a href="http://www.forwiss.uni-passau.de/~ramsch/Software/ef2p/index.phtml.en">Elm <code>filter</code> to Procmail converter</a>
+<li>
+<a name="tinypm.el">
+A Procmail minor mode for Emacs,
+</a><a href="ftp://cs.uta.fi/pub/ssjaaa/tinypm.el"><tt>tinypm.el</tt></a>
+by Jari Aalto, features syntax highlighting and a limited <tt>lint</tt>
+(or apparently more like a post-mortem debugger&nbsp;<code>:-)</code>
+facility. (You need some other stuff from the same ftp site to get it
+to work. The file contains the details, or read Jari's
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/1997-10/msg00479.html">announcement.)</a>
+See also
+<a href="#ssjaaa">below.</a>
+<li>
+<a name="proclog">
+Aaron Turner's
+</a><a href="http://www.synfin.net/~aturner/proclog/"><code>proclog</code></a>
+is a tool for analyzing your Procmail logs
+(somewhat similar to <code>mailstat</code> which comes with Procmail)
+<li>
+<a name="autoresponder">
+Moon Io's
+</a><a href="http://autoresponder.clan-io.net/">Autoresponder</a>
+is a Perl script to make and configure Procmail autoresponders.
+<li>
+<a name="tdg">
+The
+</a><a href="http://www.imada.ou.dk/~blackie/dotfile/">Dotfile Generator</a>
+by Jesper Pedersen et al.
+can generate a <code>.procmailrc</code> file for you 
+-- as well as .dotfiles for various other Unix programs --
+according to your wishes. Ideal for newbies. (Still in beta.)
+<li>
+<a name="rblcheck">
+Edward S. Marshall has implemented a
+</a><a href="http://rblcheck.sourceforge.net/">simple RBL lookup tool</a>
+which allows you to use RBL-type blacklists
+from within Procmail (example included; now up to v1.4).
+A listing of RBL-type services you can use with this tool is at
+<a href="http://www.iki.fi/era/rbl/rbl.html">http://www.iki.fi/era/rbl/rbl.html</a>
+</ul>
+<p>
+This listing is not nearly exhaustive, and is somewhat likely to contain
+broken links at any given time. A good place to look for Procmail-related
+utilities is
+<a href="http://www.freshmeat.net/search.php3?query=procmail">Freshmeat.</a>
+<h2>
+<a name="examples">
+Procmail Pages of the Rich and Famous
+</a></h2>
+<p>
+As a rule, these pages contain both some sort of short introduction to 
+Procmail and some example snippets from the authors' 
+Procmail recipes. 
+<dl>
+<dt>
+<a href="http://www.faqs.org/faqs/mail/addressing/index.html">Eli the Bearded</a>
+<dd>	Various interesting stuff, mostly to keep unwelcome stuff out
+(not just spam, though)
+<dt>
+<a href="http://ng.netgate.net/~barry/pmrc.html">Barry Twycross</a>
+<dd>	Another really elaborate live <code>.procmailrc</code>
+with some nifty header handling
+<small>(thanks to Eli for the pointer)</small>
+<dt>
+<a href="http://www.universe.digex.net/~mbr/unix/procmail.html">Mike Rose</a>
+<dd>	Several modular example <code>.rc</code> files
+<small>(thanks to Simeon)</small>
+<dt>
+<a href="http://starbase.neosoft.com/~claird/comp.mail.misc/procmail.html">Cameron Laird</a>
+<dd>	Worth checking out for the copy of Craig Johnston's 
+<code>.procmailrc</code> alone, with more to come.
+And of course, there's this 
+<a href="http://www.sun.com/sunworldonline/swol-12-1997/swol-12-spam.html">magazine article about Procmail, </a>
+and the 
+<a href="http://starbase.neosoft.com/~claird/comp.mail.misc/MTA%5Fcomparison.html">MTA comparison.</a>
+<dt>
+<a href="http://wwwwbs.cs.tu-berlin.de/~czyborra/procmail.html">Roman Czyborra</a>
+(in German)
+<dd>	Automatic Quoted-Printable decoding, some examples, and 
+some good texts about why to use Procmail in the first place
+<dt>
+<a href="http://www.math.fu-berlin.de/~leitner/procmail/">Felix von Leitner</a>
+<dd>	Live <code>.procmailrc</code> (including more umlauts as well
+as PGP attachment handing), and a little bashing of elm's 
+pathetic filter <code>:-)</code>
+<dt>
+<a href="http://www.math.fu-berlin.de/~guckes/procmail/">Sven Guckes</a>
+<dd>	Another live <code>.procmailrc</code> with some interesting
+features; note the strong similarities with the previous one
+(it's not clear to me who's borrowing from whom, but you
+might want to compare them just for fun)
+<dt>
+<a name="ssjaaa">
+Jari Aalto
+</a><dd>
+<a href="http://www.procmail.org/jari/pm-tips.html">Jari's Procmail tips page</a>
+is also available in a
+<a href="http://www.procmail.org/jari/pm-tips.txt">text-only version;</a>
+this is a vast and sometimes slightly verbose collection
+of bits and pieces of Procmail information.
+<dd>
+<a href="http://www.procmail.org/jari/pm-code.html">Jari's Procmail library</a>
+contains various parts you can plug into your own recipes.
+<dd>
+Jari's University account is being closed but his stuff lingers on.
+For the time being at least, there is a mirror of Jari's ftp directory
+(not just the Procmail parts)
+at
+<a href="http://mirror.ncsa.uiuc.edu/procmail/ssjaaa/">http://mirror.ncsa.uiuc.edu/procmail/ssjaaa/</a>
+<dt>
+Christopher Lindsey 
+<dd>
+Chris has a
+<a href="http://www.ncsa.uiuc.edu/People/lindsey/procmail-wishlist.txt">wishlist for Procmail bug fixes and new features</a>
+and a budding
+<a href="http://mirror.ncsa.uiuc.edu/procmail/patches/">patch collection</a>
+<dt>
+<a href="http://www.peak.org/~luomat/articles/procmail/rcfiles/">Timothy Luoma</a>
+<dd>
+Notes about
+<a href="http://www.peak.org/~luomat/articles/procmail/">Procmail on NeXTStep/OpenStep</a>
+and a
+<a href="http://www.peak.org/~luomat/articles/procmail/rcfiles/deja-mail.rc">My Deja script</a>
+<dt>
+<a href="http://www.iki.fi/era/">...&nbsp;and yours truly<code>&nbsp;:-)</code></a>
+<dd>
+<a href="http://www.iki.fi/era/mail/procmail-debug.html">Procmail debugging tips</a>
+<dd>
+<a href="http://www.iki.fi/era/mail/autoresponder-faq.html">Moronic Mail Responders</a>
+<small><br>(No! Don't click that link!)</small>
+</dl>
+<hr>
+<h2>
+<a name="tangential">
+Tangential Information
+</a></h2>
+<p>
+Here's where I try to include other relevant stuff about mail handling
+in general. Sendmail and spam filtering are two obvious picks of topics, 
+but if you have other relevant links you think would fit here, 
+please don't hesitate to <a href="http://www.iki.fi/era/feedback.html">mail me</a> with them. 
+<p>
+Spam, or unsolicited bulk e-mail, is an ubiquitous problem on today's
+Internet and apparently one of the foremost reasons people get
+interested in using Procmail.
+Other sections on this page contain spam-related material
+(notably the 
+<a href="#antispam">Spam-Fighting Tools section under Applications</a>
+above).
+<h3>
+<a name="prerequisites">
+Introductory Material
+</a></h3>
+<p>
+If everything else you read here is 
+&#60;insert favorite language you do not understand here&#62;
+to you, the following might help. 
+<ul>
+<li>
+Among the entries in the 
+<a href="#tutorials">tutorials section,</a>
+several are fairly newbie-oriented. Try the Filtering Mail FAQ for starters. 
+<li>
+The net is full of Unix-related pages, but it's hard to find something
+reasonably newbie-oriented which still is general enough to be of
+interest to Unix newbies everywhere. But try these:
+<ul>
+<li>
+<a href="http://www.wired.com/news/news/story/6254.html">A simple introduction to regular expressions</a>
+from HotWired
+<li>
+A somewhat more involved (and accurate) one 
+<a href="http://wombat.doc.ic.ac.uk/foldoc/foldoc.cgi?regular+expression">from the Free On-Line Dictionary Of Computing</a>
+<li>
+<a href="http://www.herring.org/techie.html">Geek Speak</a>
+-- links to on-line references, tutorials, etc. Includes several
+local Procmail pages, too.
+<li>
+<a href="http://www.faqs.org/faqs/by-newsgroup/comp/comp.unix.shell.html"><tt>comp.unix.shell</tt> FAQs</a>
+<a href="http://www.cs.ruu.nl/wais/html/na-bng/comp.unix.shell.html"><small>(<code>ruu.nl</code>)</small></a>
+<li>
+<a href="http://www.ugu.com/sui/ugu/show?I=help&amp;F=1111111111&amp;G=Y">Unix Guru Universe</a>
+-- more links; not necessarily so newbie oriented.
+<li>
+<a href="http://www.oase-shareware.org/shell/	">Heiner's Shelldorado</a>
+-- lots of shell programming stuff and links.
+</ul>
+In general, look for information about shell programming,
+regular expressions,
+and mail handling on Unix.
+Any decent Unix beginners' book should treat both of the first topics 
+rather thoroughly.
+</ul>
+<h3>
+<a name="standards">
+Related Internet RFC:s
+</a></h3>
+<p>
+Links are to ISI's ftp RFC archive, with the secondary pointing to
+Institut Pasteur's repository in France.
+<ul>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc821.txt">RFC 821</a>
+defines the SMTP protocol. See also RFC 1869.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/8xx/821"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc822.txt">RFC 822</a>
+defines the general format of mail headers.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/8xx/822"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc934.txt">RFC 934</a>
+defines a standard for message encapsulation.
+MIME should probably be used instead.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/9xx/934"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc1123.txt">RFC 1123</a>
+contains some general updates and notes.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/11xx/1123"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc1225.txt">RFC 1225</a>
+defines the POP protocol.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/12xx/1225"><small>(Secondary)</small></a>
+See also
+<a href="ftp://ftp.isi.edu/in-notes/rfc1957.txt">RFC 1957</a>
+for some comments on common implementations.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/19xx/1957"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc1855.txt">RFC 1855</a>
+has netiquette guidelines.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/18xx/1855"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc1869.txt">RFC 1869</a>
+defines the ESMTP protocol.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/18xx/1869"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc1894.txt">RFC 1894</a>
+defines a standard bounce format.
+This is not in universal use 
+but if you produce your own bounces, 
+you should probably try to conform to this.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/18xx/1894"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc2045.txt">RFC:s 2045</a>
+- 2049 define the MIME protocol.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/20xx/2045"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc2060.txt">RFC 2060</a>
+defines the IMAP protocol.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/20xx/2060"><small>(Secondary)</small></a>
+<li>
+<a href="ftp://ftp.isi.edu/in-notes/rfc2076.txt">RFC 2076</a>
+lists common Internet message headers.
+<a href="http://www.pasteur.fr/cgi-bin/mfs/01/20xx/2076"><small>(Secondary)</small></a>
+</ul>
+<a href="http://www.rfc-editor.org/rfc.html">http://www.rfc-editor.org/rfc.html</a>
+has a listing of other RFC repositories if neither of the ones
+listed here seems to work.
+<h3>
+<a name="other">
+Other Assorted Information
+</a></h3>
+<p>
+Here are links to other topics which might be of interest to the broad
+Procmail-using public.
+<p>
+Many of the below documents are Usenet FAQs; when available, I've included 
+a pointer to a primary site, but otherwise, I've used pointers to the WWW
+FAQ archives at <code>faqs.org</code> (USA) and <code>ruu.nl</code> 
+(the Netherlands) -- you should primarily use the one closer to you. 
+If you are comfortable retreiving the FAQs by ftp instead, by all means 
+use that and get them from your closest RTFM mirror. 
+<br>
+<small>
+(In Internet topology, Australia and the Far East are generally closer to 
+the US than to Europe. As for Africa and the Antarctic, I really don't know,
+but I'd guess users from those continents, too, had better try the 
+US sites first. YMMV.)
+</small>
+<p>
+Other than FAQs, this is mostly link collections of all sorts.
+If you find one that you think should be listed here, let me know.
+<ul>
+<li>
+<a name="faqs">
+<strong>Various FAQs</strong>
+</a><ul>
+<li>
+<a name="useful-e-mail">
+Useful things you can do with e-mail,
+part I: The <i>Accessing the Internet by e-mail FAQ</i>
+</a><a href="http://www.faqs.org/faqs/internet-services/access-via-email/index.html">(<code>faqs.org</code></a>
+or
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/internet-services/access-via-email.html"><code>ruu.nl</code>)</a>
+<br> This is rather newbie-oriented, but has a lot of pointers to 
+valuable or interesting gateway servers. 
+<li>
+Useful things you can do with e-mail, part II: The
+<a href="http://members.aol.com/bombagirl/freeware/email4u.txt">email4u FAQ</a>
+(Yes, the title and the formatting are atrocious, but it has addresses of 
+a couple of mail bouncer services, and a host of other useful things. 
+<a href="http://www.swb.de/personal/icicle/4u-series/email4u.txt">Here's a German mirror, </a>
+too.)
+<li>
+Steve Harris'
+<a href="http://www.netservs.com/mrcool/stats.htm">stats of various ftp-by-mail servers</a>
+<li>
+<a href="http://www.faqs.org/faqs/mail/addressing/">The <code>user+box@host</code> Addressing FAQ</a>
+by Eli the Bearded
+<small>
+(on <code>faqs.org</code>;
+mirror on
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/internet-services/access-via-email.html"><code>ruu.nl</code>)</a>
+</small>
+<li>
+Chris Lewis' newly revitalized
+<a href="http://www.faqs.org/faqs/mail/setup/unix/part1/">Unix Email Software Survey</a>
+is a good overview of different mail utilities.
+<small>
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/mail/setup/unix/part1.html"><code>(ruu.nl</code> mirror)</a>
+</small>
+<li>
+<a href="http://www.sendmail.org/faq/">The Sendmail FAQ</a>
+<small>
+(mirrors on
+<a href="http://www.faqs.org/faqs/by-newsgroup/comp/comp.mail.sendmail.html"><code>faqs.org</code></a>
+and
+<a href="http://www.cs.ruu.nl/wais/html/na-bng/comp.mail.sendmail.html"><code>ruu.nl</code>)</a>
+</small>
+and
+<a href="http://www.sendmail.org/">http://www.sendmail.org/</a>
+<li>
+<a href="http://www.tuxedo.org/~esr/fetchmail/fetchmail-FAQ.html">The Fetchmail FAQ</a>
+<li>
+<a href="http://web.syr.edu/~jmwobus/comfaqs/lan-mail-protocols.html">The LAN mail protocols FAQ</a>
+provides a nice overview of protocols and clients 
+(and not just for LANs).
+<small>
+<a href="http://www.faqs.org/faqs/LANs/mail-protocols/"><code>(faqs.org</code> mirror</a>
+or
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/LANs/mail-protocols.html"><code>ruu.nl</code>)</a>
+</small>
+<li>
+The MIME FAQs on
+<a href="http://www.faqs.org/faqs/by-newsgroup/comp/comp.mail.mime.html"><code>faqs.org</code></a>
+or
+<a href="http://www.cs.ruu.nl/wais/html/na-bng/comp.mail.mime.html"><code>ruu.nl</code></a>
+<br>Parts 
+<a href="http://www.faqs.org/faqs/mail/mime-faq/part1/">1 (general introduction -- <code>faqs.org</code></a>
+or
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/mail/mime-faq/part1.html"><code>ruu.nl</code>)</a>
+and
+<a href="http://www.faqs.org/faqs/mail/mime-faq/part6/">6 (decoding tools -- <code>faqs.org</code></a>
+or
+<a href="http://www.cs.ruu.nl/wais/html/na-dir/mail/mime-faq/part6.html"><code>ruu.nl</code>)</a>
+are of particular interest.
+These FAQs appear to no longer be maintained or posted, so these links
+might stop working. For the time being, as a first aid, there is a mirror at
+<a href="http://www.iki.fi/era/mirrors/comp-mail-mime-faq/">http://www.iki.fi/era/mirrors/comp-mail-mime-faq/</a>
+-- obviously, some or all of the material will be out of date, but it's
+better than nothing, and many of the links to tools etc still work.
+<li>
+Also check out the various other FAQs for the <code>comp.mail</code>
+newsgroups -- on
+<a href="http://www.faqs.org/faqs/mail/"><code>faqs.org</code></a>
+or
+<a href="http://www.cs.ruu.nl/wais/html/na-bng/comp.mail.html"><code>ruu.nl</code></a>
+</ul>
+<li>
+<a name="links">
+<strong>Other Related Documents and Link Collections</strong>
+</a><ul>
+<li>
+<a name="oard">
+Doug Oard's collection of 
+</a><a href="http://www.ee.umd.edu/medlab/filter/">Information Filtering Resources</a>
+lists a lot of useful tools for information filtering in general.
+<li>
+Dan Bernstein maintains a very thorough
+<a href="http://pobox.com/~djb/immhf.html">Internet Mail message header format web page</a>
+-- and a host of other interesting information; surf around if you
+have the time.
+<li>
+<a href="http://www.islandnet.com/~tmc/html/articles/email.htm">Simple newbie-level article about the anatomy of email messages</a>
+<li>
+<a href="http://www.imc.org/">The Internet Mail Consortium's web site</a>
+contains various FAQs and other documents of interest
+-- notably a good compilation of 
+<a href="http://www.imc.org/mail-standards.html">mail-related Internet standards</a>
+(RFC:s).
+<li>
+<a name="mh">
+Chapter 3 
+</a><a href="http://www.oreilly.com/openbook/mh/tocs/intmime.htm">of the MH &#38; xmh book</a>
+from O'Reilly
+contains a very good brief explanation of
+the hows and whys of MIME in email.
+The entire book is available on-line, free of charge.
+<li>
+<a href="http://www.dns.net/smtprd/">DNS.net's SMTP Resources Directory</a>
+<li>
+Some other general mail-related link collections:
+<ul>
+<li>
+Bill Wohler's / Worldtalk's list of 
+<a href="http://www.worldtalk.com/Standards%20and%20Tech/emailref.shtm">e-mail references</a>
+-- RFC:s and current drafts.
+<li> Claus A&szlig;man's web pages contain a lot of 
+<a href="http://www.informatik.uni-kiel.de/~ca/email/misc.html">email-related material</a>
+-- the majority of the stuff is primarily sendmail-oriented, 
+but don't let that scare you; there are many gems here.
+<li> UK Online's
+<a href="http://www.ukonline.co.uk/UKOnline/Help/Email/links.html">link collection</a>
+is fairly concise and focused.
+<li>
+<a name="Andrew">
+The 
+</a><a href="http://andrew2.andrew.cmu.edu/cyrus/cyrus.html">Cyrus project at CMU</a>
+has a collection of 
+<a href="http://andrew2.andrew.cmu.edu/cyrus/email/">email-related pages</a>
+with 
+<a href="http://andrew2.andrew.cmu.edu/cyrus/email/auto.html">a listing of filtering programs --- primarily for Windows</a>
+as well as
+<a href="http://andrew2.andrew.cmu.edu/cyrus/email/email-faqs.html">a listing of email FAQs. </a>
+<li>
+<a href="http://www.ietf.org/html.charters/drums-charter.html">The IETF DRUMS working group</a>
+</ul>
+<li>
+If you are looking for a specific RFC, there are some good RFC search
+engines out there. Check out
+<a href="http://www.rfc-editor.org/rfc.html">http://www.rfc-editor.org/rfc.html</a>
+for pointers.
+<li> Documentation on the Berkeley mbox format is available from e.g. the
+<a href="http://systems.binghamton.edu/Pine/low-level.html">Pine technical notes</a>
+or the
+<a href="http://www.qmail.org/qmail-manual-html/man5/mbox.html">Qmail manuals</a>
+<li>
+<a href="http://diable.upc.es/~marcos/TUTORIAL.html">An Emil tutorial</a>
+<small>[warning: needs a spelling check]</small>
+<br>Emil is a program for conversion between MIME, Mailtool format, 
+uuencode, etc
+</ul>
+<li>
+<a name="usenet">
+<strong>Usenet</strong>
+</a><ul>
+<li>
+<a name="newsgroups">
+More or less relevant newsgroups include
+</a><a href="news:comp.mail.misc"><tt>comp.mail.misc</tt></a>
+and perhaps
+<a href="news:comp.mail.headers"><tt>comp.mail.headers</tt></a>
+and
+<a href="news:comp.mail.mime"><tt>comp.mail.mime</tt>.</a>
+You should also be aware of
+<a href="news:comp.mail.imap"><tt>comp.mail.imap</tt>,</a>
+<a href="news:comp.mail.sendmail"><tt>comp.mail.sendmail</tt>,</a>
+and the other program-specific newsgroups in the <tt>comp.mail</tt> 
+hierarchy. (See the previous item for FAQ links.)
+Various Unix programming groups -- perhaps especially
+<a href="news:comp.unix.shell"><tt>comp.unix.shell</tt></a>
+should also prove worth a visit.
+</ul>
+<li>
+<a name="competition">
+<strong>Competing Efforts</strong>
+-- email filtering for other platforms,
+and other offerings for Unix users
+</a><ul>
+<li>
+<a href="http://www.cs.virginia.edu/%7Edwc3q/code/index.html"><tt>grepmail</tt></a>
+is a tool for finding messages in mbox folders.
+<li>
+The Open Directory Project's
+<a href="http://dmoz.org/Computers/Software/Internet/Clients/Mail/Filtering/">mail filtering stuff</a>
+is probably in better hands than this little link collection.
+<li>
+A promising newcomer on the Unix filtering scene is
+<a href="http://www.flounder.net/~mrsam/maildrop/">Maildrop</a>
+by Mr. Sam.
+<li>
+<tt>vacation(1)</tt> comes standard with most Unix distributions.
+It's just a simple autoresponder (not a filtering program) but it
+does what it does reasonably well if that's all you need (and you
+don't happen to be the lucky owner of one of the many wonderfully
+broken versions out there).
+<li>
+<a href="ftp://ftp.foretune.co.jp/pub/network/mail/mailagent/"><tt>mailagent</tt></a>
+is written entirely in Perl, for better or,
+well, for worse.
+<li>
+Another Unix offering for the strong of stomach is Elm's <tt>filter</tt> 
+program. The syntax is Pascal-like and it's otherwise not too exciting 
+either. See the Mail Filtering FAQ above for details, or check out
+<a href="http://www.math.fu-berlin.de/~guckes/elm/filter.html">Sven Guckes' <tt>filter</tt> page</a>
+<li>
+<a name="hwg">
+The HTML Writers' Guild's
+</a><a href="http://www.hwg.org/resources/faqs/filterFAQ.html">Filtering FAQ</a>
+contains interesting information about the filtering capabilities of 
+several e-mail clients, including Mac and Windows programs. 
+<li>
+See also
+<a href="#Andrew">the Andrew link collection</a>
+above.
+<li>
+<a href="http://frmug.org/newsbot/"><code>newsbot</code></a>
+is a filtering system for Usenet news, for use with INN.
+<small>(Also available as an <code>alt.sources</code> posting at
+<a href="http://sunsite.bcc.bilkent.edu.tr/pub/isc/inn/contrib/newsbot">http://sunsite.bcc.bilkent.edu.tr/pub/isc/inn/contrib/newsbot</a>
+-- this is verison 1.2.1 from 1996, which still seems to be the newest.)
+</small>
+<li>
+Another popular news filtering system is Brad Knowles'
+<a href="http://www.clarinet.com/newsclip.html">NewsClip.</a>
+<li>
+See also the pointer to
+<a href="#oard">Doug Oard's links, above.</a>
+</ul>
+<li>
+<a href="http://www.altavista.digital.com/cgi-bin/query?pg=q&amp;text=yes&amp;what=web&amp;kl=XX&amp;q=%22stephen+r+van+den+berg%22+%22steven+van+den+berg%22+%22stephen+van+den+berg%22+%22stephen+van+der+berg%22+%22steven+van+den+bergh%22+%22stefan+van+den+bergh%22+%22stefan+van+den+berg%22+%22stefan+van+der+berg%22">How Do You Spell The Guy's Name?</a>
+<small>(Look at the word count near the bottom of the page&nbsp;...
+apparently, there actually is a Steven van den Bergh who is
+not the author of Procmail&nbsp;<code>:-)</code></small>
+</ul>
+<hr>
+<p align=center>
+<a href="index.html">To Cover Page</a>
+*
+<a href="mini-faq.html">To FAQ</a>
+*
+<a href="http://www.iki.fi/era/feedback.html">Feedback</a>
+*
+<a href="http://members.xoom.com/procmail/">Procmail Mirror Cupboard</a>
+on Xoom
+
+</body>
+</html>

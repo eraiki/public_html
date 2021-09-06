@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>halflife websocket</title>
+<script>
+ws = new WebSocket("ws://ec2-52-208-37-129.eu-west-1.compute.amazonaws.com:8888/");
+
+ws.onmessage = function (event) {
+  let msg = event.data;
+  let eventList = document.getElementById('events');
+  let el = document.createElement('li');
+  el.innerHTML = msg;
+  eventList.appendChild(el);
+};
+</script>
+</head>
+
+<body>
+<h1>halflife</h1>
+
+<ul id="events">
+</ul>
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Fri Sep  1 14:21:16 EEST 2017 <!-- hhmts end -->
+</body> </html>

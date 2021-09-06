@@ -1,0 +1,11 @@
+[recover-buffers.el: Initial check-in
+era eriksson <era+emacs@iki.fi>**20081202190206
+ Vaguely based on an earlier private version
+] 
+[recover-buffers.el: mark recover-buffers to be autoloaded
+era eriksson <era+emacs@iki.fi>**20081210113614] 
+
+[recover-buffers.el: put customizations into their own group after all
+era eriksson <era+emacs@iki.fi>**20090105075942] 
+[50recover-buffers.el: Debian-style startup file for recover-buffers
+era eriksson <era+emacs@iki.fi>**20090105164300] 

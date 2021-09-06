@@ -1,0 +1,105 @@
+[my-site-start.el: Initial check-in
+era eriksson <era+elisp@iki.fi>**20090102143036
+ dot.emacs: model .emacs
+] 
+[my-site-start.el: Overhaul, first working version
+era eriksson <era+elisp@iki.fi>**20090108141158
+ dot.emacs: Similarly simplify for the new overhauled architecture
+] 
+[my-site-start.el: rename -find-files to -files
+era eriksson <era+elisp@iki.fi>**20090114064554] 
+[my-site-start.el: add load-path in `my-site-start-load'
+era eriksson <era+elisp@iki.fi>**20090114064621] 
+[my-site-start.el: refactor `my-site-start-load-order'
+era eriksson <era+emacs@iki.fi>**20090115205259
+ `my-site-start-split-filename': split out to a separate defsubst
+] 
+[my-site-start.el: in `my-site-start-files', document args to `directory-files'
+era eriksson <era+elisp@iki.fi>**20090116075348] 
+[my-site-start.el: `my-site-start-avoid-dir-regex': directories to not traverse
+era eriksson <era+elisp@iki.fi>**20090116075525
+ `mysite-start-files': do not recurse into directories matching this variable
+] 
+[my-site-start.el: minor comment and docstring corrections and updates
+era eriksson <era+elisp@iki.fi>**20090116153140] 
+[my-site-start.el: `my-site-start-do-deferred-loads' loads any deferred files
+era eriksson <era+elisp@iki.fi>**20090117171421
+ Global variable `my-site-start-deferred-load-files' collects them
+ `my-site-start-interactive-setup-hook' calls -do-deferred-loads by default
+] 
+[my-site-start: use numeric = instead of `equal' in `my-site-start-load-order'
+era eriksson <era+elisp@iki.fi>**20090117174151] 
+[my-site-start.el: Implement deferred loading
+era eriksson <era+elisp@iki.fi>**20090117190446
+ `my-site-start-defer-file-p-function': variable to select defer predicate
+ `my-site-start-defer-file-p': default defer predicate function
+ `my-site-start': update documentation to describe deferred loading
+ `my-site-start-split-deferred': helper function for `my-site-start'
+ `my-site-start-do-deferred-loads': expand documentation
+ Documentation now correctly refers to `my-site-start-defer-file-p-function'
+ instead of `my-site-start-interactive-file-function' (which never existed).
+] 
+[my-site-start.el: wrap all string matching with `save-match-data'
+era eriksson <era+elisp@iki.fi>**20090117191248] 
+[dot.emacs: remove some personal preferences
+era eriksson <era+elisp@iki.fi>**20090117194102] 
+[my-site-start.el: Minor fixes and clarifications after running CheckDoc
+era eriksson <era+elisp@iki.fi>**20090117202940
+ dot.emacs: Bring in line with updated my-site-start.el
+ Some CheckDoc errors remain (some internal forms lack documentation strings)
+] 
+[my-site-start.el: refactor and clarify documentation strings
+era eriksson <era+elisp@iki.fi>**20090117204407] 
+[my-site-start.el: only invoke `my-site-start-load-order-function' once
+era eriksson <era+elisp@iki.fi>**20090117204704
+ `my-site-start-load': sort the result from `my-site-start-files'
+ `my-site-start-files': no longer sort while recursing directories (duh)
+] 
+[my-site-start.el: Change license to GPL v2
+era eriksson <era+elisp@iki.fi>**20090118161501] 
+[add-to-site-start: simple shell script to create symlinks
+era eriksson <era+elisp@iki.fi>**20090121074928] 
+[add-to-site-start: special cases to deal with lone and trailing . dir
+era eriksson <era+elisp@iki.fi>**20090121101320] [my-site-start.el: add URL for public Darcs repo to commentary
+era eriksson <era+elisp@iki.fi>**20090205190841
+ Also fix a minor inconsistency in the overview
+] 
+[my-site-start.el: rename `m-s-s-d-l-f' to `m-s-s--deferred-load-files'
+era eriksson <era+elisp@iki.fi>**20090205190959
+ The double dash conventionally signifies a private internal variable
+] 
+[TAG 0.001 First public beta
+era eriksson <era+elisp@iki.fi>**20090206142035] 
+[my-site-start.el: constant `my-site-start-version' declares version number
+era eriksson <era+elisp@iki.fi>**20090206142531
+ Call this version 0.001
+] 
+[changelog: add a changelog with high-level version history
+era eriksson <era+elisp@iki.fi>**20090206142641
+ my-site-start.el: in History comments section, point to changelog
+] 
+[my-site-start.el: when recursing, add all directories to `load-path'
+era eriksson <era+elisp@iki.fi>**20090209183908
+ -- not just the ones which contain `my-site-start-file-name-regex' matches.
+ 
+ * `my-site-start': convert dir to absolute path with `expand-file-name'.
+ * `my-site-start-load': No longer augment `load-path' in this function.
+ * `my-site-start-files': Move `load-path' augmentation here.  Require
+   start directory to be an absolute path.
+] 
+[my-site-start.el: `my-site-start-load': prefer newer out of .el and .elc
+era eriksson <era+elisp@iki.fi>**20090209204503
+ if both files exist, and ignore the other
+] 
+[my-site-start.el: Add much more detailed usage instructions to Commentary
+era eriksson <era+elisp@iki.fi>**20090209204715] 
+[changelog: summarize changes in this version; prepare to release as 0.002
+era eriksson <era+elisp@iki.fi>**20090209204900
+ my-site-start.el: `my-site-start-version' updated: 0.002
+] 
+[changelog: missing note about now including a version number
+era eriksson <era+elisp@iki.fi>**20090209205033] 
+[TAG version 0.002, second public beta
+era eriksson <era+elisp@iki.fi>**20090209205039] 
+[index.html: simple cover page to prevent bots from traversing _darcs
+era eriksson <era+elisp@iki.fi>**20090210060741] 

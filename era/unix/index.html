@@ -1,0 +1,850 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Unix and shell programming stuff</title>
+<link rev="made" href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Unix and shell programming stuff</h1>
+Here's a kitchen-sink collection of Unix-related stuff, 
+including an Emacs section and some Procmail links. 
+I've tried to only collect links of reasonable quality, 
+but unfortunately, link rot in these
+circles is really bad. If you find any broken links here, 
+please let me know -- <a href="http://www.iki.fi/era/feedback.html">mail me</a>. 
+<p>
+My private Procmail pages are not yet up; for now, have a look
+at the
+<a href="../procmail/index.html">Procmail FAQ I maintain.</a>
+<h3>
+Contents
+</h3>
+<ul>
+<li>
+<a href="#history">Unix history</a>
+<li>
+<a href="#shell">Shell programming</a>
+<li>
+<a href="#books">Unix books</a>
+<li>
+<a href="#gnu">GNU utilities</a>
+<li>
+<a href="#procmail">Procmail</a>
+<li>
+<a href="#emacs">Emacs</a>
+<li>
+<a href="#perl">Perl</a>
+<li>
+<a href="#vnc">VNC</a>
+<li>
+<a href="#open">Open Source / Free Software</a>
+<li>
+<a href="#misc">Miscellaneous other stuff</a>
+</ul>
+<h4>
+Referenced local pages
+</h4>
+If you are primarily interested in pages made by yours truly,
+here's a listing of the pages I have in this directory:
+<ul>
+<li>	
+<a href="index.html">This page</a>
+<li>
+Some notes on
+<a href="libretto.html">installing Debian on a Libretto</a>
+<li>
+<a href="award.html">Useless Use of Cat Award</a>
+and a couple of subpages; a
+<a href="award-example-ls.html">glob example</a>
+and a 
+<a href="award-example-backticks.html">backticks example</a>
+<li>
+A short explanation of the 
+<a href="arg-max.html">ARG&#95;MAX issue</a>
+<li>
+A local HTMLized version of
+<a href="shell.html">Steve Bourne's original shell tutorial</a>
+<li>
+A local copy of 
+an article by Tom Christiansen;
+<a href="guis.txt">GUIs Considered Harmful</a>
+<li>
+Local copies of the
+README and NEWS files for some GNU packages
+(links
+<a href="#below">below)</a>
+</ul>
+<hr>
+<h3>
+<a name="history">
+Unix History
+</a></h3>
+<p>
+The Unix community has a rather strong interest in its own history.
+I have tried to gather some retro-Unix stuff and links to good stories
+here.
+<ul>
+<li>
+<a href="http://plan9.bell-labs.com/cm/cs/who/dmr">Dennis Ritchie's home page</a>
+has a lot of interesting historical material.
+Many classic papers and fun anecdotes.
+<li>
+<a name="vol2">
+I happened to stumble over
+</a><a href="http://cm.bell-labs.com/7thEdMan/">the Bell Labs apocryphal sources </a>
+for the Unix 7th Edition manuals.
+The original Bourne Shell tutorial in this package,
+by Steve Bourne, is available in a 
+<a href="shell.html">HTMLized version I made.</a>
+<li>
+<a name="44bsd">
+The
+</a><a href="http://docs.FreeBSD.org/44doc/psd/">4.4BSD Programmer's Supplementary Documents</a>
+and
+<a href="http://docs.FreeBSD.org/44doc/usd/">4.4BSD User's Supplementary Documents</a>
+are available from
+<a href="http://docs.freebsd.org/">the FreeBSD Documentation site</a>
+(along with a whole lot of other interesting stuff).
+It's supposed to be up-to-date documentation,
+but a lot of the articles are classical ones
+inherited from the good ol' eighties
+(and frankly speaking, some of them
+have quite clearly not been updated
+since then).
+<li>
+<a href="http://dmoz.org/Computers/History/Operating%5FSystems/Unix/">http://dmoz.org/Computers/History/Operating%5FSystems/Unix/</a>
+<li>
+<a href="http://plan9.bell-labs.com/plan9/">Plan 9 from Bell Labs</a>
+might not (or might) be the future,
+but there's some stuff from the past on the site, too.
+</ul>
+<h3>
+<a name="shell">
+Shell programming
+</a></h3>
+<p>
+This is another piece that became so big that it had to be broken
+out into its own section.
+<ul>
+<li>
+<a href="http://www.oase-shareware.org/shell/">Heiner's Shelldorado</a>
+is a very good source. Check it out.
+(The start page looks like it's a small site,
+but the links page alone is a one-month project,
+if you take it seriously!)
+<li>
+I have a HTMLized copy of 
+<a href="shell.html">Steve Bourne's original <tt>sh</tt> tutorial</a>
+<li>
+The Consultix 
+<a href="http://www.consultix.wa.com/yumpy/quoting1%5F2.txt">shell quoting guidelines</a>
+<br><small>
+(thanks to Brian Hiles for the pointer. 
+Boo hiss to Consultix for 
+<a href="../spam/cgi-bin/980765">spamming me</a>
+--
+<a href="../spam/cgi-bin/980775">twice.</a>
+That sucks.)</small>
+<li><a href="ftp://ftp.funet.fi/pub/mirrors/rtfm.mit.edu/pub/usenet-by-hierarchy/comp/unix/shell/">comp.unix.shell FAQs</a> (mirror at ftp.funet.fi; you're in Finland now)
+<li>... particularly <a href="http://language.perl.com/versus/csh.whynot">Csh Considered Harmful</a>,
+but do check out the others, too
+<li>
+<a name="bashfaq">
+The
+</a><a href="ftp://slc2.ins.cwru.edu/pub/bash/FAQ"><code>bash</code> FAQ</a>
+(it's finally on RTFM too, but it's good to have a reference to the original
+... the site is occasionally not responding, though; you might want a link to
+<a href="http://www.faqs.org/faqs/unix-faq/shell/bash/index.html">the <code>faqs.org</code> copy.)</a>
+<li>
+<a name="sedfaq">
+The
+</a><a href="http://www.cornerstonemag.com/sed/sedfaq.html"><code>sed</code> FAQ</a>
+explains a lot of things that get asked in
+<a href="news:comp.unix.shell"><code>comp.unix.shell</code></a>
+all the time
+<li>
+<a name="shc">
+Check out
+</a><a href="http://www.datsi.fi.upm.es/~frosal/frosal.html"><code>shc</code>, the shell script compiler</a>
+<li>
+<a name="make">
+Paul D. Smith has a page about 
+</a><a href="http://www.ultranet.com/~pauld/gmake/">GNU Make</a>
+<li>
+For more links, the
+<a href="http://dmoz.org/">Open Directory Project</a>
+has a good selection of
+<a href="http://dmoz.org/Computers/Software/Operating%5FSystems/Unix/Shell/Scripting/">shell programming links,</a>
+too. (Better than Yahoo's Dead Links Forest, at least.)
+<li>
+There's a list of
+<a href="http://dmoz.org/Bookmarks/E/era/For%5Fthe%5FRegular%5FExpression%5Fcategory,%5Fwhen%5FI%5Fcan%5Ffigure%5Fout%5Fwhere%5Fit%5Fbelongs/">regular expression links I've collected,</a>
+although there is no definitive "one stop shop" site there
+<li>
+<a name="uuca">
+I compiled a
+</a><a href="award.html">Useless Use of Cat Award page</a>
+because I couldn't find one anywhere&nbsp;... Have fun with it.
+</ul>
+<h4>
+<a name="unix-newbie">
+Shell programming for newbies
+</a></h4>
+I'm hoping to gather a good collection of shell programming pages here.
+<p>
+If I can find a good centralized links page, all the better. 
+For now, this is mostly stuff I picked up on <code>comp.unix.shell</code>
+and might not even have checked out myself yet. 
+<dl>
+<dt>
+<a href="http://www.herring.org/techie.html">http://www.herring.org/techie.html</a>
+<dd>
+Very extensive link collection, haven't looked at it more closely yet.
+<dd> <small>(Thanks to Michael A. Powe for this one.)</small>
+<dt
+<a href="http://www.unix.com/">http://www.unix.com</a>
+<dd>
+Online forum, includes good newbie forums
+</dl>
+Most of these links were snagged out of postings to 
+<code>comp.unix.shell</code> by the people I've credited here.
+<p>
+If you have more and/or better links, 
+<a href="../feedback.html">I'd love to hear from you</a>
+-- and please let me know if any of these links break,
+Unix shell programming pages seem to be very prone to
+link rot.
+<h3>
+<a name="books">
+Unix books
+</a></h3>
+<p>
+Just a quick pointer to some classics.
+<dl>
+<dt>
+<a href="http://plan9.bell-labs.com/cm/cs/upe">The Unix Programming Environment,</a>
+<nobr>(Kernighan &#38; Pike 1984)</nobr>
+<dd>
+Old but nevertheless good.
+An excellent primer on
+shell programming, but also
+includes a lot of stuff
+not related to shell programming,
+such as Make, Troff, and
+the Unix standard library
+(for C programmers etc).
+<dd>
+The
+<a href="http://plan9.bell-labs.com/cm/cs/upe/errata.html">errata page</a>
+has some helpful contributions
+by yours truly :-)
+<dt>
+<a href="http://cm.bell-labs.com/cm/cs/tpop">The Practice of Programming</a>
+<nobr>(Kernighan &#38; Pike 1999)</nobr>
+<dd>
+Good programming habits;
+examples in C, Java, and Perl.
+Not particularly Unix-centric
+(actually I believe
+the authors use Plan 9)
+but very much on the
+right wavelength for
+anybody who likes Unix.
+<dt>
+<a href="http://www.ora.com/catalog/regex/">Mastering Regular Expressions</a>
+<nobr>(Friedl 1997)</nobr>
+<dd>
+Must read. Must. Read.
+<dt>
+<a href="http://cseng.awl.com/book/related/0,3833,0201563177+12,00.html">Advanced Programming in the Unix Environment</a>
+<nobr>(Stevens 1992)</nobr>
+<dd>
+C programming
+and the library;
+explains and relates to
+various standards
+such as POSIX,
+XPG3 (now XPG4, of course),
+SVID, etc.
+(Somewhat ignorant
+of Linux, but that's
+probably only
+for the better.)
+<dt>
+<a href="http://www.phptr.com/ptrbooks/ptr%5F0130206016.html">Unix System Administration Handbook</a>
+(3rd ed.; Nemeth, Snyder, <nobr>Seebass &#38; Hein et al. 2001</nobr>
+<dd>
+I don't yet own the 3rd edition,
+but I own a copy of the 1st
+and 2nd eds.
+<dd>
+The new edition now also covers
+Red Hat and FreeBSD,
+where the
+<a href="http://www.phptr.com/ptrbooks/ptr%5F0131510517.html">previous edition</a>
+was predominantly
+"expensive" vendors
+(HP-UX, Irix, OSF/1,
+Solaris [now free, of course],
+SunOS, and BSDI).
+</dl>
+<h3>
+<a name="gnu">
+GNU Utilities
+</a></h3>
+<p>
+A constant need for many is to find Unix shell utilities which do not
+stink. Frequently user-level software on many platforms is written to
+barely conform to spec, so that the programmers can spend more time to
+introduce new and better incompabilities with the competition in their
+kernel-level code.
+<p>
+I have found the GNU utilities to generally be robust, user-friendly
+(in the Unix sense, i.e. if you know what you're doing, it's doable),
+mostly devoid of unnecessary restrictions (both in terms of who's
+allowed to use and copy them and in what input they will accept) and
+often simply much better than what Sun, HP, Digital, NetBSD (which is
+otherwise very nice) and generally everyone else would want you to
+have. (Linux comes with GNU utilities preinstalled by default.)
+<p>
+There's a sort of web page at
+<a href="http://www.gnu.org/">http://www.gnu.org/</a>
+but it doesn't contain very much about the
+GNU packages I'd like to see introductions to.
+Perhaps you should just cruise around in 
+<a href="ftp://prep.ai.mit.edu/pub/gnu/">ftp://prep.ai.mit.edu/pub/gnu/</a>
+(or one of the many many mirrors worldwide)
+and see what you find. 
+<p>
+<a name="below">
+As for the standard Unix command-line tools, I have local copies of
+some distribution files (these versions are growing oldish, though)
+for the
+</a><a href="ftp://prep.ai.mit.edu/pub/gnu/fileutils-3.16.tar.gz"><tt>fileutils</tt></a>
+<a href="fileutils-3.16.README.txt">(README</a>
+and
+<a href="fileutils-3.16.NEWS.txt">NEWS),</a>
+<a href="ftp://prep.ai.mit.edu/pub/gnu/sh-utils-1.16.tar.gz"><tt>sh-utils</tt></a>
+<a href="sh-utils-1.16.README.txt">(README</a>
+and
+<a href="sh-utils-1.16.NEWS.txt">NEWS),</a>
+<a href="ftp://prep.ai.mit.edu/pub/gnu/textutils-1.22.tar.gz"><tt>textutils</tt></a>
+<a href="textutils-1.22.README.txt">(README</a>
+and
+<a href="textutils-1.22.NEWS.txt">NEWS),</a>
+<a href="ftp://prep.ai.mit.edu/pub/gnu/findutils-4.1.tar.gz"><tt>findutils</tt></a>
+<a href="findutils-4.1.README.txt">(README</a>
+and
+<a href="findutils-4.1.NEWS.txt">NEWS),</a>
+and
+<a href="ftp://prep.ai.mit.edu/pub/gnu/grep-2.1.tar.gz"><tt>grep</tt></a>
+<a href="grep-2.1.README.txt">(README</a>
+and
+<a href="grep-2.1.NEWS.txt">NEWS)</a>
+stored locally. 
+<p>
+If you're at all interested in Unix shell programming, you want these.
+<p>
+Of course, <i>GNU's Not Unix</i> and Unix is not GNU, but they obviously
+have something in common.
+(See also
+<a href="#emacs">Emacs</a>
+and
+<a href="#perl">Perl.)</a>
+<h2>
+<a name="procmail">
+Procmail
+</a></h2>
+<a href="../procmail/">Procmail</a>
+is a good reason in itself to switch to Unix if you haven't already! 
+This is a tool to help you stay on top of your mail traffic -- filter out
+unwanted mail before it hits your mailbox, sorting stuff from mailing lists 
+into its own folder automatically, implement an ftp-by-mail server&nbsp;...
+<p>
+If you download this, make sure to get version <strong>3.13.1</strong>
+<ul>
+<li>
+Introductory material: 
+<a href="http://www.jazzie.com/ii/internet/mailbots.html">Infinite Ink's Mail Filtering and Robots page</a>
+and when you've read that, visit
+<a href="http://www.jazzie.com/ii/internet/procmail/">Infinite Ink's Procmail links</a>
+<li>
+I have collected a mirror of stuff I find useful at
+<a href="http://members.xoom.com/procmail/">http://members.xoom.com/procmail/</a>
+-- check it out.
+<li>
+Tangential material:
+<a href="http://www.faqs.org/faqs/mail/addressing/index.html">Eli the Bearded's addressing FAQ</a>
+and
+<a href="../mail/autoresponder-faq.html">an Autoresponder FAQ from Hell</a>
+by yours truly
+<li>
+<a href="../procmail/mini-faq.html">My own feeble attempt at a Procmail FAQ</a>
+could be improved a great deal, I'm sure. 
+I also have a page with 
+<a href="../procmail/links.html">Procmail links.</a>
+Make sure to 
+<a href="../feedback.html">send me your comments!</a>
+<li>
+<a href="../mail/procmail-debug.html">A page about debugging Procmail recipes</a>
+(and also something about getting Procmail to run in the first place)
+which I actually might try to fold into the FAQ one day, or perhaps
+it should only sit here for a while until it feels ripe. Feedback
+welcome!
+</ul>
+<h2>
+<a name="emacs">
+Emacs
+</a></h2>
+<p>
+Of course, Emacs isn't Unix, and Unix isn't Emacs, but people who
+recognize quality tend to like both.
+(See also
+<a href="#perl">Perl.)</a>
+<p>
+A great part of this section is just stuff I cut &amp;&amp; pasted out of the 
+main section, because it started to look a bit like "Emacs 
+and what else". 
+<p>
+Note that the Emacs FAQ is nowadays included in the distribution. 
+For newish GNU Emacsen, press <tt>C-h F</tt> to view the FAQ in a buffer.
+<dl>
+<dt>
+<a href="http://tiny-tools.sourceforge.net/emacs-elisp.html">http://tiny-tools.sourceforge.net/emacs-elisp.html</a>
+<dd>
+Jari Aalto's huge list of
+Emacs Elisp references --
+including a lot of pointers to
+downloadable add-in packages.
+<dt>
+<a href="http://www.emacs.org/">http://www.emacs.org/</a>
+<dd>	Augh. 
+This used to be a useful site.
+Then it was revamped.
+Then it was down.
+Then it sucked even worse
+after having been revamped again.
+Then it has been oscillating
+between "down" and "useless"
+and "revamped but still useless"
+with some all too short
+deviations from this pattern.
+<dd>
+Occasionally
+<a href="ftp://ftp.emacs.org/">ftp://ftp.emacs.org/</a>
+and / or
+<a href="http://ftp.emacs.org/">http://ftp.emacs.org/</a>
+has contained useful stuff,
+but don't count on that,
+either.
+<dt>
+<a href="ftp://ftp.funet.fi/pub/gnu/prep/elisp-archive/">Mirror of the LCD archive</a>
+<dd>	Local European mirror, of course, at Funet, of course
+<dd>	Here's the
+<a href="http://www.cs.indiana.edu/LCD/cover.html">searchable version</a>
+of the LCD archive.
+<dt>
+<a href="http://www.finseth.com/~fin/emacs.html">Emacs implementations</a>
+<dd>	Of course, there's only one 
+<a href="http://www.gnu.org/">True GNU!</a>
+<dt>
+Craig Finseth's book
+<dd>
+<a href="http://www.finseth.com/~fin/craft">The Craft of Text Editing: Emacs for the Modern World</a>
+is now available online (exclusively)
+<dt>
+<a href="http://www.cs.indiana.edu/elisp/w3/w3.html">w3-mode</a>
+<dd>	-- documentation and all!
+<dd>	(What kind of documentation, I hear you ask&nbsp;...)
+<dd>	Other gripes:
+<ul>
+<li>	It's too big and slow
+(I used to think so about v2, but look at v4!)
+<li>	The next version inevitably breaks things that
+worked fine in the previous version that you 
+had learned to rely on
+<li>	... and the key bindings keep a-changin', 
+forget about "plug and play" upgrades, 
+it's a major reconfiguration and relearning
+experience each time
+</ul>
+<dd>	Still, it's better than <i>not</i> having a browser 
+inside Emacs.
+<dt>
+<a href="ftp://ftp.uu.net/networking/mail/vm/">VM</a>
+the mail reading package
+<dd>	My gripes:
+<ul>
+<li>
+<dl>
+<dt> It is not "extensible"
+<dd>
+Lots of menus etc are defined with
+<code>defconst</code> so you can't
+customize things without a lot of
+workarounds.
+</dl>
+<li>
+<dl>
+<dt> It is not "self-documenting"
+<dd>
+Looking for documentation for what
+a particular function does?
+Forget it. It's not there.
+</dl>
+<li>
+<dl>
+<dt> It is not "programmable"
+<dd>
+This is a corollary of
+the two previous items.
+There is nothing there to
+prevent you from trying,
+<i>per se</i>, but you need
+to be masochistic or stupid
+or very very bored
+if you want to try to do
+anything serious.
+</dl>
+</ul>
+It's still a lot better than RMAIL,
+or than using something else than Emacs
+as your mail environment.
+And don't get me started about <nobr>Gnus ...</nobr>
+<dd>	Various useful VM links:
+<ul>
+<li>
+<a href="http://www.cs.hmc.edu/~smikes/emacs/vm-faq.html">The VM FAQ</a>
+by Brian Gorka (now maintained by Samuel Mikes)
+<li>	Emmett Hogan's
+<a href="http://www.gnac.com/~hogan/vm/">VM Add-Ons page</a>
+<li>	Samuel Mikes's FAQ about
+<a href="http://www.cs.hmc.edu/~smikes/emacs/vm-procmail.html">using Procmail with VM</a>
+(see the
+<a href="#procmail">Procmail section above </a>
+if you wonder what this means -- you don't want to miss it)
+</ul>
+<dt>
+Trey Jackson's index of
+<a href="http://bmrc.berkeley.edu/~trey/emacs/mime.html">MIME tools for Emacs</a>
+<dt> The
+<a href="http://www.dina.kvl.dk/~abraham/religion/">Church of Emac$</a>
+<dt>
+<a href="http://www.splode.com/~friedman/software/emacs-lisp/">http://www.splode.com/~friedman/software/emacs-lisp/</a>
+<dd>
+Noah F's Lisps (including some VM add-ons, too)
+</dl>
+<p>
+If you are looking for my Open Source <code>spook.lines</code> file,
+<a href="#spook.lines">scroll down a screen or two.</a>
+<h2>
+<a name="perl">
+Perl
+</a></h2>
+<p>
+Of course, Perl isn't Unix, and Unix isn't Perl, but people who
+recognize quality tend to like both.
+(See also
+<a href="#emacs">Emacs.)</a>
+<blockquote>
+The purpose of most computer languages is to lengthen your resume
+by a word and a comma.
+<p>
+&nbsp;&nbsp;&nbsp;--&nbsp;Larry&nbsp;Wall
+</blockquote>
+<p>
+The WWW is shock full of Perl links. I get along fairly well with
+stuff directly or indirectly available from the following:
+<ul>
+<li>
+<a href="http://www.perl.com/">http://www.perl.com/</a>
+<li>
+<a href="http://www.tpj.com/">http://www.tpj.com/</a>
+<li>
+<a href="http://plover.com/~mjd/perl/">M-J Dominus' Perl Paraphernalia</a>
+</ul>
+<p>
+I'm not a very eager Perl links collector, though. YMMV.
+<h2>
+<a name="vnc">
+VNC
+</a></h2>
+<p>
+It's <tt>screen</tt> for X. No, it's a multiplatform graphical 
+<tt>screen</tt>. It's worth to kill for. But it's free. 'Nuff said.
+<a href="http://www.uk.research.att.com/vnc/">http://www.uk.research.att.com/vnc/</a>
+<p>
+Here are some useful extras (some of them are also linked from the
+AT&nbsp;&#38;&nbsp;T pages):
+<ul>
+<li>
+Here's a DOS viewer:
+<a href="http://www.complang.tuwien.ac.at/nino/dosvnc.html">http://www.complang.tuwien.ac.at/nino/dosvnc.html</a>
+<li>
+Here's a monitor program for watching several VNC desktops:
+<a href="http://www.wilson.co.uk/Software/vnc/VncMonitor.htm">http://www.wilson.co.uk/Software/vnc/VncMonitor.htm</a>
+<li>
+And
+<a href="http://cgi.debian.org/cgi-bin/search%5Fpackages.pl?keywords=vnc&amp;searchon=names&amp;version=stable&amp;release=all">here's a canned search for the precompiled Debian packages</a>
+(follow the links and you'll find the client package as a "suggested addition"
+on the server's download page)
+</ul>
+<h2>
+<a name="open">
+Open Source / Free Software
+</a></h2>
+<p>
+Of course, Open Source / Free Software isn't Unix, and Unix[tm]
+most definitely isn't Open Source / Free Software. But there are
+reasons why this is here nevertheless.
+(See also
+<a href="#emacs">Emacs</a>
+and
+<a href="#perl">Perl.)</a>
+<p>
+This is really just a quick link collection in case you're trying to
+pick up on this topic.
+<ul>
+<li>
+<a href="http://www.opensource.org/">http://www.opensource.org/</a>
+<li>
+<a href="http://www.gnu.org/">http://www.gnu.org/</a>
+<li>
+<a href="http://www.slashdot.org/">http://www.slashdot.org/</a>
+<li>
+<a href="http://www.tuxedo.org/">http://www.tuxedo.org/</a>
+(Eric Raymond's site)
+<li>
+<a href="http://search.dmoz.org/cgi-bin/search?search=%22open+source%22">Search on <tt>dmoz.org</tt> for matches on "open source"</a>
+(check out some of the
+<a href="http://dmoz.org/Computers/Internet/WWW/Directories/Open&#95;Directory&#95;Project/">material about <tt>dmoz.org</tt> itself,</a>
+too)
+<li>
+<a href="http://www.ora.com/">http://www.ora.com/</a>
+and
+<a href="http://www.perl.com/">http://www.perl.com/</a>
+frequently have open source-related material on their start pages
+<li>
+Salon Magazine has run an impressive
+<a href="http://www.salonmagazine.com/tech/special/opensource/">series of articles about the free software / open source movement</a>
+<li>
+<a href="http://www.wired.com/">http://www.wired.com/</a>
+will also obviously have a large amount of relevant material.
+Here's a canned search:
+<a href="http://www.wired.com/news/news/search&#95;results&#95;news?words=open%20source">http://www.wired.com/news/news/search&#95;results&#95;news?words=open%20source</a>
+<li>
+<a href="http://www.forbes.com/forbes/98/0810/6203094a.htm"><i>Forbes Magazine</i> article</a>
+(yes, even the "duh, my quarterly bottom line" suits are catching up)
+</ul>
+If you find any material you think should be included here, perhaps you could
+<a href="http://dmoz.org/cgi-bin/add.cgi?where=Computers/Open&#95;Source">submit it to <tt>dmoz.org</tt> instead.</a>
+<p>
+<a name="spook.lines">
+A (meager, but still) contribution of mine is the
+</a><a href="open-source-spook.lines.gz">subversive Open Sounce Conspiracy <code>spook.lines</code> file</a>
+which you can download here. (The Emacs <code>spookmime.el</code> package
+by Noah Friedman is curiously not available from his
+<a href="http://www.splode.com/~friedman/software/emacs-lisp/">collected works page</a>
+but you can pick up a copy from the
+<a href="http://www.gnac.com/~hogan/vm/">VM Add-Ons page.)</a>
+<h2>
+<a name="misc">
+Miscellaneous
+</a></h2>
+This is bound to grow out of proportion.
+<dl>
+<dt>
+Libretto notes
+<dd>
+In case you missed it earlier, I have written up some notes on
+<a href="libretto.html">installing Debian on a Libretto.</a>
+<dt>
+<a href="http://www.jwz.org/">http://www.jwz.org/</a>
+<dd>
+Attitude. Weirdness.
+At least Jamie
+works hard to deserve
+his fifteen minutes
+in the spotlight.
+<dt>
+<a name="OCR">
+Free Unix OCR software
+</a><dd>
+<a href="http://documents.cfar.umd.edu/ocr/">http://documents.cfar.umd.edu/ocr/</a>
+<dt>
+"Unix is the ultimate computer virus"
+<dd>
+Ironically, the guy who coined the phrase
+"Unix is the ultimate computer virus"
+was rather critical of Unix and C.
+The guy is Richard P. Gabriel
+and the quotation is from his 1992 paper
+<a href="http://www.ai.mit.edu/docs/articles/good-news/good-news.html">Lisp: Good News - Bad News - How to Win Big</a>
+<dt>
+... which brings us to the
+<a href="http://catalog.com/hopkins/unix-haters/login.html">Unix Haters.</a>
+<dd>
+Don't be fooled by the silly name, this is not
+"Windoze r00lz so FOAD" lusers on a rampage.
+Some of the criticism is very insightful.
+<dt>
+<a href="http://www.performancecomputing.com/features/9809of1.shtml">We Are Smart</a>
+<dd>
+<small>(A-g-a-i-n, originally snatched from 
+<a href="http://www.perl.com/"><tt>www.perl.com</tt>'s</a>
+What's New)</small>
+<dd>
+Of course, this contains a Useless Use of Test!
+<blockquote><pre>
+	if test -z `ps -fe | grep whom` 
+	then 
+		echo ^G 
+ 	fi 
+	# Let's see for whom the bell tolls. 
+</pre></blockquote>
+Or is it Useless Use of Backticks? Anyhow, the way to code that is
+<blockquote><pre>
+	if ps -fe | grep whom; then ...
+</pre></blockquote>
+Oh! And another one:
+<blockquote><pre>
+	cat menu | grep shrimp
+</pre></blockquote>
+Yes -- this is the classic
+<a href="award.html">Useless Use of Cat</a>
+but I shall leave fixing it as an exercise to the reader.
+<dd>
+<strong>Perhaps we aren't so smart after all?</strong>
+<dt>
+<a href="http://www.rocksoft.com/taobackup/">The Tao of Backup</a>
+<dd>
+... Slick design, if your browser can display it.
+<dt>
+<a href="http://www.duh-2000.com/">Dumbest Y2K Quotes Contest</a>
+<dd>
+<img src="http://www.duh-2000.com/images/anim%5Fwelcome.gif"
+alt="(Ken the Cockroach, an animated GIF from a Y2K awareness ad campaign)">
+<dd>
+And
+<a href="http://www.perlmongers.org/phbs/y2k.html">here's a link to Tom Christiansen's article</a>
+about the Y2K hype contest (recommended reading for IT managers)
+<dt>
+How to print FrameMaker preformatted PostScript on A4 paper
+<dd>
+This is one of the few things I (indirectly)
+found an answer to from
+<a href="http://www.askjeeves.com/">http://www.askjeeves.com/</a>
+-- this is not an endorsement;
+I've failed to find more answers there
+than I care to remember.
+<dd>
+This has nothing with Unix to do, of course,
+but it's information I could have killed for
+on more than one occasion.
+<dd>
+<a href="http://www.math.auc.dk/~nwp/ps/fm4/">http://www.math.auc.dk/~nwp/ps/fm4/</a>
+is the place to go.
+Bookmark, mail it to all your friends,
+send beer to the guy who made the page.
+(Bookmark the 
+<a href="http://www.math.auc.dk/~nwp/ps/">parent page</a>
+also.)
+While you're frothing anyway,
+persuade a nearby mirror to
+mirror it, too!
+<dd>
+Mysteriously, the FMLeve1 patch tip
+is also available from sites like
+<a href="http://java.sun.com/docs/a4.html">http://java.sun.com/docs/a4.html</a>
+and
+<a href="http://www-sop.inria.fr/koala/lehors/xpm.htm">http://www-sop.inria.fr/koala/lehors/xpm.htm</a>
+</dl>
+<p>
+If you sort of
+enjoyed these links,
+perhaps the
+<a href="../hotlist.html#misc">misc section of my regular hotlist</a>
+will be found to be
+entertaining.
+<h3>
+Other programs
+</h3>
+Some of these are programs I use. Others are programs I don't use.
+Some of these are programs I recommend. Others are programs I don't recommend.
+You were warned.
+<ul>
+<li>
+<a href="http://www.cs.berkeley.edu/~amc/Par/"><code>par</code></a>
+is a program for reformatting paragraphs
+(somewhat like the standard <code>fmt</code> utility, only smarter).
+<li>
+<a href="ftp://ftp.yars.free.net/pub/software/unix/net/ftp/client/lftp/"><code>lftp</code></a>
+-- finally a decent command-line ftp client.
+Good-bye, <code>ncftp</code> -- good riddance.
+(Okay, so this one isn't exactly rock solid either.)
+<li>
+<a href="ftp://ftp.funet.fi/pub/misc/old-hsu-archive/unsorted/8/sls.shar.gz"><code>sls</code></a>
+is a hacker-friendly version of <b>ls</b><i>(1)</i> by Rich Baughman
+for those times when you need a good simple interface to file sizes,
+modification times, access times, etc. in a "less user friendly"
+format&nbsp;<code>:-)</code> than you get with <code>ls</code>
+<br>
+I've been receiving requests for pointers to the original author
+and/or a version without Y2K problems. I've been in touch with
+the author and received a copy of his most recent source,
+which does not have a Y2K problem, but still contains some Sunisms.
+<br>
+<strong>A patched version</strong>
+with some contributed patches
+is maintained by yours truly
+and available from
+<a href="http://www.iki.fi/era/unix/sls.tar.gz">http://www.iki.fi/era/unix/sls.tar.gz</a>
+or just the diffs from the above in
+<a href="http://www.iki.fi/era/unix/sls-diff.gz">http://www.iki.fi/era/unix/sls-diff.gz</a>
+<br>
+(Somehow I originally thought this was a program by Rich $alz
+but that is not the case.
+Apologies to both Riches for the confusion.
+Also, for a very long time,
+the tarball was broken.
+My sincerest apologies to everyone
+who tried to download it
+before December 2001.
+I'm very embarrassed.)
+<li>
+<a href="http://www.inf.utfsm.cl/~vparada/webcopy.html"><code>webcopy</code></a>
+is a simple but versatile tool for fetching web pages. I got this
+in 1995, before <code>wget</code> was even conceived, but I find
+this one still works better for me. (<code>wget</code> is incredibly
+frustrating in some respects. I should perhaps put my rants about it
+on a separate web page some day&nbsp;<code>:-)</code>
+I note that many hosts on
+<a href="http://www.pgp.net/"><code>pgp.net</code></a>
+use <code>webcopy</code>, too, so I guess I'm not the only one who
+likes this one.
+<li>
+Procmail -- see 
+<a href="#procmail">above</a>
+and elsewhere.
+<li>
+<a href="http://www.emacs.org/">Emacs</a>
+-- ditto.
+<br>
+If you are looking for my Open Source Spook Lines,
+<a href="#spook.lines">scroll back a screen or two.</a>
+<li>
+Did I mention
+<a href="#vnc">VNC?</a>
+<li>
+<a href="#perl">Perl?</a>
+<li>
+<a href="http://www.cyclic.com/">CVS?</a>
+</ul>
+<hr>
+<small>
+$Id: index.prep,v 1.79 2001/12/02 19:41:04 era Exp $
+</small>
+
+</body>
+</html>

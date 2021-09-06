@@ -1,0 +1,1326 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Introduction to Procmail</title>
+<link rev="made" href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Introduction to Procmail</h1>
+<p>
+<blockquote>
+http://www.iki.fi/era/mail/procmail-presentation.html
+<small>
+<br>
+$Id: procmail-presentation.prep,v 1.14 2000/09/18 09:53:45 era Exp $
+</small>
+</blockquote>
+<p>
+This is a short presentation
+of Procmail.
+It is intended for
+use as a handout
+in conjunction with a
+performance of some sort
+(preferrably with a
+screen projector
+and a nice Unix prompt)
+but you may not
+enjoy it less
+without the
+performance<nobr> ...</nobr>
+<p>
+Prerequisites:
+A little bit of
+shell programming
+and a willingness
+to experiment.
+<p>
+This is strictly
+from an end-user
+perspective;
+mail administration
+on a system-wide scale
+is totally outside
+the scope of this
+presentation.
+<h2>
+What is Procmail?
+</h2>
+<p>
+Procmail is a tool
+for processing mail.
+It can be used to
+dispatch your mail
+or run a script
+on incoming messages
+which match a certain
+pattern.
+Most frequently
+it's probably used
+for rejecting spam
+and setting up
+various autoresponders.
+But it's an extremely
+versatile tool
+which isn't even
+restricted to use
+with mail
+(although you have to have
+a taste for the curious
+to really appreciate
+the other possibilities).
+<p>
+The orientation
+of this presentation
+is to give an overview,
+with glances at some
+of the more powerful
+features of Procmail.
+Pointers to
+self-study material
+will be given
+along the way.
+<h2>
+Overview
+</h2>
+<p>
+Here's a quick breakdown
+of today's topics.
+<ul>
+<li>
+<a href="#start-questions">Starting points -- questions</a>
+<li>
+<a href="#start-answers">Starting points -- answers (maybe)</a>
+<li>
+<a href="#terminology-procmail">Procmail terminology: Sorting, filtering, forwarding</a>
+<li>
+<a href="#terminology-mail">Mail terminology: MTA / MDA / MUA</a>
+<li>
+<a href="#invoking">Invoking Procmail</a>
+<li>
+<a href="#mail-anatomy">Anatomy of a mail message</a>
+<li>
+<a href="#syntax">Recipe syntax</a>
+<li>
+<a href="#flags">Flags</a>
+<li>
+<a href="#regex">Regular expressions</a>
+<li>
+<a href="#regex-peculiarities">Procmail regex peculiarities</a>
+<li>
+<a href="#deliveredness">Deliveredness</a>
+<li>
+<a href="#answers">Questions revisited, with answers</a>
+<li>
+<a href="#pitfalls">Common pitfalls</a>
+<li>
+<a href="#links">Links</a>
+</ul>
+<h2>
+<a name="start-questions">
+Starting points -- questions
+</a></h2>
+<blockquote>
+Alcohol is the answer,
+but I can't remember
+the question
+</blockquote>
+<p>
+If you're just curious,
+here are some questions
+which could be answered
+with "Procmail".
+If you never ask yourself
+these types of questions,
+perhaps Procmail is not
+for you.
+<ul>
+<li>
+How can I keep mailing lists separate from my other mail?
+<li>
+How can I keep out messages from a certain person?
+<li>
+How can I send people a certain message automatically
+if they mail me with a particular Subject line?
+<li>
+I get these automatically generated messages
+which are in an inconvenient format, can they be fixed?
+<li>
+I get a lot of mail and some of it is always urgent,
+can I make it come out on top when I open my mail program?
+<li>
+I get a lot of mail but some of it is not really meant for me.
+Can I automatically pass it on to my assistant?
+</ul>
+<h2>
+<a name="start-answers">
+Starting points -- answers (maybe)
+</a></h2>
+<p>
+Procmail might be the answer if
+<ul>
+<li>
+you read your mail in Unix,
+or at least have an idea how to
+handle mail in Unix
+<li>
+or, you are a PC user but can have
+your mail sent via a Unix account
+<li>
+you are somewhat comfortable
+with shell scripts and/or Perl
+<li>
+you have a basic understanding
+of mail headers, or are willing
+to learn
+</ul>
+<p>
+Certainly some canned solutions
+are available, so if your needs
+are simple and straightforward,
+you can probably just copy
+somebody's existing Procmail files
+and take it from there.
+<p>
+If something goes wrong,
+you probably need to understand
+something about files and
+the Unix file permission system,
+as well as be able to ask
+your system administrator
+moderately intelligent questions.
+<h2>
+<a name="terminology-procmail">
+Procmail terminology: Sorting, filtering, forwarding
+</a></h2>
+<p>
+To return to our questions above,
+here's how Procmail can help you
+with the problems they were about.
+<blockquote>
+<ul>
+<li>
+How can I keep mailing lists separate from my other mail?
+<li>
+<dl>
+<dt>
+I get a lot of mail and some of it is always urgent,
+can I make it come out on top when I open my mail program?
+<dd>
+<strong>Mail sorting</strong>
+means saving mail to different <em>folders</em>
+depending on e.g. the Subject line
+or the author of each message.
+<dd>
+This means you can divert
+mailing lists to low-priority folders
+which you will read when you have the time,
+and allow only important messages
+into your regular inbox.
+</dl>
+<li>
+<dl>
+<dt>
+How can I keep out messages from a certain person?
+<dd>
+This is really just a special case of sorting.
+Sort them to a <em>very</em> low-priority folder,
+such as <code>/dev/null</code>
+</dl>
+</ul>
+</blockquote>
+<h2>
+Procmail terminology (continued)
+</h2>
+<blockquote>
+<ul>
+<li>
+<dl>
+<dt>
+I get these automatically generated messages
+which are in an inconvenient format, can they be fixed?
+<dd>
+Procmail allows you to run
+a regular Unix <strong>filter</strong>
+on any message,
+again depending on the
+Subject, author, recipient,
+priority, or message contents
+if that's what you want.
+<dd>
+(Filters are programs
+such as <code>tr</code> or <code>sort</code>
+-- although those are not very meaningful
+examples in this context.)
+<dd>
+Obviously, if your needs are special,
+you will need to be able to
+write the actual filter yourself.
+Frequently a simple Perl or sed script
+is all it takes, though.
+</dl>
+<li>
+<dl>
+<dt>
+How can I send people a certain message automatically
+if they mail me with a particular Subject line?
+<dd>
+<strong>Autoresponders</strong>
+are essentially just a special sort
+of filtering.
+</dl>
+<li>
+<dl>
+<dt>
+I get a lot of mail but some of it is not really meant for me.
+Can I automatically pass it on to my assistant?
+<dd>
+<strong>Forwarding</strong>
+is again basically another sort of
+filter -- a filter which sends on 
+the mail to a new address.
+Actually Procmail has some nice
+built-in functions
+which make this particularly
+easy and elegant.
+</dl>
+</ul>
+</blockquote>
+<h2>
+<a name="terminology-mail">
+Mail terminology: MTA / MDA / MUA
+</a></h2>
+<p>
+It's beneficial to understand
+how Procmail fits into a larger picture
+before we look at how to do things
+in practice.
+<p>
+Here's a standard reference model
+of a mail system. It has three
+fairly independent components:
+<blockquote><pre>
+` , ` , ` , ` |  Remote MTA  |, ` , ` , ` , ` , ` ,
+` , ` , ` , ` +--------------+, ` , ` , ` , ` , ` ,
+` , ` , ` , ` , ` , ||  ` , ` , ` , ` , ` , ` , ` ,
+` , ` , Internet` ,\  / ` , ` , ` , ` , ` , ` , ` ,
+` , ` , ` , ` , ` , \/  ` , ` , ` , ` , ` , ` , ` ,
+` , ` , ` , ` +--------------+, ` , ` , ` , ` , ` ,
+--------------|     MTA      |----------------------
+              +--------------+
+               ||          ||
+               \/          \/               +-----+
+             +-----+     +-----+            | MUA |&#60;----- user
+             | MDA |     | MDA |            +-----+
+             +-----+     +-----+               ^
+	        |           |                  |
+mailbox file &#60;--+           +--&#62; other types of delivery? (IMAP?)
+</pre></blockquote>
+These are the <strong>Mail Transport Agent</strong>,
+the <strong>Mail Delivery Agent</strong>,
+and the <strong>Mail User Agent</strong>.
+Each one of these has a distinct role.
+<h2>
+Mail terminology (continued)
+</h2>
+<p>
+Here's a brief discussion of the acronyms
+on the previous slide:
+<dl>
+<dt>
+Mail Transport Agent (MTA)
+<em>Sendmail, ZMailer, Qmail, Postfix</em>
+<dd>
+This program is responsible
+for keeping track of how to
+move mail across the Internet
+and to other networks
+(X.500, BITNET, etc).
+<dt>
+Mail Delivery Agent (MDA)
+<em>(Sendmail), Filter, Procmail;
+<code>deliver(8)</code></em>
+<dd>
+This program receives mail
+from the MTA and from local users
+and takes care of storing it
+where the recipient wants it.
+<dt>
+Mail User Agent (MUA)
+<em>Pine, Elm, Mutt; Netscape; MH; Emacs RMAIL, Gnus;
+<code>mailx(1)</code></em>
+<dd>
+A user interface to the mail system,
+used for reading, writing, and
+manipulating mail interactively.
+</dl>
+<p>
+The standard model has a few more elements
+which are however less central to this discussion.
+The
+<a href="http://zmailer.org/zman/ztut-intro.html">Zmailer docs</a>
+have a more complete picture
+as well as a broader discussion.
+<p>
+A corollary to this picture
+is that Procmail is basically
+useful only for processing <strong>incoming</strong> mail,
+although if your outgoing mail processing
+has hooks to invoke a script on outgoing mail,
+Procmail will work perfectly for that as well.
+But such hooks are not standard in mainstream
+mail systems today.
+<p>
+(A note for the curious:
+Sendmail is properly a MTA
+but it has built-in delivery functions
+and you can use it from the command line
+to send mail, so it's even a
+primitive MUA.)
+<h2>
+<a name="invoking">
+Invoking Procmail
+</a></h2>
+<p>
+In practice, Procmail
+is rarely invoked from
+the Unix prompt,
+except for testing
+your Procmail settings.
+By its nature,
+it's an autonomous program
+which is intended to be run
+by your MTA
+<nobr>(Sendmail, Qmail, ...)</nobr>
+each time you receive
+a new mail message.
+Procmail is then responsible
+for <em>delivering</em>
+the message.
+Its power comes from
+the large flexibility
+it offers over
+regular MDAs,
+which typically
+only handle simple
+delivery to a
+given file
+(<code>/var/spool/mail/era</code>
+or an IMAP folder somewhere
+or something like that).
+<p>
+With Sendmail,
+Procmail can be installed
+as everybody's MDA
+(site-wide installation)
+but if that's not the case,
+Sendmail lets each user
+run arbitrary delivery scripts
+via the <code>$HOME/.forward</code> file.
+<p>
+The "standard" <code>.forward</code> file
+for invoking Procmail
+is fairly complicated,
+but people often just copy and paste it
+from the manual page.
+Remember to change the last part
+to your own login name!
+<p>
+(The manual page is different
+on different sites,
+but the usual variations
+are explained in
+<a href="http://www.iki.fi/era/procmail/mini-faq.html#forward">http://www.iki.fi/era/procmail/mini-faq.html#forward</a>
+in some [too much?] detail.)
+<h2>
+Invoking Procmail (continued)
+</h2>
+<p>
+Regardless of how exactly Procmail is invoked,
+it goes through something like the following:
+<ul>
+<li>
+Execute recipes in <code>/etc/procmailrc</code>
+<li>
+Execute recipes in <code>$HOME/.procmailrc</code>
+<li>
+If mail is still undelivered, deliver to <code>DEFAULT</code>
+(usually something like <code>/var/spool/mail/era</code>)
+</ul>
+If you have no recipe files,
+it should work exactly as
+if Procmail wasn't there.
+<p>
+(This also means that you can figure out
+whether or not you need a <code>.forward</code>:
+If strange things start happening
+when you create <code>$HOME/.procmailrc</code>,
+Procmail is already being invoked
+without your knowledge.)
+<p>
+Note that both Sendmail and Procmail
+are quite easily offended
+when it comes to who is allowed
+to read and write these files.
+As a rule, you should always
+take care that your home directory
+and your dot files are not
+writable by anybody else.
+(Whether you make them readable
+is up to you.
+Sendmail usually runs under
+your own user ID
+by the time it reads
+any dot files of yours,
+so these files should not need
+to be world-readable.)
+<h2>
+<a name="mail-anatomy">
+Anatomy of a mail message
+</a></h2>
+<p>
+Before we can start tackling
+mail handling, we also need to
+talk about
+the parts of a mail message.
+These are what
+Procmail fundamentally
+works with
+to decide how to deliver
+a message,
+guided by the rules you write.
+<p>
+A mail message is divided
+into <strong>headers</strong>
+and <strong>body</strong>.
+The headers contain
+address and route information
+and the Subject line.
+The body is the actual
+text of the message.
+<p>
+The body is completely
+free-form,
+while the headers are
+fairly rigid.
+Each header consists
+of a keyword (possibly
+several tokens with
+hyphens between them)
+followed by a colon,
+and then the value
+of the field.
+If the value is long,
+it may be split over
+many lines
+so that each continued line
+starts with a
+space or tab character.
+<p>
+(There's a single
+empty line after the header,
+with no space or tab on it,
+which separates the header
+from the body;
+this is occasionally called
+the <strong>neck</strong>.)
+<h2>
+Anatomy of a mail message (continued)
+</h2>
+<p>
+Here's a minimal example message:
+<blockquote><pre>
+	From era  Fri Jul 14 09:29:20 2000
+	Received: from schildt.ling.helsinki.fi by stoker.lingsoft.fi
+	Received: from localhost by schildt.ling.helsinki.fi
+	<strong>From: era eriksson &#60;era@iki.fi&#62;</strong>
+	<strong>To: era eriksson &#60;reriksso@lingsoft.fi&#62;</strong>
+	<strong>Subject: Finally something even you can understand!</strong>
+	Date: Thu, 13 Jul 2000 20:42:12 +0300 (EET DST)
+	Message-Id: &#60;moomania-03945@schildt.ling.helsinki.fi&#62;
+
+	Moo.
+
+	The interesting headers appear highlighted.
+</pre></blockquote>
+Many MUA:s will hide away a lot of the headers,
+because many of them are extremely uninteresting
+unless you try to debug the mail system itself.
+<p>
+The very first line, the "From" without a colon,
+isn't part of the headers really.
+It's a separator string
+which marks the beginning of a new message
+in this particular file storage format.
+This is stored as a "Berkeley" or "mbox" message,
+which is probably the most widespread
+format in use today.
+(If you have your mail in <code>/var/spool/mail/you</code>
+it's probably in Berkeley format.)
+<h2>
+Anatomy of a mail message (continued)
+</h2>
+<p>
+Note that the order of headers is by and large
+insignificant.
+From, To, and Subject can occur in any order,
+and there may be other headers in between.
+<p>
+Incidentally, Procmail does not
+make any particular assumptions
+about the contents of the headers
+(and neither should your recipes
+make such assumptions, hopefully).
+In other words, Procmail doesn't care
+if the headers contain 8-bit (or 16-bit or 32-bit)
+data -- in violation of RFC822 --
+nor does it try to decode or canonicalize
+or otherwise modify input data
+in any way
+(though you can certainly implement
+recipes to achieve such canonicalizations
+if you want them).
+Similarly, MIME headers and data
+are fundamentelly just ASCII,
+and you can write regular expressions
+to identify the "magical" MIME stuff
+just as well as any other predictably
+formatted strings.
+(However, MIME is a complex beast,
+and covering all possible variants
+of how MIME may validly encode
+the same message in different ways
+is more frustration than fun.)
+<h2>
+<a name="syntax">
+Recipe syntax
+</a></h2>
+<p>
+The rules for what to deliver where
+are called <strong>recipes</strong>.
+The syntax is vaguely related
+to shell scripts in some ways,
+but basically, the formalism
+is completely unlike anything else.
+It takes some getting used to,
+but it's fairly succinct and
+suprisingly simple to understand
+once you get used to it.
+<p>
+In abstract terms,
+each recipe has
+a <em>mode</em>,
+some <em>conditions</em> (optionally),
+and an <em>action</em>.
+<p>
+If the conditions are left out,
+the recipe is unconditional, obviously.
+<p>
+Recipes are read from top to bottom.
+The first <strong>delivering recipe</strong>
+terminates the delivery process
+(unless you specify otherwise
+with the mode flags).
+<p>
+Conditions are typically <strong>regular expressions</strong>,
+although there are other interesting possibilities
+as well.
+<p>
+Incidentally, if you have read this far
+without losing interest,
+but you don't know what a regular expression is,
+you'd do well to read a basic Unix book.
+It will tell you what you need to know
+in order to get started with Procmail.
+<h2>
+Recipe syntax (continued)
+</h2>
+<p>
+Here's a fairly standard
+simple <code>.procmailrc</code> file.
+<blockquote><pre>
+	SHELL=/bin/sh   # Good habit to always have this
+	MAILDIR=$HOME/Mail
+	LOGFILE=$HOME/Mail/procmail.log
+
+	:0:
+	* ^Subject: test
+	testing
+</pre></blockquote>
+The first three lines are variable assignments,
+not recipes.
+The following chunk of three lines
+is a simple recipe.
+<p>
+The recipe has a condition,
+which says that the action should be taken
+only if the message being processed
+has a header
+matching the regular expression
+<blockquote><pre>
+	^Subject: test
+</pre></blockquote>
+The action is to save the message
+to the mailbox file (or "folder")
+<code>testing</code>.
+This file doesn't have an absolute pathname,
+so it will be created in the directory
+named in the <code>MAILDIR</code> variable.
+<h2>
+Recipe syntax (continued)
+</h2>
+<p>
+Here's that recipe again:
+<blockquote><pre>
+	:0:
+	* ^Subject: test
+	testing	
+</pre></blockquote>
+Notice the following details:
+<ul>
+<li>
+The first line consists of
+a colon, the number zero,
+and a second colon.
+<ul>
+<li>
+The first colon
+signals the start of
+a new recipe.
+<li>
+The meaning of the
+number zero
+is purely historical.
+(Don't experiment --
+only zero is useful.)
+<li>
+The second colon
+means to use locking;
+this should always be used
+when saving to a file,
+and virtually never
+otherwise.
+</ul>
+<li>
+The asterisk signals
+the beginning of
+a condition.
+The condition
+is a regular expression
+which is matched
+against the headers
+of the message
+being processed.
+<li>
+The action
+has no special "signal"
+character in front,
+in this case;
+saving to a folder
+can be considered
+the simplest form of
+delivery,
+so the syntax is simple,
+too.
+</ul>
+<h2>
+<a name="flags">
+Flags
+</a></h2>
+<p>
+The colon line
+can carry a lot more
+information
+than just a single colon.
+This is probably
+the hardest part of
+Procmail to learn
+because the flags
+are single-letter
+options
+-- sometimes with
+no meaningful mnemonic
+-- 
+although they can
+have a quite
+significant impact
+on what a recipe
+actually does.
+<p>
+Here are some useful flags:
+<dl>
+<dt>
+<code>B</code>
+<dd>
+Match against the body of the message
+instead of the headers.
+<dt>
+<code>HB</code> or <code>BH</code>
+<dd>
+Match against both the headers
+and the body.
+<dt>
+<code>D</code>
+<dd>
+Case is significant
+when matching.
+(Default is don't care.
+Mail headers can be mixed case
+according to RFC822
+so normally you shoot yourself in the foot
+if you treat case as significant.)
+<dt>
+<code>c</code>
+<dd>
+Clone:
+Even if this recipe
+is a <em>delivering</em> one,
+continue processing
+as if the message was still
+undelivered.
+<dd>
+This is the key to
+doing more than one thing
+to a message.
+<dt>
+<code>f</code>
+<dd>
+Modify ("filter")
+the message and continue
+processing with the modified version.
+(This is "filtering" because you can run
+filtering pipelines like <code>tr A-Z a-z</code>
+to turn all text into lowercase, for example.)
+This obviously cannot be a delivering recipe.
+</dl>
+Note that some of these are uppercase while others are lowercase.
+The <code>b</code> flag does something else than the <code>B</code> flag.
+<p>
+You get a brief listing of all the flags with <code>procmail -h</code>
+at the Unix prompt.
+<h2>
+Flags (continued)
+</h2>
+<p>
+Here's an example of a real-life recipe combo with a lot of flags:
+<blockquote><pre>
+	:0fhw   # Simplify headers by folding any continued lines back
+	* ^[^ 	:]*:[ 	][ 	]|$[ 	]
+	| formail -cz
+
+	:0Ahcw: # If the previous recipe matched, save a copy of headers
+	$HOME/headers.log
+
+	# Processing continues here even though previous recipe "delivered"
+	:0      # Pass this message on to Steve
+	! steve@example.com
+</pre></blockquote>
+This also demonstrates the other two types of actions:
+Feeding a message to an arbitrary shell command
+(signalled by the pipe character <code>|</code>),
+and forwarding a message to another address
+(signalled by the exclamation mark <code>!</code>).
+<p>
+(Decoding the finer points is left as an
+exercise<nobr><code> :-)</code></nobr>
+<h2>
+<a name="regex">
+Regular expressions
+</a></h2>
+<p>
+Procmail's regular expression support
+is fairly good, although it's not
+quite as supercharged as Perl's.
+The closest related regex flavor
+is probably Egrep's, although
+Procmail has some interesting
+features
+(and some not so stunning quirks).
+<p>
+For a beginner, the important thing
+is to realize that the condition
+has to match exactly.
+If you write
+<blockquote><pre>
+	* ^From: fred flinthe
+</pre></blockquote>
+then this condition will not match
+if there are two spaces
+after the colon, or if Fred
+changes his email program's setup
+so that it reads "Fred F. Flinthe"
+in the From: field instead,
+or if the header had been
+<blockquote><pre>
+	From: fredf@stonera.example.net (Fred Flinthe)
+</pre></blockquote>
+all along.
+<p>
+(And don't forget the leading
+star which signals the start
+of a condition.
+That would produce some
+hilarious / hysterical
+mystery errors
+which can be very hard
+to figure out.)
+<h2>
+Regular expressions (continued)
+</h2>
+<p>
+The other source of newbie confusion
+comes from not realizing that <code>.*</code> (dot star)
+is the "match anything" wildcard in regex-ese (not just star,
+and not whatever else that happens to work in INTERCAL or
+Visual Basic or JavaScript).
+<p>
+... And/or not realizing that <code>*</code>
+and <code>.</code> (full stop) and <code>[</code>
+and <code>]</code> and <code>(</code> and <code>)</code>
+and <code>?</code> and all their friends
+have a special "magical" meaning in regex-ese.
+So if you want to
+match any of them literally,
+you need to put a backslash
+in front.
+<p>
+The next step after you've learned the absolute basics
+-- for some users, at least --
+is the hypercorrectness stage,
+where you backslash everything
+which "looks magical"
+just to be on the safe side.
+This is dangerous, too,
+at least if taken to extremes.
+<h2>
+<a name="regex-peculiarities">
+Procmail regex peculiarities
+</a></h2>
+<p>
+The only really unusual things
+in Procmail's regex support
+are the <code>\&#60;</code>
+and <code>\&#62;</code>
+"word boundary" operators,
+which are actually just a
+shorthand for a character
+class;
+the predefined macros
+<code>^TO&#95;</code> and
+<code>^FROM&#95;MAILER</code>
+and <code>^FROM&#95;DAEMON</code>;
+and
+the weird <code>\/</code> grab
+operator (highly magical
+-- pity we don't have
+real backrefs, though).
+<p>
+Another slightly unusual,
+but highly convenient
+feature --
+which you will find is
+quite natural
+if you're used to working
+with regular expressions
+-- is the behavior of the
+<code>$</code> and <code>^</code>
+line anchors: they actually
+match a literal newline
+if you use them anywhere
+inside a regular expression.
+<p>
+Finally,
+there is also a <code>^^</code>
+anchor which is similar to
+Perl's "beginning/end of search space"
+operator, which matches on the
+beginning/end of the header,
+or body, or whatever you are
+matching on.
+(You can match on the values
+of variables, too.)
+<p>
+That's right, you can match
+multi-line values
+with a single regular expression.
+Here's an example which adds a
+Secret Subliminal Header
+to messages with a lot of empty lines
+(i.e. adjacent newlines)
+right at the top of the body
+(only incoming messages,
+fortunately).
+<blockquote><pre>
+	:0Bfhw     # Look for a lot of empty lines at the top of the body
+	* ^^$$$$$
+        | formail -a "X-Plode: Poor Netscape luser, I pity you."
+</pre></blockquote>
+<h2>
+<a name="deliveredness">
+Deliveredness
+</a></h2>
+<p>
+Another concept which is tricky to learn
+is <strong>deliveredness</strong>.
+This is a fundamental thing to understand
+because it determines which recipes
+will be activated when.
+<blockquote>
+The first successful
+delivering recipe
+will cause Procmail
+to terminate.
+</blockquote>
+A delivering recipe is like <code>exit 0</code>
+in a shell script -- it says "we're done".
+If that's not what you want to say,
+you need to know how to phrase your recipe
+differently.
+<p>
+A recipe with a <code>c</code> flag
+is never delivering.
+(Or actually, it will cause Procmail
+to fork; one copy of Procmail
+continues processing
+almost as if the recipe with the
+<code>c</code> flag hadn't been there.
+So if you add a <code>c</code> flag
+to a recipe which wasn't delivering
+in the first place, you will have
+two copies of the same message!)
+<p>
+Other than that, any recipe
+which forwards or stores the message
+is delivering. Anything else
+is by definition not delivering;
+variable assignments,
+filtering actions
+(recipes with an <code>f</code> flag),
+unsuccessful delivery attempts
+(permission denied, syntax error),
+recipes whose conditions don't match
+-- these are not delivering actions,
+so Procmail will continue processing
+with the next recipe until it
+reaches end of file.
+<p>
+(Remember, Procmail finally
+delivers to whatever
+the <code>DEFAULT</code> variable
+is set to if it "falls off"
+the end of the <code>.procmailrc</code>
+file.)
+<h2>
+<a name="answers">
+Questions revisited, with answers
+</a></h2>
+<p>
+Here are again those questions we had at the beginning.
+<ul>
+<li>
+How can I keep mailing lists separate from my other mail?
+<li>
+<dl>
+<dt>
+I get a lot of mail and some of it is always urgent,
+can I make it come out on top when I open my mail program?
+<dd>
+If you can find a regular expression
+(or other condition)
+which uniquely identifies the mail
+you want to divert,
+nothing could be easier.
+<blockquote><pre>
+	:0:
+	* ^From owner-kt-info@listserv\.funet\.fi
+	kt-info
+
+	:0:  # two conditions: both must be met
+	* ^From th?orvalds@transmeta\.com
+	* ^Subject:.*transmeta visit
+	URGENT.linus
+	# (of course it's "torvalds", but don't tell the spammers)
+</pre></blockquote>
+<dd>
+The <code>From&nbsp;</code> pseudoheader
+is often fairly reliable for this sort
+of thing; mailing lists frequently also add
+a <code>List-Info:</code> or similar header.
+<dd>
+Reliably detecting which messages
+from regular correspondents
+are more urgent than others
+is a Strong AI challenge, of course.
+But some people have developed
+fairly elaborate rules of thumb
+(look for certain keywords and phrases,
+perhaps also depending on time of day
+and day of week?)
+which work remarkably well.
+</dl>
+</ul>
+<h2>
+Questions revisited (continued)
+</h2>
+<ul>
+<li>
+<dl>
+<dt>
+How can I keep out messages from a certain person?
+<dd>
+In the brutal case,
+deliver the message to Bit Heaven.
+<blockquote><pre>
+	:0
+	* ^From aila\.anoppi@soneraplaza\.fi
+	/dev/null
+</pre></blockquote>
+<dd>
+Letting people know
+you are ignoring them systematically
+is not usually polite,
+and if you have a serious problem,
+you should probably revert to
+social engineering (calling their boss,
+or whatever).
+<dd>
+<code>/dev/null</code>
+is a very blunt solution
+and very often not the Right Thing.
+But for killing off a flood
+of spew from a looping
+mail relay, it's a good tool.
+</dl>
+<li>
+<dl>
+<dt>
+I get a lot of mail but some of it is not really meant for me.
+Can I automatically pass it on to my assistant?
+<dd>
+Given the right
+regular expression
+(or other condition
+to identify those messages),
+it's trivial.
+<blockquote><pre>
+	:0c   # Copy to secretary
+	* ^From.*@microsoft\.com
+	* ^Subject:.*handoff
+	! secretary
+
+	:0:   # Store in a Safe Place. Clean out before Christmas
+	forwarded.ms
+</pre></blockquote>
+</dl>
+</ul>
+<h2>
+Questions revisited (continued)
+</h2>
+<ul>
+<li>
+<dl>
+<dt>
+How can I send people a certain message automatically
+if they mail me with a particular Subject line?
+<dd>
+The <code>procmailex</code> manual page
+has an assortment of autoresponder
+examples, including a souped-up
+<code>vacation(1)</code> clone
+and a simple ftp-by-mail server.
+</dl>
+<li>
+<dl>
+<dt>
+I get these automatically generated messages
+which are in an inconvenient format, can they be fixed?
+<dd>
+Again,
+given a regular expression
+which matches only those messages,
+and a simple shell script which
+cleans them up,
+this is trivial.
+Of course,
+finding a good regular expression
+and writing the script
+can be challenging.
+(But then it's not really
+a Procmail problem anymore.)
+<dd>
+Here's an old favorite:
+<blockquote><pre>
+	:0BDbfw  # remove that #&$@! annoying Yahoo footer
+	* ^Do You Yahoo!\?$
+	| sed -e 's/^--$/,$d'  # bug: trims starting from the FIRST "--"
+</pre></blockquote>
+<dd>
+Similarly simple recipes
+should be easy to find
+for most of these "branded"
+types of email messages
+-- Hotmail, NetMinder,
+Microsoft Outkook HTML attachments
+(challenging!)
+</dl>
+</ul>
+<h2>
+<a name="pitfalls">
+Common pitfalls
+</a></h2>
+<p>
+Here's some distilled wisdom for you.
+<ul>
+<li>
+<a href="http://www.iki.fi/era/mail/autoresponder-faq.html">Annoying autoresponders </a>
+are a real pain in the 944A2.
+Think twice before you roll your own.
+<li>
+There is
+around half a dozen
+manual pages.
+Make sure you've found
+them <nobr>all ...</nobr>
+<li>
+Don't waste your time on spam recipes.
+Get your system administrator
+to implement a site-wide shield.
+If you need personal protection,
+there's a zillion packages
+of Procmail recipes you can
+"plug and play". Don't waste time
+writing your own antispam recipes.
+Better yet,
+<a href="http://www.iki.fi/era/spam/faq/">don't let the spammers find you in the first place.</a>
+<li>
+Procmail is paranoid about
+permissions. If your home directory
+is group writable, Procmail will
+simply refuse to deliver any mail.
+(This is a compile-time option;
+read the comments in <code>config.h</code>
+and act accordingly.)
+<li>
+Procmail is
+<code>&#60;strong&#62;&#60;large&#62;&#60;blink&#62;</code>
+NOT
+<code>&#60;/blink&#62;&#60;/large&#62;&#60;/strong&#62;</code>
+a mail transport agent.
+If your ISP delivers all the mail
+for your private little domain
+into a large mailbox
+and you are trying to split it
+back into mom's mail and pop's mail
+and your own mail and your dog's mail,
+There Will Be Grief.
+Just find a better ISP.
+<li>
+Procmail handles a single message at a time.
+If you have an mbox of messages
+and you want to process each one,
+you process each one separately.
+Here's how:
+<blockquote><pre>
+unix$ <strong>formail -s procmail &#60;large.mbox</strong>
+</pre></blockquote>
+See the manual for the <code>formail</code>
+companion utility for some other nifty tricks.
+It's a very useful mail manipulation tool
+in its own right.
+</ul>
+<h2>
+<a name="links">
+Links
+</a></h2>
+<p>
+There's a lot of material about Procmail
+out there
+but it's not very cohesive.
+<p>
+The one single resource you should be aware of
+if you intend to get serious about Procmail
+is the mailing list.
+<p>
+Here are some links to get you started:
+<dl>
+<dt>
+Procmail Quick Start by Nancy McGough
+<dd>
+<a href="http://www.ii.com/internet/robots/procmail/qs/">http://www.ii.com/internet/robots/procmail/qs/</a>
+<dt>
+Procmail home page
+<dd>
+<a href="http://www.procmail.org/">http://www.procmail.org/</a>
+<dd>
+Your one-stop shop
+for getting the latest version
+and some essential links.
+<dt>
+Searchable archive of the Procmail mailing list
+<dd>
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/">http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/</a>
+</dl>
+<p>
+There's been talk of
+an O'Reilly book
+about Procmail
+from time to time
+but it just never
+seems to materialize.
+<p>
+(Quite frankly,
+even I sent them
+a manuscript proposal
+once.
+They just sneered
+at <nobr>me. <code>:-)</code></nobr>
+<h2>
+Links (continued)
+</h2>
+<p>
+In addition, here's a bit of self-promotion:
+<dl>
+<dt>
+<a href="http://www.iki.fi/era/procmail/">http://www.iki.fi/era/procmail/</a>
+<dd>
+Procmail FAQ.
+Also has a companion
+<a href="http://www.iki.fi/era/procmail/links.html">links page</a>
+which is fairly extensive;
+includes links to many
+antispam packages
+implemented in Procmail.
+Also links to FAQs about MIME
+and other general technical
+information about email.
+<dt>
+<a href="http://www.iki.fi/era/mail/procmail-debug.html">http://www.iki.fi/era/mail/procmail-debug.html</a>
+<dd>
+Another amusing page
+about getting away with
+shooting yourself in the foot.
+<dt>
+<a href="http://www.iki.fi/era/spam/">http://www.iki.fi/era/spam/</a>
+<dd>
+Assorted spam-related material.
+Look in any other directory,
+too. I've got spam material
+basically everywhere.
+<dt>
+<a href="http://www.iki.fi/era/rbl/rbl.html">http://www.iki.fi/era/rbl/rbl.html</a>
+<dd>
+You want this
+if you're serious about avoiding spam.
+Works from Procmail too,
+if your admin won't cooperate.
+</dl>
+<hr>
+http://www.iki.fi/era/mail/procmail-presentation.html
+<small>
+<br>
+$Id: procmail-presentation.prep,v 1.14 2000/09/18 09:53:45 era Exp $
+</small>
+
+</body>
+</html>

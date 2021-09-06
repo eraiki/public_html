@@ -1,0 +1,18 @@
+TMPDIR=/tmp/$USER
+MAILDIR=$TMPDIR/procmail.out
+DEFAULT=$MAILDIR/$USER
+VERBOSE=yeah
+SHELL=/bin/sh
+
+:0
+* ? test -d $TMPDIR || mkdir $TMPDIR
+* ? test -d $MAILDIR || mkdir $MAILDIR
+{ }
+:0E
+{
+    # Bail out if either directory didn't exist and couldn't be created
+    EXITCODE=127
+    HOST
+}
+
+# ... your experimental recipes here

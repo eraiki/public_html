@@ -1,0 +1,309 @@
+<html><head><title>Procmail Mini-Tutorial by Tony Nugent</title></head>
+<body>
+This tutorial was submitted by Tony Nugent for inclusion here. 
+Some typos were fixed when I did HTML formatting from the original
+ASCII-only message. Please submit any error reports to 
+<a href="http://www.iki.fi/era/feedback.html">me.</a>
+<address>
+era
+</address>
+
+<hr>
+<pre>
+Content-Type: text/plain; name="tonys-procmail-mini.faq"; charset="us-ascii"
+Content-ID: &#60;6952.854682543.2@sctnugen.ppp.gu.edu.au&#62;
+Content-Description: procmail mini-tutorial
+
+To: "A. Lester Buck III" &#60;buck@compact.com&#62;
+From: Tony Nugent &#60;tony@trishul.sci.gu.edu.au&#62;
+X-Sender: tonyn@sctnugen.ppp.gu.edu.au
+X-Mailer: mh-6.8.3
+Subject: Re: question for procmail guru 
+In-Reply-To: message-id &#60;199701061734.LAA21641@siswat.compact.com&#62;
+	 of Mon, Jan 06 11:34:59 1997
+</pre>
+
+On Mon Jan 06 1997, "A. Lester Buck III" wrote:
+
+<blockquote>
+	&#62; Dear Tony,
+	<p>
+	&#62; You are very knowledgeable about procmail, so I was wondering
+	if you could answer my question before I blurt out a FAQ on the
+	mailing list.
+</blockquote>
+
+Hey, I'm no guru - in fact I'm just a newbie with procmail!  I started
+using it in November... but I must admit that I'm now able to use it
+with some good effect. :)
+
+
+<blockquote>
+	&#62; I would like to filter email and then put it back in the mail
+	stream.
+</blockquote>
+
+Absolutely simple to do.  For example, this is a procmail recipe to
+strip out trailing spaces on every message:
+
+<blockquote><pre>
+# --- strip all trailing spaces ---
+#
+:0fW
+| sed -e 's+ *$++'
+</pre></blockquote>
+
+Here's a more complex one that filters any Quoted-Printable messages
+to turn them into ordinary 8bit...
+
+<blockquote><pre>
+# --- do mime filtering if it is quoted-printable ---
+#
+:0fW
+* ^Content-Transfer-Encoding: QUOTED-PRINTABLE
+| emil -f 2 -l 2 -u -C ISO-8859-1 -F RFC822 -H 8bit -T 8bit
+	:0 Afhw
+	| formail -I "Content-Transfer-Encoding: 8bit" \
+		  -I "X-Converted: Quoted-Printable to 8bit"
+</pre></blockquote>
+
+The actual mechanics of how `emil' works is not really relevant here,
+but it does show you how it is done... any message with that
+Content-Transfer-Encoding line will get sent though the filter (and
+then to formail to add the extra header lines).  Neither of them
+are delivery recipes, so procmail will continue to process the
+messages after this point.
+
+<p>
+
+Here's another that I do for every incoming mail...
+
+
+<blockquote><pre>
+# --- strip out ugly PGP stuff ---
+#
+:0fbW
+* (BEGIN|END) PGP (SIG(NATURE|NED MESSAGE)|PUBLIC KEY BLOCK)
+| sed -e 's+^- -+-+' \
+      -e '/BEGIN PGP SIGNED MESSAGE/d' \
+      -e '/BEGIN PGP SIGNATURE/,/END PGP SIGNATURE/d' \
+      -e '/BEGIN PGP PUBLIC KEY BLOCK/,/END PGP PUBLIC KEY BLOCK/d'
+	:0 Afhw
+	| formail -I "X-PGP: PGP Signature stripped"
+</pre></blockquote>
+
+Do you get the general idea?
+
+<p>
+
+(Note the `b' flag... it only filters the <em>body</em> of the message).
+
+<blockquote>
+
+	&#62; procmail is the local delivery agent for my sendmail
+	on Linux, so it is being called (without any rc file) on every
+	piece of mail anyway.
+</blockquote>
+
+Cool.  All you have to do to get procmail to start filtering is to
+create a ~/.procmailrc file and create recipes like these in it.
+
+<blockquote>
+	&#62; I would like to do things like delete
+	excessive email signatures
+</blockquote>
+
+Difficult to do "generically"... what sort of <em>reliable</em> criteria can
+you use to detect such sigs, and how do you go about removing just the
+.sig part reliably?
+
+<blockquote>
+	&#62; and automatically add X-No-Archive: yes for certain
+	privacy-concerned members of a mailing list I own.
+</blockquote>
+
+Adding headers is one of the things formail is useful for.  Both of
+the above recipes filter the messages though formail depending on what
+the result of the immediately preceding recipe is.  (See the man
+pages).
+
+<p>
+
+The real secret is understanding exactly what the flags are for, and
+what you are able to do with them.  (Eg, lookup <code>:0fBw</code> and
+<code>:0Afhw</code> in
+the procmailrc man page).
+
+<blockquote>
+	&#62; I see how to get things flowing into the filter (sed or
+	whatever). 
+</blockquote>
+
+If the message isn't delivered by a recipe, then it will continue to
+be processed.
+
+<blockquote>
+	&#62; I am totally lost how I get it going back into the
+	default mailbox. 
+</blockquote>
+
+Use the `c' flag.  Well, use it on a deliver recipe when you still
+want a copy of the message to continue to be processed.
+
+<p>
+
+After all the filtering occurs and there are no more recipes to be
+processed, if the message hasn't been delivered, then procmail will
+put the message into the default mailbox file.  (And you have
+control over what that is by setting the appropriate environment
+varialbes for procmail in the ~/.procmailrc file - again, see the man
+pages).
+
+<p>
+
+A delivery recipe can be as simple as this:
+
+<blockquote><pre>
+:0:
+* ^From( |: ).*procmail
+procmail
+</pre></blockquote>
+
+which will (in general) put all mail matching a From: or From_ line
+that has come from the procmail list, and append it into a file called
+`procmail'.  Note the second colon after the :0: - it signifies that a
+lockfile should be used.  Lockfiles are, in general, not needed for
+filtering recipes.
+
+<p>
+
+If all that is needed to be matched in such a recipe is a header line,
+then you can make things more specific by adding a `H' flag, eg:
+
+<blockquote><pre>
+:0H:
+* ^From( |: ).*procmail
+procmail
+</pre></blockquote>
+
+This will look for the specified match only in the <em>header</em> of the
+message, rather than the <em>entire</em> message.  You can do similar things
+with the body using `B'.
+<br><small>
+(The implied default is `H'. Use `HB' to search both header and body. // era)
+</small>
+
+<p>
+
+If you still want to process the message from here even if the file
+has been delivered somewhere, then add a `c' flag, eg, :0c:  I use
+such a recipe for detecting and placing aside any duplicate messages
+(eg, the same message delivered to me as Cc to two lists I'm
+subscribed to, or Cc'ed to me AND a mailing list)...
+
+<blockquote><pre>
+# --- handle duplicate email ---
+# 
+MESG_ID=mesg_id.cache
+:0 Whc: $MESG_ID.lock
+| formail -D 196608 $MESG_ID
+	:0 a:
+	IN.duplicates
+</pre></blockquote>
+
+See how the `c' flag is used?  Here's a more explicit example...
+
+<blockquote><pre>
+:0c:
+IN.backup
+</pre></blockquote>
+
+At this point, procmail will unconditionally put a copy of any message
+it is processing into a file called IN.backup, but also continue to
+process the message for any further action.
+
+
+<blockquote>
+	&#62; Also, somehow procmail divides the mail into a header piece and a
+	body piece.  I am unclear how a filter works on one or the other,
+	and how the two pieces get put back together when the filter
+	is done.
+</blockquote>
+
+You use the flags `H', `h', `B' and `b' for doing that, like I
+mentioned above.
+
+<blockquote>
+	&#62; Would you have any example of how to get that to work for the
+	procmail as the system's local mail delivery agent?  This is
+	probably in the documentation, but I don't see it.  :-(
+</blockquote>
+
+It's there alright...
+
+<p>
+
+If sendmail is using procmail as the local deliver agent, then you
+tell procmail what to do on a per-user basis with the user's
+~/.procmailrc file... procmail will look for such a file and start to
+read it automatically.
+
+<p>
+
+On a system-wide basis (before delivery to any user), you use the
+/etc/procmailrc [whatever] files (see the man pages) - but I haven't
+got procmail set up to use any system-wide files myself, just per-user.
+Check the man pages for more details.
+
+<p>
+
+Once again, I can't stress enough that it is the <em>flags</em> you specify
+for any individual recipe that will largely determine what procmail
+will do as a result of executing it.  So check the procmailrc man page
+carefully for what these do.  Sooner or later the penny will drop and
+it will start to make sense.
+
+<p>
+
+Experiment by sending "dummy" messages to procmail with VERBOSE=yes,
+and see what happens.  EG..
+
+<blockquote><pre>
+% formail -s procmail &#60; mailbox
+</pre></blockquote>
+
+formail will break the mailbox file up into separate messages for
+procmail to act on.  Procmail will execute, by default, the
+~/.procmailrc file.
+
+<blockquote><pre>
+% formail -s procmail -m experimental.rc
+</pre></blockquote>
+
+This will do the same thing, but will use the file `experimental.rc'
+as its rc file instead of ~/.procmailrc.
+
+You can specify the procmail log file in the rc files and set
+VERBOSE=yes.  Then you can use the `tail -f' command to watch what's
+going on....
+
+<blockquote><pre>
+% tail -f ~/.procmail.log &
+</pre></blockquote>
+
+This is a very useful thing to do... `tail -f' will continue to read a
+file and display it as it is being added to, and by sending the
+process into the background you can get it to continue to do that
+while you test things out using the same shell and tty/console.  Neat
+trick (I use it a lot for following what's happening to certain system
+log files).
+
+<p>
+
+Hope this helps.
+
+<p>
+
+Cheers<br>
+Tony
+

@@ -1,0 +1,237 @@
+From: era eriksson <era+i@iki.fi>
+To: procmail@informatik.rwth-aachen.de
+Bcc: reriksso@cc.helsinki.fi
+Subject: Procmail FAQ and Links pointer (pre-faq or pre-inf)
+Newsgroups: comp.mail.misc,news.admin.net-abuse.email
+Supersedes: <procmail-faq-pointer.96253423820000702@news.helsinki.fi>
+Followup-To: poster
+Organization: People Who Are Not Old Enough For Unix (Honorary Member Emeritus)
+X-Pgp-Fingerprint: 85 40 A8 84 71 26 2C ED  15 CF 22 82 91 01 D4 42
+
+Archive-name-to-be: mail/procmail-faq-pointer
+URL:                http://www.iki.fi/era/procmail/
+Last-modified:      Tue Jul  4 16:52:36 EEST 2000
+Posting-frequency:  Every 11 days
+
+
+Subscription and unsubscription instructions for the Procmail mailing
+list are included below.
+
+  Newsflash / Nov 23 1999: Procmail 3.14 is out.
+
+The Procmail Mini-FAQ and its companion Procmail Links page are
+available at the following locations:
+
+  Procmail Mini-FAQ: <http://www.iki.fi/era/procmail/mini-faq.html>
+  Procmail Links:    <http://www.iki.fi/era/procmail/links.html>
+
+Please view the Table of Contents for the FAQ near the end of this
+posting. If you have a question about Procmail, you should hopefully
+find it there.
+
+The following mirror sites are available:
+
+   North America
+          <http://mirror.ncsa.uiuc.edu/procmail-faq/>
+          <http://www.zer0.org/procmail/>
+          <http://moongroup.com/docs/procmail/>
+          <http://www.linuxguru.com/docs/faq/procmail/>
+
+   Europe
+          <http://www.xs4all.nl/~sister/mirror/procmail/>
+
+   Please use one of the mirrors if you can.
+
+Other useful on-line resources related to Procmail include
+
+  <http://www.procmail.org/>
+        -- Procmail and SmartList Home Page
+  <http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/>
+        -- Searchable archive of the Procmail Mailing List  
+  <http://www.professional.org/procmail/unsubscribe.html>
+        -- Sean's Unsubscribe FAQ for the Alphabet Challenged
+  <http://www.hartzler.net/smartlist/SmartList-FAQ.html>
+        -- SmartList FAQ, now maintained by Peter Hartzler
+
+The Links page, of course, has links to lots more.
+
+If you would like to receive the FAQ by electronic mail, send a
+message with the words "send mini-faq.txt" (sans quotation marks) in
+the Subject: header to the address
+    <era+pr@iki.fi>
+
+The Links page is not very useful if you do not have WWW access. You
+can receive the HTML version by e-mail, though; use the Subject line
+"send links.html" instead. The HTML version of the FAQ can be
+retreived with the Subject: send mini-faq.html
+
+If you can't receive large messages, you can receive the text version
+of the mini-FAQ in parts by requesting "mini-faq/parts" instead of
+"mini-faq.txt".
+
+My current plan is to send this out every 11 days and see how people
+react. If nobody reacts in any way, I will probably continue to send
+it out this way, and/or ultimately seek news.answers approval for this
+notice.
+
+/* era */
+
+
+Changes to the FAQ since the previous announcement
+==================================================
+
+The following change log details recent developments since this
+announcement was last posted. The WWW version has a full change log
+which goes further back.
+
+Mini-Faq:
+  
+  date: 2000/07/04
+  
+     New mirror at http://www.linuxguru.com/docs/faq/procmail/
+
+     
+Links:
+  
+  
+  
+
+     
+Quickref:
+  
+  date: 1999/11/28
+  
+     Yikes -- character class trick example in regex section was wrong.
+     Thanks to Rejo Zenger and Philip Guenther for the discussion on the
+     list.
+     
+  date: 1999/08/06
+  
+     Some minor tweaks, including a note that the options are not described
+     here. (Anybody wanna volunteer?)
+
+
+How to subscribe/unsubscribe
+============================
+
+If you would like to subscribe to the Procmail mailing list, send a
+message containing the word "subscribe" (without the quotes (and
+without this parenthetical remark, too :^)) in the Subject: field to
+<procmail-request@informatik.rwth-aachen.de>. Please spend an
+additional second to check the spelling of that single word before you
+send off the message.
+  To unsubscribe from the list, change "subscribe" to "unsubscribe".
+This word seems even harder to spell right than the other one.
+  Note that these messages should not be sent to the list address
+<procmail@informatik> which is what you might have in your address
+book or similar -- mail to that address will be distributed to all the
+list subscribers (and make some of them very upset, if it's not about
+Procmail.)
+
+There is also a SmartList list and various special lists related to
+Procmail and SmartList. There is a web page with detailed information
+at <http://www.iki.fi/era/procmail/lists.html> and mirrors.
+
+The FAQ contains some friendly comments on netiquette. Please read
+them before posting to the list.
+
+The list robot is not very tolerant of mail errors and will
+automatically unsubscribe you if it gets many bounces from your
+address. Just subscribe yourself again if this happens. (You should
+expect to see several message from the list per day.)
+
+I have no influence over how the list is operated. 
+
+If you thought these instructions were too complicated, the
+Unsubscribe FAQ is definitely not for you. (See URL above.)
+
+
+Abridged Table of Contents for the FAQ
+======================================
+
+This is a short (abridged) listing of the contents of the FAQ.
+Hopefully, you should find your question here, and its answer in the
+FAQ.
+
+     * What is Procmail? -- Description, availability, and installation
+          + Where do I start?
+          + Is there a Procmail for Windows NT?
+          + How can I run an arbitrary Perl or shell script on all or
+            selected incoming mail?
+          + How to get answers to questions which this FAQ doesn't cover
+          + Why am I getting spam from the Procmail list server?
+          + I subscribed to the Procmail-L mailing list earlier but
+            haven't seen any messages for a while. Did the listserv
+            crash?
+     * How do I use wildcards in Procmail? Explain file locking, please.
+       ... and other syntax issues, including:
+          + How can I forward a message but leave a copy on the server?
+            (Also how do I not leave a copy on the server.)
+          + How about saving to multiple folders?
+          + How can I forward to many addresses?
+          + Generally speaking, how do I do more than one action on a
+            message?
+          + I get these procmail: Skipped "(something)" errors ...
+          + I can't get the backup example to work?
+          + How do I backup into a file instead of a directory?
+          + I know how to forward a message, but how do I forward a
+            modified message?
+          + How can I change the contents of a message but otherwise
+            proceed through my .procmailrc as usual?
+          + I want to pass some information to a script I run from within
+            Procmail
+          + What's a "folder"?
+          + What's a spool file?
+          + What does the second colon in :0: mean?
+          + What does "Couldn't determine implicit lockfile" mean?
+          + Where are files created / stored?
+          + What's this From_ header?
+          + How can I do a logical OR of two conditions?
+          + Can I list several actions under a common condition? How?
+          + How can I test the value of a variable or argument?
+          + Efficiency tips
+          + I'm having a hard time with \/
+          + Why shouldn't I use the * wildcard?
+          + Short example recipes sprinkled throughout the text
+     * Help, I get this error message ... -- Troubleshooting tips
+       Some highlights:
+          + An example debugging .rc file
+          + Known bugs, common gotchas, and funny quirks
+            ... including, but not limited to:
+               o Memory handling with huge messages / on FreeBSD
+               o Upgrade to 3.12/3.13 breaks Procmail on systems with
+                 group-writable directories (e.g. Red Hat Linux)
+               o The regex engine is not egrep compatible
+               o There is no ^FROM macro
+               o Backslash parsing is sometimes counter-intuitive
+               o Always include a SHELL= definition
+          + Getting the thing to run in the first place
+          + What goes in your .forward file
+          + Yikes! Where did my mail go??
+          + Why is Procmail writing to a file called *?
+          + Why is Procmail writing to the console? Can I stop that?
+          + What are these fields that get written to the log?
+          + Why does formail fail when looking for duplicates?
+          + What's this about "rescued data" from a filtering recipe?
+          + Why won't biff work right for my own folders?
+          + How do I get Procmail and Netscape to cooperate?
+     * How do I ...? -- Running Procmail
+          + ... match on the BCC header?
+          + ... implement a virtual domain? Or, how can I let several
+            local users share the same POP mailbox at the upstream? Or,
+            what is the most frequently made wrong assumption about mail
+            delivery?
+          + ... figure out who to Cc: when there are several recipients?
+          + ... run Procmail on a file of messages?
+          + ... do different actions depending on the time of day?
+          + ... trim down the From: field to just user@host?
+          + ... know what EXITCODE to use?
+          + ... prevent my .forward from showing in bounces?
+          + ... extract (or kill) MIME parts from messages?
+          + ... write a "vacation" program? An autoresponder?
+     * Where can I learn more? -- A small links collection
+     * Appendices
+          + Appendix A -- Folder Formats
+          + Appendix B -- Figuring Out the Mail Flow
+          + Appendix C -- Procmail Mirrors
+

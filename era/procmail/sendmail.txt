@@ -1,0 +1,96 @@
+Date: Tue, 26 Nov 1996 14:31:59 -0600
+From: Philip Guenther <guenther@gac.edu>
+To: "Robert E. Gahl" <bgahl@thesphere.com>
+cc: procmail@Informatik.RWTH-Aachen.DE
+Subject: Re: Can't come up with the right recipe... 
+Message-Id: <199611262032.OAA27583@solen.gac.edu>
+
+"Robert E. Gahl" <bgahl@thesphere.com> writes:
+>I use procmail in combination with sendmail to direct our virtual user
+>account mail. That is, I direct all inbound mail for a given domain to a
+>single user account, and then use procmail within that account to redirect
+>the mail to individual user accounts. It looks something like this:
+>
+>sendmail rule:
+>
+>	R$*<@virtualdomain.com>	$#local$:vdomain
+>
+>Then, in the vdomain account is a .forward with:
+>
+>	"|exec /usr/local/bin/procmail USER=vdomain"
+
+Hmm, looks like you've lost the envelope recipient.  Let's see if
+that's what you're looking for:
+
+...
+>Here's the problem. Some of our users subscribe to mailing lists whose To
+>field is something other than their name. I can see the actual recipient
+>usually in the first 'Received: from . . . for <username@virtualdomain.com>
+>id . . . .' but I can't derive a rule that will operate within the above
+>parameters. Anyone have a rule out there which can solve this?
+
+Sure enough, you've lost the envelope recipient and now you're
+wondering how to get it back.  The answer is that you cannot do so from
+inside procmail.  You need to change your sendmail config, period.  A
+correct "virtual domain" setup will have a .mc file (for sendmail's m4
+config process) that contains lines like:
+
+FEATURE(mailertable)		# possibly with a second arg
+MAILER(procmail)
+
+
+with a mailertable entry that looks like:
+
+virtualdomain.com	procmail:/path/to/procmailrc/here
+
+
+Then in the procmailrc /path/to/procmailrc/here you would put:
+
+
+SENDER = $1
+RECIPT = $2
+
+:0
+* RECIPT ?? ^someuser@
+! -f $SENDER username@pop2.mailhost.com
+
+
+etc.
+
+DO NOT THINK YOU CAN DO THIS WITHOUT ALTERING YOUR SENDMAIL CONFIG.
+You noticed how the Received: line will sometimes say "for <users...>".
+Don't bother trying to match on that, as it doesn't work in at least
+two cases (resent mail, and multiple recipients).  Do it right, or
+don't bother doing it all.
+
+You should also consider taking a look at the archives of this list, as
+the discussion about this has been rehashed twice this month already.
+
+
+>Secondly, the more I read the man page, the more I'm convinced that the
+>(^TO|^CC|^BCC) is redundant and should just be ^TO. Am I correct?
+
+Assuming you want to match against the destination headers, then yes,
+you should just say:
+
+:0
+* ^TOsome-address
+...
+
+
+If that looks confusion you can stick some parens in to break it up
+visually:
+
+* (^TO)some-address
+* ^TO(some-address)
+* ^TO()some-address
+
+Those should all work the exact same.
+
+
+Philip Guenther
+
+PS. I'm sorry if I seem overly harsh in the above.  It's just that this
+comes up fairly regularly, and it seems that about half the time they
+refuse to accept the answer.  <sigh>  It's just frustrating...
+

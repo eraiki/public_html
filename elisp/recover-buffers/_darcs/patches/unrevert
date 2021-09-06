@@ -1,0 +1,99 @@
+
+New patches:
+
+[unrevert
+anonymous**20111005080204] 
+<
+> {
+hunk ./index.html 9
+  <body>
+ <h1>Index of elisp/recover-buffers</h1>
+ <pre>      Name                    Description<hr>      <a href="/elisp/">Parent Directory</a>
+-      <a href="50recover-buffers.el">50recover-buffers.el</a>    Debian-style site-start.d file
+-      <a href="recover-buffers.el">recover-buffers.el</a>      Recover and revisit all buffers in auto-save file
+-
++      <a href="50recover-buffers.el">50recover-buffers.el</a>          Debian-style site-start.d fil      <a href="50recover-buffers-tramp.el">50recover-buffers-tramp.el</a>    Debian-style site-start.d file for Tramp hooks
++      <a href="ChangeLog">ChangeLog</a>                     Timeline of changes
++      <a href="recover-buffers.el">recover-buffers.el</a>           Recover and revisit all buffers in auto-save file
++      <a href="recover-buffers.el">recover-buffers-tramp.el</a>     Additional functionality for Tramp mode
+ <hr></pre>
+ <p>
+ See also <a href="http://emacsbugs.donarmstrong.com/889">http://emacsbugs.donarmstrong.com/889</a>
+hunk ./index.html 17
+ <p>
+-<small>This isn't a proper directory listing
++<small>This is a public <a href="http://darcs.net/">Darcs</a>
++repository.
++You don't see a complete directory listing
+ because I don't want random bots
+ to find and traverse the _darcs directory
+ (it's got email addresses and what not).
+}
+
+Context:
+
+[ChangeLog: update with commits from public repo (duh)
+era eriksson <era+emacs@iki.fi>**20111005074627
+ Ignore-this: 26a7c2149de2cac33825efdde46c9653
+] 
+[recover-buffers.el: attempt to trap file access errors when loading
+era eriksson <era+emacs@iki.fi>**20111004074039
+ Ignore-this: c67eb537833e8f1eafe97a6bb1b998b3
+] 
+[ChangeLog: new file; retroactively populate based on Darcs commit messages
+era eriksson <era+emacs@iki.fi>**20111004073927
+ Ignore-this: 9d67707a5971216e419181f4c88c4357
+] 
+[recover-buffers.el: reconcile with public repo on porkmail.org
+era eriksson <era+emacs@iki.fi>**20110205215705
+ Ignore-this: d9c5508c1ea17b0d8dbaa1b054456c81
+] 
+[recover-buffers-tramp.el: Hook to prompt for Tramp passwords early on
+era eriksson <era+emacs@iki.fi>**20110205215224
+ Ignore-this: 7f9e48e84f04bf030b9c2bccc336c66f
+ 50recover-buffers-tramp.el: Startup definitions for recover-buffers-tramp
+] 
+[50recover-buffers.el: add missing final newline
+era eriksson <era+emacs@iki.fi>**20110205191026
+ Ignore-this: b749b7d53d648924ac67330c057e5345
+] 
+[recover-buffers.el: add link to public repo to Commentary section
+era eriksson <era+emacs@iki.fi>**20100526103823
+ Ignore-this: d2594fca8d8268c090bde09676d3f448
+] 
+[`recover-buffers-finish': implement before and after hooks
+era eriksson <era+emacs@iki.fi>**20100526103506
+ Ignore-this: 9718e30ab0043108830f81aadeb924a4
+ `recover-buffers-before-hook', `recover-buffers-after-hook': hook variables
+ `recover-buffers-list': private variable to pass file names to hooks
+] 
+[`recover-buffers-finish': use `recover-buffers-say' for error message
+era eriksson <era+emacs@iki.fi>**20100526095814
+ Ignore-this: ddfefbc1d7f93ac0c06779d7ac707ab3
+] 
+[`recover-buffers': add pointer to `recover-buffers-finish' to docstring
+era eriksson <era+emacs@iki.fi>**20100526061042
+ Ignore-this: fa9f9cf168be74eee8b1568fec939c9b
+] 
+[`recover-buffers-say' (subst): add minimal docstring
+era eriksson <era+emacs@iki.fi>**20100525182202
+ Ignore-this: 9c53b40d0c6ff7063e6cdf924046d9ed
+] 
+[index.html: put it in the way so bots don't see _darcs
+era eriksson <era+emacs@iki.fi>**20090115130658
+ Also, add a pointer to emacsbugs #889
+] 
+[recover-buffers.el: update comments with URLs to public repo and Emacs bug
+era eriksson <era+emacs@iki.fi>**20090115123125] 
+[50recover-buffers.el: Debian-style startup file for recover-buffers
+era eriksson <era+emacs@iki.fi>**20090105164300] 
+[recover-buffers.el: put customizations into their own group after all
+era eriksson <era+emacs@iki.fi>**20090105075942] 
+[recover-buffers.el: mark recover-buffers to be autoloaded
+era eriksson <era+emacs@iki.fi>**20081210113614] 
+[recover-buffers.el: Initial check-in
+era eriksson <era+emacs@iki.fi>**20081202190206
+ Vaguely based on an earlier private version
+] 
+Patch bundle hash:
+f7c91ed56a585b63df795f18f2d3185ee1157f91

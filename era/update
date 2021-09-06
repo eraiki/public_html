@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# update -- era Mon Feb  6 04:13:37 PM 2006
+# in lieu of a Makefile (we don't want to install make ...)
+#
+# $Id: update,v 1.2 2006/02/21 02:11:42 era Exp $
+
+function warn
+{
+    echo "$0:" "$@" >&2
+}
+function die
+{
+    local err=$1
+    shift
+    warn "$@"
+    exit $err
+}
+
+
+######## TODO: update this when adding a new target
+targets='tmp|procmail'
+
+function tmp ()
+{
+    for f in entries.{x,y}ml; do
+        test ! -e $f || test -w $f ||
+	    chmod u+w $f || die 2 "tmp: *** chmod +w $f failed"
+        scp ihme.org:work/lirio/$f tmp/ || die 3 "tmp: *** scp failed"
+	bzip2 -9 <"tmp/$f" >"tmp/$f".bz2 || die 4 "tmp: *** bzip failed"
+    done
+}
+
+function procmail ()
+{
+    wget -r -np -nh http://www.zer0.org/procmail ||
+	die 5 "procmail: *** wget http://www.zer0.org/procmail failed"
+}
+
+
+while : ; do
+    case $# in 0) break;; esac
+    eval "case $1 in $targets) shift; $1; target=$1; continue;; esac"
+    die 255 "Invalid target $1"
+done
+
+
+case ${target:-nonesvch} in nonesvch) warn "No target specified"; exit 1;; esac
+exit 0

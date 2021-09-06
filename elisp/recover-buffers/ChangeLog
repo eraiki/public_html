@@ -1,0 +1,34 @@
+2011-10-04  era eriksson  <era+emacs@iki.fi>
+
+	* Attempt to catch Tramp etc errors so that files can be opened
+	  even if a remote host cannot be reached, for example.
+
+	* Add ChangeLog
+
+2011-02-05  era eriksson  <era+emacs@iki.fi>
+
+	* Add recover-buffers-tramp.el and 50recover-buffers-tramp.el
+
+2010-05-26  era eriksson  <era+emacs@iki.fi>
+
+	* Implement -before and -after hooks; improve docstrings and comments
+
+2009-01-15  era eriksson  <era+emacs@iki.fi>
+
+	* Update comments with URLs to public repo and Emacs bug
+
+	* Add index.html
+
+2009-01-05  era eriksson  <era+emacs@iki.fi>
+
+	* Put customizations into their own group
+
+	* Add 50recover-buffers.el
+
+2008-12-10  era eriksson  <era+emacs@iki.fi>
+
+	* Mark recover-buffers to be autoloaded
+
+2008-12-02  era eriksson  <era+emacs@iki.fi>
+
+	* Initial check-in; vaguely based on an earlier private version.

@@ -1,0 +1,320 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>My Linux Toy -- the Libretto 50CT</title>
+<meta name="description" content="Running Debian on a Toshiba Libretto 50 -- one newbie's notes">
+<meta name="keywords" content="debian, libretto, toshiba libretto, linux, libretto 50ct, installing debian, debian installation, debian on a libretto">
+<link rev="made" href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>My Linux Toy -- the Libretto 50CT</h1>
+<p>
+<p>
+This is probably extremely boring unless you are trying
+to install Debian on a Libretto and are looking for
+documentation from people who have somehow managed
+to get it to work.
+<p>
+This one might be especially valuable if you don't know
+anything about Linux because neither do I and I managed
+to get it working.
+<p>
+I hate screwdrivers, hardware, and getting my fingers greasy.
+<p>
+On the other hand, if you're wondering what this is about,
+perhaps you should check out the
+<a href="#links">links section</a>
+below.
+<h2>
+Background
+</h2>
+If you want to read as little as possible,
+<a href="#debian">skip down to the Debian part.</a>
+This is a bit chatty.
+<p>
+I bought my Libretto second-hand -- third hand, actually --
+without any floppy drive whatsoever, scarce documentation,
+and only American keycaps (and an American warranty,
+if you can call it a warranty).
+<p>
+After about five hours of use, the old hard drive in it died.
+It was still under warranty, but the Finnish Toshiba agent
+wouldn't touch it with a 10-meter pole. So much for worldwide
+warranty.
+<p>
+I got a new 2-gig drive (whee) and struggled for about two
+months (yes, two months) with it before I finally got
+everything running. (Don't let that scare you -- most of
+that was because I was busy having a merry Christmas and a
+happy new year. All in all, getting the thing running only
+took about three evenings and most of that was reading docs
+and waiting for installations to complete.)
+<h2>
+The way it was done
+</h2>
+Here's a blow-by-blow account of what I did.
+<ol>
+<li>	Partition the hard drive on DOS with a 500-meg
+DOS partition, leaving the other 1.5 megs completely
+untouched.
+<li>	Install Windows 95 on the DOS partition
+by putting the hard drive in a second computer with
+a CD drive, copying everything I could fit
+onto the hard drive, and moving the drive back.
+<ul>
+<li>	The Windows CD is crammed with demos for lame
+warez. Don't copy that stuff unless you have
+a lot of hard drive to waste.
+<li>	This moving operation took about half a dozen attempts 
+before I got it right.
+<ul>
+<li>	Make sure you get a slim model if
+you have to get a new hard drive for the Libretto
+-- older laptops would carry a similar drive but
+5 mm thick whereas the Lib can obviously only 
+accommodate a half-height drive.
+<li>	And remember to set up the hard drive's 
+geometry correctly in the host computer's BIOS,
+friends! It will look like it's trying to boot,
+but fails, if you have the sectors wrong when
+moving it back to the Libretto.
+<li>	I got a Windows CD with the Libretto but
+had an old upgrade I thought I might as well use.
+The installation proceeded nicely until the
+upgrade check was done and it wanted me to insert
+a floppy with an old version of Windows or NT
+to prove that I was entitled to upgrade.
+Duh -- no floppy drive. Back to the drawing board.
+</ul>
+<li>	I wanted the contents of the Windows CD on the 
+hard drive for various reasons -- obviously, tweaking
+the Windows installation requires access to the CAB
+files all the time, but even if you do have access
+to a CD-ROM player, things are a lot more convenient
+if you have the files on the fixed disk all the time
+(on any Windows computer).
+<li>	And anyway, you never know what kind of voodoo
+Windows tries to do while installing, so you really
+want to run the installation locally on the Libretto,
+not just install Windows on another computer and then
+move the drive back to the Libretto.
+</ul>
+<li>	Move assorted other stuff I had forgotten to copy,
+or that I needed to get off the 'Net, over a serial
+link. Windows HyperTerminal sucks, but at least it
+has ZModem and Kermit. (I've seen more terminal programs
+than I care to remember that lacked either or both.)
+<li>	Find and install the network card driver (download to
+the computer I had connected to over a serial line,
+then zip it over using HyperTerminal).
+<li>	Finally connect the Windows side to the Internet
+and download the Debian package.
+<li>
+<a name="debian">
+I partitioned the drive (this is part of the Debian
+install procedure, but it makes sense to put this
+note here) into a smallish root partition and a
+largish <tt>/usr</tt> (and of course an unused
+partition near the end where the Lib can save the
+contents of its head when it goes to sleep&nbsp;...
+I have 32 megs of memory but I couldn't make a
+partition smaller than around 39.5 megs for this).
+This was just gleaned from one of the installation
+"howtos" I found on the Internet.
+But in retrospect this arrangement wasn't so wise;
+I've had to rearrange things a little bit because
+I managed to fill up the root partition pretty quickly;
+it contains <tt>/var</tt> (where <tt>dpkg</tt>
+puts downloaded packages -- I like to keep them
+around after I've installed them just in case)
+and <tt>/home</tt> and of course <tt>/tmp</tt>.
+If you're like me, one or more of those should be
+separate from the root partition (unless of course
+you go for just one partition for the whole system).
+</a><li>	I gleaned the following DOS command line from a Japanese
+web page about installing Debian 1.x on a Libretto. I'm not
+altogether sure where I found it, or how (given that I
+don't even have the stuff to display the Japanese characters
+correctly, never mind that I couldn't read them if I did)
+but here's the command line I used to start up Loadlin
+the first time:
+<blockquote><pre>
+	loadlin linux root=/dev/ram initrd=root.bin
+</pre></blockquote>
+The first parameter is the full path to the kernel you
+want to boot; I had Loadlin, the kernel, <tt>root.bin</tt>
+and all the other stuff in the same directory but you
+might want to go for a cleaner setup. (And let's hope
+you will be more successful than I was at finding up-to-date
+documentation for Loadlin.)
+<li>	Run the Debian installer. This was a breeze.
+However, something screwed up the partition table
+for me at one point, so I redid this part (actually
+all the way back to formatting the hard drive and
+reinstalling Windows ... yuck) another time.
+<li>	You will want to install some packages before the system
+is actually useful for anything. 
+<ul>
+<li> Using precompiled preconfigured <tt>.deb</tt> packages
+for things you want is vastly preferrable to 
+configuring, installing, maintaining, upgrading etc
+your own versions of everything, although sometimes, 
+the "official Debian version" of something
+will be some odd outdated, buggy, and esoteric version.
+(I mean, Emacs 20.2, Procmail 3.10 -- 
+I thought they were kidding!
+This could be a feature of the installation script,
+though; it looks like "fresh" versions are available
+of most things in the "unstable" branch, which of course
+you use at your own peril.)
+<li>	<tt>dselect</tt> is kind of too "user-friendly" for me,
+I have been using straight <tt>dpkg</tt> ever since I
+figured out how (and it's definitely not very hard).
+I wish somebody wrote an Emacs mode for this, though!
+<li>	Besides the developer toys you need for compiling
+a kernel (see below), make sure you get the <tt>apmd</tt>
+package.
+</ul>
+<li>	The default Debian kernel you installed doesn't
+come with APM support, so you will want to compile
+your own kernel. I actually ran the "out of the box"
+kernel for a long time before I got around to doing
+this myself, and put up with living without APM, 
+but it was a real hassle. Basically, it seems that 
+every time you put the computer to sleep, the APM 
+routines will throw an interrupt which Linux
+normally doesn't know how to handle, and you get a 
+(very meaningful) "divide by zero" panic. Until you 
+get the APM kernel, in practice you will have to shut
+down Linux when you want to turn off the computer and
+reboot Linux when you start it up. So go build the APM 
+kernel, you won't want to look back.
+<ul>
+<li>	You will need gcc and various other "devel" packages
+(<tt>binutils</tt> or <tt>gas</tt> says the <tt>dpkg</tt>
+status entry, which also recommends <tt>libc-dev</tt>,
+<tt>gcc</tt>, and <tt>make</tt>&nbsp;... Nothing you wouldn't
+want to have on your system for other reasons anyway.)
+<li>	The kernel itself is in
+<tt>dists/stable/main/binary-i386/devel/kernel-source-<i>version</i></tt>
+in the Debian package tree. There's a fairly succinct
+<tt>README</tt> file with all the instructions you
+need. You can take the <tt>.config</tt> file in
+the package and change the APM setting in there,
+or run <tt>make config</tt> to select your own
+devices, defaults, etc. (There's a lot of stuff in
+the "be-all-end-all" kernel you could leave out and
+not worry about. Compiling your own kernel allows you
+to tune the system to your needs in other ways, too.)
+<li>	If you're running Loadlin, you will have to copy
+back the kernel to the Windows side. Just take the
+<tt>zImage</tt> file and put it where Loadlin can
+find it. Then you'll have to change the command line
+you use to run Loadlin so it will use your new kernel
+instead of the old one.
+</ul>
+<li>	Enjoy. Repeat. Enjoy.
+</ol>
+I've been using Loadlin and it works just fine. I never boot into
+Windows anymore anyhow, but I want to have the possibility -- mostly
+in case my wife would want to do word processing on the road (as if I'd let
+her!&nbsp;<code>:-)</code> There is an annoying note that "Windows is
+starting your MS-DOS mode program" when you boot the computer but that
+means you can press Esc to get into Windows if you really need to.
+Probably LILO wouldn't be hard to use at all but I have better things
+to do than fool around with the startup stuff. What I have works for
+me. (And anyhow I rarely reboot -- I just put the machine to sleep
+when I'm done using it.)
+<p>
+For what it's worth, here's the Loadlin command line I'm using now:
+<blockquote><pre>
+	loadlin zimage root=/dev/hda5
+</pre></blockquote>
+where <tt>zimage</tt> is the name of the new kernel I compiled 
+(it's in Loadlin's working directory; otherwise you will need a full path)
+and <tt>hda5</tt> is my Linux root partition. (I hope I got this right
+-- this was gleaned with <tt>less</tt> from the Unix side, and those
+DOS PIF files aren't exactly human-readable. No way I would reboot
+into Windows just to verify this&nbsp;<code>:-)</code>
+<p>
+In case you've never seen this in practice, when you attempt to start
+this program, Windows will ask you if you are sure you want to shut
+down everything else and restart the computer in, well, DOS mode.
+If you say yes, it will sort of arrange to pull away the carpet from
+under its own feet after the reboot, at which point the MS-DOS program
+will run with full control over the computer (and in this case then
+load and boot Linux).
+<p>
+What I think I should still do is somehow create a bootable
+PCMCIA card for emergency situations in case I'd ever need to 
+do this whole procedure over again. (Actually I guess I'd try to
+get the card to boot directly into Linux.)
+<h2>
+<a name="links">
+Links
+</a></h2>
+Some sites you should probably know about:
+<ul>
+<li>
+Grant Taylor's
+<a href="http://www.picante.com/~gtaylor/portable/">Linux on the Libretto</a>
+with links to more sites, but also valuable in and of itself --
+definitely your first stop.
+<li>
+One very helpful page, which includes e.g. a bit of documentation
+of what the funny <code>Fn</code> key does, is
+<a href="http://www.infotop.co.uk/technotes/Redhat%5F6%5Flibretto%5F100ct.html">Ian Wilson's Red Hat page.</a>
+<li>
+I found several good bits and pieces of useful advice via the
+<a href="http://www.cs.utexas.edu/users/kharker/linux-laptop/">Linux on Laptops page,</a>
+which has an incredibly large listing of links to pages like this one,
+sorted by computer make and model.
+(Mine isn't there, though&nbsp;<code>:^)</code>
+<li>
+The
+<a href="http://www.cerfnet.com/~adorable/libretto.html">Adorable Libretto page</a>
+is huge, but probably pretty authoritative. I got lost in there
+several times, but if something's available, it's bound to be listed
+there.
+There's a
+<a href="http://www.cerfnet.com/~adorable/librettocontent.html#Software">U*X section</a>
+with links to more pages like this one (although I generally 
+found them to be either too newbie-oriented, or too geared towards
+people who had already installed a few Linux setups).
+<li>
+The FreeBSD
+<a href="http://www.jp.freebsd.org/PAO/">PAO page</a>
+has a nice picture of a Libretto
+(with a Japanese keyboard -- 
+and a Windows sticker, even though it's running FreeBSD.
+There are also some links if you'd like to try out FreeBSD).
+</ul>
+The above listing doesn't necessarily list all the references that I found 
+the most helpful. Stay tuned -- I'll try to remember to import stuff from
+bookmark files I have scattered all over the place here at some point.
+<p>
+In the end, the reference I relied on the most was 
+<a href="http://www.debian.org/">Debian's installation instructions</a>
+although I wouldn't have known e.g. how to access the BIOS of the Lib
+(remember, no docs with this second-hand unit) or to set up a sleep 
+partition if I hadn't also cruised around all those Libretto sites too.
+<hr>
+<small>
+$Id: libretto.prep,v 1.20 1999/09/30 15:55:48 era Exp $
+</small>
+<div class="buttons">
+<a href="http://counter.li.org/">
+<img src="http://counter.li.org/cgi-bin/certificate.cgi/142090"
+alt="[Registered Linux User #142090 ... Register yourself!]"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.debian.org/">
+<img src="http://www.debian.org/logos/button-1.gif"
+alt="[Debian GNU/Linux]"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.emacs.org/">
+<img src="http://home.pacbell.net/s-max/pix/made-with-emacs.gif"
+alt="[Best Viewed in Emacs]"></a>
+
+</body>
+</html>

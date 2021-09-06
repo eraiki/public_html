@@ -1,0 +1,273 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Useless Use of Backticks -- An Example</title>
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Useless Use of Backticks -- An Example</h1>
+<p>
+This page is a companion to my 
+<a href="award.html">Useless Use of Cat Award Page</a>
+and probably not much fun unless you've read the Award page already.
+<p>
+This is just an annotated example shell script snippet, with some
+observations of two phenomena you see a lot in newbie scripts.
+<h2>
+The Example
+</h2>
+The following snippet is something I cooked up as an example of
+Useless Use of <code>wc -l</code>. Of course, it's overdone, and
+also contains several Useless Uses of Backticks, too. It's also
+a bit off the mark because it's not a real-world example. 
+<p>
+Don't spend too much time studying this, in other words:
+<blockquote><pre>
+if [ `echo \`cat food | grep *.* | wc -l\` | grep -v 0 | wc -l` gt 0 ]; then ...
+</pre></blockquote>
+The point I originally wanted to make was that if you're 
+<a href="award.html#wc">using <code>wc</code> just to see if something produced any output, </a>
+you're probably doing something wrong. Particularly if the "something"
+was a grep.
+<p>
+However misdirected this example might be, it might be worth considering
+what the hypothetical newbie author was trying to accomplish, and
+why it came out this way. (For the newbie authors out there, it also
+serves as a warning to not post "live" code examples of your pretzel 
+logic, because too many syntax errors and clumsy constructions will
+divert attention away from your actual question, and in many
+situations produce replies at least as long as this web page, and
+probably at least as intimidating :-)
+<h3>
+Backticks Inside Backticks
+</h3>
+Most newbies can't figure out how to get backticks inside backticks, 
+so this example is somewhat misleading in that respect. 
+But let's take this example apart a little bit, or rather try to
+understand it with some more examples.
+<p>
+Let's say the program "searchpattern" produces a string which you
+later want to look for in some files with the aid of <code>grep</code>. 
+So you say
+<blockquote><pre>
+	grep `searchpattern` file1.txt file2.txt
+</pre></blockquote>
+This means, take the output of <code>searchpattern</code> and use that
+as the first parameter for <code>grep</code> (to which the first parameter
+means the pattern to look for. Oftentimes, you want to look for a literal
+string, not a regular expression, in which case you should probably use
+<code>fgrep</code> instead, or massage the output from searchpattern a
+little bit before handing it over to grep).
+<p>
+Next, you find that the output of grep needs to be assigned to a
+variable, so you need a second pair of backticks. The basic syntax for
+that is
+<blockquote><pre>
+	VAR=`grep ...`
+</pre></blockquote>
+but now you'd like the actual grep to use backticks, too. You need to
+escape the inner set of backticks:
+<blockquote><pre>
+	VAR=`grep \`searchpattern\` file1.txt file2.txt`
+</pre></blockquote>
+Incidentally, POSIX specifies a nicer alternate syntax for this which
+doesn't lead to heavy backslashitis when you want something like 
+backticks inside backticks inside backticks inside backticks:
+<blockquote><pre>
+	VAR=$(grep $(searchpattern) file1.txt file2.txt)
+</pre></blockquote>
+This is not compatible with Bourne Classic<small><sup>TM</sup></small>
+but it sure is convenient for your private Bash or Ksh scripts.
+<h3>
+Regular Expression Errors
+</h3>
+My example contains a subtle syntax error -- the pattern <code>*.*</code>
+is not a valid regular expression (and does in fact lead one to
+believe that <em>(a)</em> the script author has had previous exposure
+to MS-DOG scripting, which is probably a Bad Thing, just like they
+used to think experience with BASIC would make you a bad high-level
+language programmer; and <em>(b)</em> the author needs to get straight
+the difference between glob patterns and regular expressions once and
+for all). 
+<p>
+To say "any string" in regex-ese, you say
+<blockquote><pre>
+	.*
+</pre></blockquote>
+which means any character (.) any number of times (*). But that
+includes zero times, so it's completely redundant to search for this;
+every concievable input line will match this pattern.
+<p>
+Probably the author would be content to find any one character
+(followed by, and in theory preceded by, anything, but that's implicit
+in how grep works):
+<blockquote><pre>
+	.
+</pre></blockquote>
+(yes, that's a single dot) or perhaps any non-whitespace character:
+<blockquote><pre>
+	[^ 	]
+</pre></blockquote>
+(that's open square bracket, caret, space, tab, close square bracket,
+or in slightly higher-level terms, any one character other than space
+or tab, or newline, of course).
+<p>
+There is a second problem with the second grep, which is however more
+of a thinko. The intent is probably to throw away matches where
+<code>wc</code> produced a line count of zero lines, but this
+expression will of course throw away anything with the character zero
+anywhere in it (such as if wc found ten lines, or twenty, or a hundred).
+Perhaps a better guess would be to use grep's <code>-x</code> option:
+<blockquote><pre>
+	$ <b>wc -l &#60;/dev/null | grep -vx 0</b>
+	       0
+</pre></blockquote>
+Whoops, that didn't work out either. This is because the output from
+<code>wc</code> is padded with spaces (you could find this out by
+piping it to <code>od</code> or <code>cat -A</code> or
+<code>viz</code> or whatever your system has for looking at character
+codes). We have to ask grep to tolerate leading whitespace:
+<blockquote><pre>
+	$ <b>wc -l &#60;/dev/null | grep -v '^[ 	]*0'</b>
+</pre></blockquote>
+That regular expression we pass to grep means beginning of line,
+followed by a character class containing space and tab, any number of
+times, followed by a literal zero.
+<h3>
+Syntax Errors Fixed
+</h3>
+There is one more syntax error remaining before we can start
+dissecting the problems with this script. Namely, the <code>gt</code>
+argument to <code>test</code> needs a dash in front of it. 
+<p>
+You may not be aware of this, but the open bracket often seen after
+the <code>if</code> keyword is actually the name of a program which
+is also known by the name <code>test</code>. This is the reason why
+naming your own programs <code>test</code> is a bad idea, by the way.
+The test program is usually implemented as a built-in in modern
+shells, but it doesn't have to be, and indeed in "classic" Unix, it
+was an external program. 
+<p>
+Unfortunately, there are various incompatible versions of
+<code>test</code> out there, and not all of them even understand the
+<code>-gt</code> (numeric greater than) test. Putting that aside for
+the moment, we now have the following fixed shell code snippet:
+<blockquote><pre>
+	if [ `echo \`cat food | grep . ...
+</pre></blockquote>
+Hold it.
+<p>
+Since readers should by now be painfully aware of the 
+<a href="award.html">Useless Use of Cat Award,</a>
+we might as well fix that immediately:
+<blockquote><pre>
+if [ `echo \`grep . food | wc -l\` | grep -v '^[ 	]*0' | wc -l` -gt 0 ]; then ...
+</pre></blockquote>
+Now we're ready to start dissecting this script.
+<h3>
+Dissecting the Example Script
+</h3>
+Let's start by resolving the innermost set of backticks.
+These say, look for non-blank lines in the file <code>food</code>, 
+and count the number of lines. 
+<p>
+<a name="echo-backticks">
+Like we already saw on the
+</a><a href="award.html#wc">Award Page,</a>
+this can be shortened, because <code>grep</code> already knows
+how to report the number of matching lines. This can be repeated with
+the outer backticks, too:
+<blockquote><pre>
+	if [ `echo \`grep -c . food\` | grep -cv ...
+</pre></blockquote>
+Hold it again. This is one of the really classical examples of
+completely redundant backticks. The command
+<blockquote><pre>
+	echo `backticks`
+</pre></blockquote>
+produces exactly the same thing as just the program
+<code>backticks</code>, n'est-ce pas?
+(Strictly speaking, that is not true, because 
+<i>(a)</i> 
+the backticks will trim away all trailing newlines in the output, and
+<i>(b)</i>
+because the argument to echo is not quoted, any runs of whitespace
+-- including newlines -- will be replaced with single space characters
+in the output from echo,
+but none of that makes any significant difference here.)
+<p>
+Taking into account the fact that <code>grep -c</code> doesn't produce
+space-padded output (so we can simplify the regular expression for the
+second grep, which we adjusted to cater for wc's space-padded ouput
+format above) we now have
+<blockquote><pre>
+	if [ `grep -c . food | grep -cv '^0'` -gt 0 ]; then ...
+</pre></blockquote>
+Of course, the silly check against zero output lines is completely
+redundant, so we take it out:
+<blockquote><pre>
+	if [ `grep -c . food` -gt 0 ]; then ...
+</pre></blockquote>
+and this is already almost decent-looking.
+<p>
+However, we can simplify this even more if we understand what this
+does. So let's dissect it a little bit more. Remember that the open
+bracket is actually the name of a program, <code>test</code>? What the
+<code>if</code> builtin does is, run a program, and look at its exit
+code. If the exit code is zero (this is the conventional exit code for
+success on Unix), take the <code>then</code> branch. Otherwise, if
+there is an <code>else</code> branch, take that instead.
+<p>
+As it quite conveniently happens, <code>grep</code> and all other
+well-behaving Unix programs return an exit code which is useful
+precisely for this -- if grep returns zero, it means there was a
+match, if it returns one, it means there wasn't (and if it's something
+else, it means there was some sort of error -- see the manual page for
+details). So in fact we can say
+<blockquote><pre>
+	if grep . food &#62;/dev/null; then ...
+</pre></blockquote>
+(The redirection to /dev/null is necessary because we run grep simply
+for its side effect of setting the exit code. This would "work" without
+the redirection, but you'd end up having all matching lines in the
+file <code>food</code> copied to standard output. Not nice&nbsp;...)
+<p>
+Incidentally, many newish implementations of grep have a
+<code>-q</code> option which means to not print anything, just set the
+exit code. 
+<h2>
+Conclusions?
+</h2>
+Don't do that <code>:-)</code>
+<p>
+Seriously, the most important insight you should have from this is 
+that exit codes from programs are useful and something you need to
+think about.
+<p>
+Generally, running programs for side effects they have is a tricky
+thing to do, and some schools of thought argue that you should not
+play too much with side effects. In the present case, the "side effect"
+of finding out whether there was a match in <code>food</code> is
+precisely why we're running grep, but if you're writing code that
+newbies need to understand, you should usually add a comment when
+you play around with side effects.
+<p>
+(Philosophical remark: Whether finding a match is a "side effect" of
+grep or not depends on how you define its primary purpose. The name
+historically stands for Global Regular Expression Printer and so 
+any use where you don't specifically use grep to print out the matches
+is a use of side effects. On the other hand, as the presence of the -q
+option sort of proves, you could argue that <i>finding</i> matches is
+the primary purpose of grep, and <i>printing</i> them is a side effect.
+Sort of&nbsp;...)
+<p align=center>
+<a href="award.html"><i>Back to Useless Use of Cat Award Page</i></a>
+<hr>
+<small>
+$Id: award-example-backticks.prep,v 1.8 1999/08/26 08:32:35 era Exp $
+</small>
+
+</body>
+</html>

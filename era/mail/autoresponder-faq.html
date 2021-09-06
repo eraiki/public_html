@@ -1,0 +1,470 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Moronic Mail Autoresponders (A FAQ From Hell)</title>
+<link rev="made" href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Moronic Mail Autoresponders (A FAQ From Hell)</h1>
+<p>
+<p>
+This FAQ is first and foremost a classic example of
+trying to be cute while completely alienating the
+intended audience. I wrote it that way
+(including this paragraph&nbsp;<code>:-)</code>
+and now I'm too lazy and/or overworked to fix it. 
+Be patient with all the sarcasm and, uh, "attitude"; 
+there really is some useful 
+<a href="#rules">technical stuff</a>
+here.
+<h2>
+<a name="toc">
+Table of Contents
+</a></h2>
+<ul>
+<li>
+<a href="#what"><strong>What?</strong></a>
+or An introduction to moronic autoresponders
+<ul>
+<li>
+More fun:
+<a href="#bounces">Annoying bounce messages</a>
+<li>
+<a href="#recipient">Where should the autoresponse/bounce go?</a>
+<li>
+Corollary:
+<a href="#useful">Useful autoresponders</a>
+</ul>
+<li>
+<a href="#where">Where to get yours</a>
+<li>
+<a href="#links">Useful links</a>
+<li>
+Appendix:
+<a href="#copyright">Sharing this useful resource with others</a>
+</ul>
+<h1>
+<a name="what">
+What? or An introduction to moronic autoresponders
+</a></h1>
+Shirley, you must have sent mail to someone and received one
+of the following annoying types of response:
+<dl>
+<dt>
+"I use this nifty email program (which typically isn't even free
+software) and look, it allows me to send autoreplies like this one.
+I just wanted to say 'egads'. Thank you for listening."
+<dd>
+Do I look like I care?
+<dt>
+"Your mail has been delivered to my mailbox and I will read it
+as soon as I can."
+<dd>
+Astonishing. Are you sure it was really meant for you?
+If your mail system is so unreliable that delivery of a message is
+considered a major event, you should be sending this notification
+to your postmaster, not to me. (If you use some buggy proprietary
+mail system inside your company, such as cc:Mail or MS Exchange,
+I can understand that delivery of a message is considered special.
+But that's still your problem, not mine.)
+<dd>
+Normally, I would expect a bounce if it <strong>wasn't</strong>
+delivered. And/or am I supposed to believe that you normally don't
+read your mail?
+<dt>
+"A client of ours subscribes to our r4d k00l newbie mail service
+and you sent him a message, so we thought that would make it okay
+for us to spam you. Perhaps we'll be selling your address to a
+company which specializes in sending unsolicited commercial email,
+too."
+<dd>
+Eat my shorts. This is <strong>so</strong> obnoxious.
+And do you think they rate-limit this dreck? No, you
+get one "friendly reminder" for each message you send
+to this person.
+<dd>
+Here's a (reassuringly short, for now) list of domains which do this
+in case you would like to block their notices:
+<blockquote><pre>
+mailpush.com
+</pre></blockquote>
+This is available as a separate text file, too. Click here to view
+and/or download:
+<a href="autoresponder-spammers.txt">autoresponder-spammers.txt</a>
+<dd>
+(I would appreciate help with locating other domains which should
+be listed here.
+<a href="http://www.iki.fi/era/feedback.html">Please get in touch</a>
+if you have that sort of information.)
+<dd>
+I was also recently exposed to a service whose user documentation
+suggests you spam all your friends with an ad for this likewise r4d k00l 
+new email feature you just got subscribed to so they can join the fun, too.
+It probably makes sense to respond to this kind of stuff with a spam 
+complaint to the ISP of the user in question&nbsp;...
+<dt>
+"I am out of the office and will be back and read my mail on 
+Friday the 13th."
+<dd>
+This is annoying under the following circumstances:
+<ul>
+<li>
+You never knowingly sent mail to this guy in the first place.
+<li>
+The response contains no trace of your original message, so there's
+no way to tell what this is in response to.
+<li>
+It gets sent to a mailing list, or you get it apparently in response
+to something you sent to a mailing list. See below for more on this
+fascinating topic.
+<li>
+You receive a big batch of these notices, all from the same address.
+</ul>
+<dd>
+<a name="rules">
+It should be easy to deduce the following:
+</a><ul>
+<li>
+A good autoresponder should never reply to mailing list mail.
+(Just think what would happen if two morons signed up to the same
+mailing list at about the same time, and their email autoresponders
+started bombing each other via the list. It's a spectacular, but not
+very pretty sight, for anyone on the mailing list.)
+<li>
+A good autoresponder should always contain information about the message
+it's responding to. Ideally, the <code>Subject</code> header of the 
+response should preserve at least part of the original Subject (perhaps 
+with a prefix such as Autoresponse:) and the In-Reply-To and/or References:
+headers
+<a href="#footnote-references">(see footnote)</a>
+should contain the Message-Id of the message it is responding to.
+</ul>
+<dd>
+While we're at it, here are a few more rules which aren't really specific
+to this particular case:
+<ul>
+<li>
+Autoresponses should always contain the header
+<blockquote><pre>
+	Precedence: junk
+</pre></blockquote>
+Notice the spelling of "prec-e-dence". In particular, count the number of n:s
+(and a:s and s:es, if you're totally agraphic and/or from the United States).
+This will prevent well-tempered mail programs from generating bounce
+messages for these. If the recipient can't be reached, the autoresponder
+message is simply discarded.
+<li>
+Autoresponders should take care to not respond to bounce messages
+(or mailing list messages, or other well-behaved autoresponders).
+A good thing to check against is the presence of that same
+<code>Precedence</code> header, and if its value is 
+<code>junk</code> or <code>bulk</code> or <code>list</code>, don't 
+respond.
+<br>
+(For what it's worth, the meaning of the <code>Precedence</code> header
+in practice is that it affects Sendmail so that messages identified as
+less important get moved back in the queue under high load. On today's
+machines, that kind of load would be the exception rather than the norm.
+Those three values plus <code>special-delivery</code> are the only ones
+which have any meaning to Sendmail. <code>first-class</code> is also 
+nominally recognized, but is equal to the case of no <code>Precedence</code>
+header. [If other MTAs have different semantics for this header, that
+would be a serious issue, and worth including here. If you have information
+about other systems, 
+<a href="http://www.iki.fi/era/feedback.html">please let me know.])</a>
+<li>
+The documentation for Procmail contains a good 
+<a href="http://www.iki.fi/era/procmail/procmailrc.0">regular expression for other things to watch out for</a>
+(look for <code>^FROM&#95;DAEMON</code>. If you don't read regular expressions,
+you'll need serious help.)
+</ul>
+<dt>
+"In an effort to avoid receiving spam, I ask you to key all your mail to
+me using the following secret word in the Subject: line: <code>xyzzy</code>"
+<dd>
+This is barely tolerable if the autoresponder is otherwise set up correctly,
+but typically, you have some or all of the problems listed above (multiple
+notices, responses to mail you didn't particularly want to send to this
+person in the first place [perhaps you sent them to a mailing list],
+no trace of what the autoresponder is responding to).
+</dl>
+I know, "Don't call me Surely."
+<h2>
+<a name="bounces">
+More fun: Annoying bounce messages
+</a></h2>
+Bounce messages are often confusing to newbies, because there's so
+much fluff there and nobody ever really told them how to deal with
+delivery problems in the real world. However, that's not what we
+are interested in here. For knowledgeable users, properly generated 
+and formatted bounce messages are a useful way to find out 
+about a problem and react in the appropriate way 
+(if it's a transient error, just wait and see; 
+call on the phone instead if there seems to be a major problem 
+and you want your mail to get through, etc).
+Instead, we are getting annoyed by bounce messages which should never 
+have been sent in the first place (or at least not sent where they
+were sent to).
+<dl>
+<dt>
+"Your message to phred@phish.org could not be delivered because
+this user doesn't exist at phish.org"
+<dd>
+Great, I never sent mail to Phred. Probably I never even sent
+anything to <i>anyone</i> at <code>phish.org</code>.
+Moreover, in the body of the bounce,
+we find a message I sent to a mailing list some time ago.
+But I can't do anything about this -- I didn't subscribe Phred,
+I don't know where he moved, I can't unsubscribe him, and frankly
+<small>&#60;blink&#62;</small>I don't care<small>&#60;/blink&#62;</small>
+whether he gets this list or not.
+<dd>
+This is a frequent configuration error with mailing lists
+(actually, it's a bug, dammit, not a configuration error).
+The list should set the envelope sender on outgoing mail to the 
+list's owner (typically an alias like <code>owner-list@site</code>
+or <code>list-request@site</code>) so that s/h/it can take care
+of unsubscribing illegal addresses etc. without interfering with
+normal list operation. (By the way, a unique envelope sender also
+makes it much more convenient to unambiguously determine whether
+a message arrived via the list or perhaps as a private personal
+BCC.)
+<dt>
+"The address <code>postmaster@site.org</code> is not known to
+the program which handles mail for <code>mail.site.org</code>.
+Please get in touch with <code>postmaster@mail.site.org</code>
+if you think that's strange."
+<dd>
+This is a problem with older versions of Post.Office and I believe
+Netscape's mail server. The bounce includes a lengthy explanation
+for the newbie postmaster about what could be wrong. But why is that
+being sent to the person whose message is not getting through?
+<dd>
+I use <code>postmaster</code> just as an example here, although it's
+typical for this error to occur on the <code>postmaster</code> address.
+<dd>
+For what it's worth, the <code>postmaster</code> address 
+<strong>must</strong> work properly for every system which is
+handling mail on the Internet. See
+<a href="http://www.nexor.com/cgi-bin/rfcsearch/form?822">RFC822.</a>
+<dd>
+If you get one of these, it's reasonable and responsible to look
+up the domain in question in <code>whois</code> and mail the 
+administrative contact(s) for the domain about this problem (as well
+as possibly the technical contact and the upstream provider).
+<dd>
+Incidentally,
+<a href="http://www.nexor.com/cgi-bin/rfcsearch/form?2142">RFC2142</a>
+lists some standard addresses besides <code>postmaster</code>
+which should be implemented at modern sites.
+This codifies e.g. <code>webmaster</code> as the standard address
+for responding to problems with web pages, <code>abuse</code> for
+spam complaints, etcetera.
+<dt>
+"The address <code>postmaster@mail.site.org</code> is not known to
+the program which handles mail for <code>mail.site.org</code>.
+Please get in touch with <code>postmaster@mail.site.org</code>
+if you think that's strange."
+<dd>
+A variant of the previous case. This would be funny if it wasn't so
+totally technically inept and, well, moronic.
+<dt>
+<code>mail.site.org</code>:
+"551 &#60;postmaster@site.org&#62; ... we do not relay"
+<dd>
+We're not attempting to relay, we're attempting to get in touch with
+your freaking <i>local</i> postmaster. See previous cases.
+<dt>
+"MS Exchange could not deliver mail to Administrator 983.0.0.9
+ybpnyubfg 917.45.986.14 njnl.yvatfbsg.sv njnl 90.1.2.3 urp barf
+vomit"
+<dd> 
+You would receive this from a domain you have never heard about,
+but by examining headers in the bounced message and querying DNS,
+you find that you tried to mail not one but two users in a domain
+which this machine is MXing for.
+But do you think you are entitled to know which one is undeliverable?
+Nooo. It just reports which end point it couldn't reach. This is 
+basically the same as the Friday the 13th example, although
+it's much more annoying because this time, you really knowingly
+tried to mail someone, and it didn't work out, and now, you'd probably
+like to know who you tried to contact, so you can e.g. call them on the
+phone instead.
+<dd>
+I have $5 here which says, if you tried to mail a user in a domain
+and Cc: the postmaster, and get this response, the address which
+bounced will be the postmaster one.
+</dl>
+There is a standard for bounce messages,
+<a href="http://www.nexor.com/cgi-bin/rfcsearch/form?1894">RFC1894,</a>
+which only a handful of MTAs currently implement.
+If bounce messages could be more standardized, it would be easier for
+developers of MUAs to try to present them to the user in meaningful ways.
+If you think that this problem will solve itself when Microsoft has bought,
+monopolized, and bastardized all MTAs worth their salt (because
+then we will all be one big happy family who are all using 
+Microsoft products), think again. They can't even follow their own 
+freaking "standards".
+<h2>
+<a name="recipient">
+Where should the autoresponse/bounce go?
+</a></h2>
+I've been too lazy to finish this section. If anybody with a good
+knowledge of RFC822 and related sources would like to fill me in,
+<a href="http://www.iki.fi/era/feedback.html">please do get in touch.</a>
+<p>
+Meanwhile, the 
+<a href="http://www.iki.fi/era/procmail/formail.html">fun little chart which comes with formail</a>
+is a reasonable approximation (if you look at the chart which describes
+the behavior with the <code>-rt</code> option!)
+The documentation isn't very explicit about it, but it's a slighly
+whimsical but pragmatic compromise between obeying the letter of the
+various standards out there and what works in practice.
+<p>
+For what it's worth, at least one fairly knowledgeable person
+insists that the envelope sender of whatever triggered the autoresponder
+should be the recipient for <i>all</i> automatically generated mail.
+(Keith Moore in
+<a href="news:comp.mail.mime"><code>comp.mail.mime</code>,</a>
+August 1999.)
+I happen to think it's a violation of RFC822, but it's a somewhat
+complex issue.
+<h2>
+<a name="useful">
+Corollary: Useful autoresponders
+</a></h2>
+By contrast, the following types of responses actually tell
+you something you might need to know:
+<dl>
+<dt>
+"I am extremely overworked, and will probably not be able to respond
+within what is considered a normal time frame (something like 3 days).
+I'll hopefully be able to get back to you after Christmas 2003."
+<dd>
+Okay, we'll know to wait patiently for a reply from this guy.
+His autoresponder should not send more than one of these notices to
+the same address in, say, a week. And did I mention it should not
+respond to mailing list mail?
+<dt>
+"Thank you for contacting the Department department of So And So, Inc.
+We're busy beavers here, but rest assured that we are dealing with
+your complaint/whatever. We don't usually send replies if it's a matter
+of a simple bug report or something; we simply fix the bug and that's it.
+If a reply is warranted, our staff will get back to you."
+<dd>
+This tells you, essentially, that they will deal with the matter and
+not send you a personalized reply. This automatic reply (frequently
+affectionately referred to as "ignorebot") will do. This is pretty
+much the standard you get nowadays when you send a spam complaint or a
+service request to an ISP, for example. 
+<dd>
+The autoresponder might also tell you something about the type of
+information they will need in order to be able to resolve your
+issue, so you can follow up with this information if you didn't
+include it in your original message. Perhaps they will also issue you
+a ticket number to make it easier (kind of) for you to get directly in
+touch with the staff member who is dealing with your problem report
+if you need to follow up. 
+</dl>
+<h1>
+<a name="where">
+Where to get yours
+</a></h1>
+The author of this FAQ has a strong preference towards Procmail,
+but there are of course other ways to make your own moronic
+autoresponder. The author's page of 
+<a href="http://www.iki.fi/era/procmail/links.html">Procmail links</a>
+contains a section near the end with pointers to information 
+about other mail filtering systems (even for half-assed excuses
+for an operating system like Windows, with my condolences).
+<p>
+In the future, this section should probably be self-contained,
+and contain information about 
+<ul>
+<li> MUAs which offer autoresponder services
+<li> MDAs which offer autoresponder services
+<li> MTAs which offer autoresponder services
+<li> Other programs which offer autoresponder services
+<li> Other services which offer autoresponder services
+(such as Hotmail-type services 
+[I don't think Hotmail has autoresponders though])
+</ul>
+If you feel like commenting on this FAQ, or submitting some
+changes, feel free to
+<a href="http://www.iki.fi/era/feedback.html">mail me</a>
+(sorry about the form -- you know, defense against the morons).
+<h1>
+<a name="links">
+Useful Links
+</a></h1>
+<p>
+For now, this is basically cannibalized out of my bookmarks file.
+<p>
+The following sites should be interesting:
+<dl>
+<dt>
+<a href="http://pobox.com/~djb/immhf.html">Dan Bernstein's site</a>
+<dd>
+There's a good annotated index of mail header fields
+and recommendations for their use, with pointers to
+RFCs where available. Definitely bookmark stuff.
+<dt>
+<a href="http://www.imc.org/">The Internet Mail Consortium</a>
+<dd>
+A bit too much of "something for everyone" but the information
+you want is probably there somewhere.
+<dt>
+<a href="http://www.qz.to/~eli/faqs/addressing.html">Eli the Bearded's Mail Addressing FAQ</a>
+<dd>
+Tangential to the topic of this FAQ, but worth a look
+for other reasons.
+<dt>
+<a href="http://dmoz.org/Computers/Internet/Protocols/Mail/">Dmoz: Computers: Internet: Protocols: Mail</a>
+<dd>
+... and perhaps also
+<a href="http://dmoz.org/Computers/Software/Internet/Servers/Mail/Autoresponder&nbsp;Services/">Servers: Mail: Autoresponder Services</a>
+<dt>
+I have a
+<a href="http://www.iki.fi/era/procmail/links.html#faqs">bigger link collection</a>
+as part of the Procmail FAQ I maintain.
+</dl>
+<p>
+<a name="footnote-references">
+The use of the <code>In-Reply-To</code> and <code>References</code> headers
+is explained somewhat on the
+</a><a href="http://pobox.com/~djb/immhf/thread.html">Bernstein pages.</a>
+There are also practical usage notes on a good number of other header fields.
+<h1>
+<a name="copyright">
+Sharing this useful resource with others
+</a></h1>
+If you happen to know somebody at Microsoft who works on their
+mail applications and knows almost all the letters of the alphabet,
+make them read this. (You might also want to inform them about
+the existence of documents called "RFCs".)
+<p>
+The same goes for anyone else who needs this information.
+<p>
+However, you are not allowed to charge for this information, 
+or claim that you wrote it. Because I did.
+<!-- That's era at iki dot fi -->
+<p>
+If you link to this page, please use this "official" URL
+instead of whatever it is that your moronic browser wants to 
+make you think you are currently viewing:
+<blockquote>
+<a href="http://www.iki.fi/era/mail/autoresponder-faq.html">http://www.iki.fi/era/mail/autoresponder-faq.html</a>
+</blockquote>
+Thanks. Hope this helps. Where am I?
+<p>
+<A HREF="http://www.blank.org/minions">
+<IMG SRC="http://www.blank.org/minions/nathansays.GIF"
+ALT="Nathan Says Hi!"></A>
+<hr>
+<small>
+$Id: autoresponder-faq.prep,v 1.20 1999/08/24 10:49:17 reriksso Exp $
+</small>
+
+</body>
+</html>

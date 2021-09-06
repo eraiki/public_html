@@ -1,0 +1,31 @@
+From: procmail-request@Informatik.RWTH-Aachen.DE
+Date: Mon, 3 Nov 1997 13:28:57 +0100 (MET)
+Subject: Re: subscribe
+
+You have added to the subscriber list of:
+
+        procmail@informatik.rwth-aachen.de
+
+the following mail address:
+
+        spam@cc.helsinki.fi
+
+By default, copies of your own submissions will be returned.
+
+This is an automated subscription mechanism.  For your verification, a
+transcript of the original subscription request is included below.
+
+If the wrong address has been subscribed and you seem to be unable to fix it
+yourself, reply to this message now (quoting it entirely (for diagnostic
+purposes), and of course adding any comments you see fit).
+--
+
+This list is available in digested form as well.  To receive it, send your
+subscription request to procmail-d-request instead.
+
+This list is archived.  The archive currently only holds the last 128
+submissions.  A subject based archive is in the works.
+Send a mail to procmail-request with "Subject: archive help" to find out
+more.
+
+--

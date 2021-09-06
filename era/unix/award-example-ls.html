@@ -1,0 +1,54 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>An example of dealing with file names with spaces in them</title>
+<link rev="made" href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>An example of dealing with file names with spaces in them</h1>
+<p>
+This example won't make much sense unless you're coming from the
+<a href="award.html#ls">Useless Use of Cat Award Page</a>
+<blockquote><pre>
+	$ <b># Create file names with spaces in them</b>
+	$ <b>touch "moo bar"</b>
+	$ <b>touch "foo bar baz"</b>
+	$ <b>ls -1 *</b>
+	foo bar baz 
+	moo bar
+	$ <b># Try to list them in a for loop</b>
+	$ <b>for f in *; do ls $f; done</b>
+	ls: foo: No such file or directory
+	ls: bar: No such file or directory
+	ls: baz: No such file or directory
+	ls: moo: No such file or directory
+	ls: bar: No such file or directory
+	$ <b># Okay, try with double quotes around $f instead</b>
+	$ <b>for f in *; do ls "$f"; done</b>
+	foo bar baz
+	moo bar
+	$ <b># Now demonstrate the bad impact of the backticks</b>
+	$ <b>for f in `echo *`; do ls $f; done</b>
+	ls: foo: No such file or directory
+	ls: bar: No such file or directory
+	ls: moo: No such file or directory
+	ls: bar: No such file or directory
+	ls: baz: No such file or directory
+	$ <b># Even the double quotes don't help anymore:</b>
+	$ <b>for f in `echo *`; do ls "$f"; done</b>
+	ls: foo: No such file or directory
+	ls: bar: No such file or directory
+	ls: moo: No such file or directory
+	ls: bar: No such file or directory
+	ls: baz: No such file or directory
+	$ <b># Getting desperate sure doesn't help any either:</b>
+	$ <b>for f in "`echo *`"; do ls "$f"; done</b>
+	ls: foo bar baz moo bar: No such file or directory
+</pre></blockquote>
+(Tip: Create a temporary directory under <code>/tmp</code> for small
+experiments like this. Remember to clean up after yourself when you're
+done.)
+
+</body>
+</html>

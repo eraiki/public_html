@@ -1,0 +1,193 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Weird regex behavior</title>
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Weird regex behavior</h1>
+<p>
+From the
+<a href="http://www.rosat.mpe-garching.mpg.de/mailing-lists/procmail/">Procmail mailing list:</a>
+<pre>
+To: <b>Jim Dennis &#60;jimd@starshine.org&#62;</b>
+Subject: <b>Re: Wierd regex Behaviory </b>
+Date: <b>Wed, 15 Jan 1997 11:32:57 -0600</b>
+From: <b>Philip Guenther &#60;guenther@gac.edu&#62;</b>
+</pre>
+Jim Dennis &#60;jimd@starshine.org&#62; writes:
+<blockquote><i>
+I think I'm finally getting the idea on these $MATCH
+settings.  I've seen the entry in the man pages and 
+just plain avoided using them (relying on my awk and 
+perl scripts to actually do the extraction for me.
+<p>
+Here's the excerpt from the man page:
+<blockquote><pre>
+       MATCH       This variable is assigned to by procmail when-
+                   ever it is told to extract text from a  match-
+                   ing  regular  expression.  It will contain all
+                   text matching the regular expression past  the
+                   `\/' token.
+</pre></blockquote>
+<p>
+What I didn't understand from reading this -- and only 
+vaguely was seeing in the many examples (procmailex and
+here on the list) was that the procmail regex pattern
+consists of two parts -- the condition pattern which
+determines if the recipe is used and the optional 
+part that sets the $MATCH variable.  The '\/' "fence"
+token separates these.
+</i></blockquote>
+Well, yes and no.  For the condition to match and the MATCH variable
+to be set, the entire condition, ignoring the \/ token, must match.
+Many recipes that have a \/ token may match zero characters on the
+righthand side due to use of the '*' qualifier.  However, you can
+just as well require characters on the righthand side, and if procmail
+can't match them as it goes, the entire regexp fails to match.  For
+example, in your very next example there <em>must</em> be a space after the
+"foo" or the regexp will fail to match.
+<blockquote><i>
+So the condition:
+<blockquote><pre>
+	* ^Subject:.*foo\/  *(bare?|b[oe]?ar)  *
+</pre></blockquote>
+... should be met by any subject containing 'foo' and
+set the $MATCH to " bar " or " bare " or " boar " or
+" bear " (with any surrounding spaces).
+</i></blockquote>
+If the subject doesn't match the regexp:
+<blockquote><pre>
+	Subject:.*foo  *(bare?|b[oe]?ar)  *
+</pre></blockquote>
+then the condition will fail and MATCH will not be set. If it
+<i>does</i> match, then MATCH will be set to have all the spaces
+between the "foo" and the "b", one of bar, bare, boar, bear, then all
+the spaces immeadiately following that. BTW: only one of the question
+marks in that regexp is needed, as they both merely add "bar" to the
+set of matched phrases. You also could have use "<tt>&nbsp;+</tt>" instead
+of "<tt>&nbsp;&nbsp;*</tt>".
+<blockquote><i>
+Am I right?  If so -- I think this once again underscores
+the need to rewrite the documentation a bit more verbosely.
+That is different then the regex' used by most other
+*ix utilities -- although strangely similar to the 
+old ed s/foo/bar -- as though you said /search/ for the 
+first regex and "substitute" $MATCH with the second regex.
+</i></blockquote>
+<strong>There is no substitution going on here.</strong>
+If you want to compare it to
+something, compare it to the \( \) tokens in sed or perl which allow
+you to capture text for later use.  In perl-like syntax, the above
+would have been:
+<blockquote><pre>
+	$header =~ /^Subject:.*foo(  *(bare?|b[oe]?ar)  *)/m;
+	$MATCH = $1;
+</pre></blockquote>
+Actually, to fully emulate procmail you would have to use perl5 regexp
+extensions and write that as:
+<blockquote><pre>
+	$header =~ /^Subject:.*?foo(  *(?:bare?|b[oe]?ar)  *)/m;
+	$MATCH = $1;
+</pre></blockquote>
+This brings me to the last tricky point with procmail regexps: unlike
+99% of the regexp engines out there, procmail does
+<strong>minimal</strong>
+matching
+on the lefthand side of a \/ token, or if there is not \/ token.  Most
+regexp engines, as they attempt to match a regexp, if they come to a *,
++, or ? qualifier, will attempt to take the greatest number of
+interation then and there, doing fewer only if the later parts of the
+regexp are unable to match.  For example, the regexp
+<blockquote><pre>
+	foo .* (bar.*blip|baz)
+</pre></blockquote>
+when matched against:
+<blockquote><pre>
+	foo ---- bar ---- baz ---- blip ----
+</pre></blockquote>
+will match the section
+<blockquote><pre>
+	foo ---- bar ---- baz
+</pre></blockquote>
+even though it can also match the longer section
+<blockquote><pre>
+	foo ---- bar ---- baz ---- blip
+</pre></blockquote>
+This is because regexp have no foresight.  When they're greedy, they
+take as much as they can as soon as they can.  The first ".*" in this
+example will first eat up the entire line, then the engine will back up
+until it can find a space (the .* must be followed by a space says the
+regexp), then it'll back up until it can match the tail part of the
+regexp.  The first place it can do that when backing up is when it
+backs up to "baz", so that the choice it takes in the alternation.
+<p>
+Procmail is different: when it encounters a *, +, or ? qualifier, it
+first tries to match as few times as possible (0, 1, or 0 times
+respectively), and only matches more if it needs to in order to match
+later parts of the regexp.  Given the same regexp and input as above,
+it'll match because that is the first match that it encounters in its
+search.
+<blockquote><pre>
+	foo ---- bar ---- baz ---- blip
+</pre></blockquote>
+I'll note here that for simple boolean tests, minimal and maximal
+matching give the same result.  Either there is or there isn't a match,
+and either method will find it.  It just so happens that minimal
+matching is 'usually' faster for the sorts of regexps that procmail
+gets.  Where it makes a differance is when something like procmail's
+\/ token or perl's ()'s allow you to see what the engine matched.
+<p>
+In order for the \/ token to be practically useful, procmail turns
+around and does <i>maximal</i> matching on the righthand side, while
+still doing minimal matching on the left. This usually does what you
+want, but there are exceptions. To use a real example from this
+mailing list:
+<blockquote><pre>
+	^Subject: +get +file +\/[^ ]*
+</pre></blockquote>
+The intent here is to take a subject like:
+<blockquote><pre>
+	Subject: get file  picture.ps
+</pre></blockquote>
+and match the name of the file to be retrieved, putting "picture.ps"
+into MATCH.  Unfortunately, when procmail goes to match this, it first
+tries to match only one space after "file", that being the minimum.  It
+then tries to match the rest of the regexp "[^ ]*" against the
+remainder of the subject, namely " picture.ps" (notice the leading
+space).  It *suceeds*, matching *zero* times, and leaves MATCH empty.
+The solution is to force procmail to match at least one character on
+the righthand side of the \/ token by changing the star to a plus:
+<blockquote><pre>
+	^Subject: +get +file +\/[^ ]+
+</pre></blockquote>
+Now, when procmail tries to match only one space after "file" with the
+" +" it can't match the rest of the regexp, so it has to back up and
+match another space.  This time it suceeds, and MATCH will contains
+"picture.ps".  The moral of this whole section is to warn new users
+that when using the \/ token:
+<H4>
+<strong>
+Force the righthand side to match at least one character
+</strong>
+</h4>
+This can often be done by changing a '*' right after the \/ to a '+'.
+<p>
+If the above interests you but is too short or complex, consider
+reading a book like "Compilers: theory and practice" (the so-called
+"Dragon book") as it explains not only why the above takes place, but
+shows you how to write your own regexp engine.
+<p>
+If someone converts the above to HTML and puts it in a FAQ like setting,
+can you send me the URL so I just quote that next time this pops up?
+<hr>
+<i>Philip Guenther</i>
+<hr>
+<p>
+Feedback on this actual page should be sent to 
+<a href="http://www.iki.fi/era/feedback.html">era eriksson</a>
+
+</body>
+</html>

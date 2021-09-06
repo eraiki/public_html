@@ -1,0 +1,609 @@
+<html><head><title>Procmail Tutorial by Jim Dennis</title></head>
+<body>
+This tutorial was posted by Jim Dennis to the Procmail mailing list. 
+It is used here with his permission but on the FAQ maintainer's
+responsibility. Typos and other feedback pertaining to this HTML
+version should go to 
+<a href="http://www.iki.fi/~era/feedback.html">me</a>
+
+<p>
+<address>
+era
+</address>
+
+<hr>
+
+<pre>
+From: Jim Dennis <jimd@starshine.org>
+Subject: Re: Quick Start with PROCMAIL
+To: tomheld@primenet.com (Tom Held)
+Date: Sat, 28 Dec 1996 18:14:24 -0800 (PST)
+Content-Type: text
+</pre>
+
+<blockquote>
+    &#62; 
+    I have a somewhat urgent need to start using <i>procmail</i> to
+    bounce unwanted 
+    mail (harassment) back to its source, with a few lines of warning
+    text.  
+    I understand from my ISP's tech spt that <i>procmail</i> is ideal for
+    this (among many other things).  They have version 3.11pre3
+    installed. 
+</blockquote>
+
+	Your ISP is very astute.
+
+<blockquote>
+    &#62;
+    I would really appreciate some quick-start help getting this set
+    up, then I'll fine tune and expand my use of procmail later, and
+    when proficient, come in here and help other newbies.
+</blockquote>
+
+	I'll presume you have a shell account with your ISP.
+	Log in and issue the command<tt> man procmailex</tt>
+
+<p>
+
+	This will show you the procmail examples page.  There are 
+	a couple of other manual pages for procmail.  Usually you
+	can issue the command<tt> man -k procmail</tt> to find the
+        rest of them.
+
+<blockquote>
+    &#62;
+    I am familiar with the concepts of filtering mail, if using
+    Eudora's filters can qualify for that.  ...
+</blockquote>
+
+	Here's the short form for how procmail works:
+
+<dl><dd>
+		Unix mail systems consist of MTA's (mail 
+		transport agents like sendmail, smail, qmail
+		mmdf etc), MDA's (delivery agents like
+		sendmail, deliver, and procmail), and MUA's
+		(user agents like elm, pine, /bin/mail, mh,
+		Eudora, and Pegasus).
+<p>
+		On most Unix systems on the Internet 'sendmail'
+		is used as an integrated transport and delivery
+		agent.  'sendmail' and compatible MTA's 
+		have the ability to dispatch mail <em>through</em> a 
+		custom filter or program through either of 
+		two mechanisms: aliases and .forwards.  
+<p>		
+		The aliases mechanism uses a single file
+		(usually <code>/etc/aliases</code> or <code>/usr/lib/aliases</code>)
+		to redirect mail.  This file is owned and 
+		maintained by the system administrator.
+		Therefore you (as a user) can't modify it.
+<p>
+		The ".forward" mechanism is decentralized.
+		Each user on the system can create a file
+		in their home directory named .forward
+		and consisting of an address, a filename,
+		or a program.  Usually the file <em>must</em> be
+		owned by the user or root and <em>must not</em> be 
+		"writeable" by other users (good versions of
+		sendmail check these factors for security 
+		reasons).  
+<p>		
+		It's also possible, with some versions of 
+		sendmail, for you to specify multiple addresses,
+		programs, or files, separated with commas.  However
+		we'll skip the details of that.
+<p>
+		You could forward your mail through any 
+		arbitrary program with a <code>.forward</code> that consisted
+		of a line like:
+<pre>
+    "|$HOME/bin/your.program"
+</pre>
+		Note the quotes and the "pipe" character. They are
+		required.
+<p>
+		Now -- rather than saddling you with all details
+		for how "your.program" would have to work -- what
+		format sendmail would pass information to you, 
+		how you would return values to sendmail, how you'd
+		handle file locking (in case more mail came in while
+		you were processing the last one, etc) -- we'll move
+		along to procmail specifically.
+<p>
+		What I've discussed so far is the general information
+		that applies to all sendmail-compatible MTA/MDA's.
+<p>
+		One note that is well worth making is that although
+		sendmail is designed and often run as an integrated
+		transport and delivery, it's possible to configure
+		a system to use procmail as the delivery agent
+		(most of the popular Linux distributions default to 
+		this configuration, including Slackware, Red Hat, and
+		Caldera).
+<p>
+		In this scenario sendmail passes local mail to 
+		procmail.  This makes things marginally easier
+		as we'll soon see.
+<p>
+		Assuming that your ISP is not so configured, you 
+		must create a <code>.forward</code> file to get sendmail to 
+		pass each incoming mail to procmai.
+<p>
+		Here's the canonical example, pasted right out of 
+		the man pages:
+<pre>
+    "|IFS=' '&&exec /usr/local/bin/procmail -f-||exit 75 #YOUR_USERNAME"
+</pre>
+		This seems awfully complicated compared to my
+		earlier example.  That's because my example was
+		flawed for simplicity's sake.
+<p>
+		What this mess means to sendmail (paraphrasing into
+		English) is:
+<dl><dd><p>
+			Pipe the mail to the following command(s):
+<p>
+			Set the "inter-field seperator" (IFS) to a 
+			space, and -- if that went O.K. (&&) execute
+			the program named "/usr/local/bin/procmail"
+<p>
+			(yours may need to be different -- someone
+			at primenet should tell you where their 
+			copy of procmail is installed, or you can try
+			the command <code>which procmail</code> to see if it's
+			on the patch or <code>locate procmail</code> if they
+			are maintaining a file locator database).
+<p>
+			The procmail program is being passed a 
+			set of switches: "-f-" which tells it to
+			"update timestamp in the leading the 'From'
+			line in the header"
+<p>
+			(this last bit is rather obscure and has
+			to do with how messages are normally 
+			stored in your "incoming" or mail file
+			or "spool" as we Unix hacks like to call it).
+<p>
+			The next part of this .forward command is
+			the Bourne shell's "||" operator which is
+			basically a continuation from the "and" 
+			(&&) operator that we used before.  It
+			says "or" (if that command didn't work --
+			i.e. it returned any error) than "exit"
+			(stop processing) and return an error
+			number 75 (which we presume is meaningful
+			to sendmail -- the program that called
+			this command).
+<p>
+			The last part of this <code>.forward</code> expression
+			is a comment which, according to the man
+			pages,
+<blockquote><i>
+             is not actually a parameter that is required by proc-
+	     mail,  in fact, it will be discarded by sh before procmail
+	     ever sees it; it is however  a  necessary  kludge  against
+	     overoptimising sendmail programs:
+</i></blockquote>
+	     		(quoting from it)
+<blockquote><i>
+			You should just change the phrase YOUR_NAME
+			to your login name on that system.
+
+</i></blockquote>
+		This complicated line can be just pasted into most
+		<code>.forward</code> files, minimally edited and forgotten.
+<p>
+		If you did this and nothing else your mail would
+		basically be unaffected.  procmail would just 
+		append new messages into your normal spool file.
+<p>
+		If your ISP uses procmail as its local delivery
+		agent then you can skip the whole part of about
+		using the .forward file -- or you can use it anyway.
+<p>
+		In either event the next step to automating your
+		mail handling is to create a <code>.procmailrc</code> file in 
+		your home directory.  You could actually call 
+		this file anything you wanted -- but then you'd
+		have to slip the name explicitly into the <code>.forward</code>
+		file (right before the "||" operator).  If you use
+		<code>.procmailrc</code> than procmail will default to using it.
+<p>
+		Now we can get to a specific example.  So far, all
+		we've talked about it how everything gets routed
+		to procmail -- which mostly involves sendmail and 
+		the Bourne shell's syntax.  Almost all sendmails
+		are configured to use <code>/bin/sh</code> (the Bourne shell)
+		to interpret alias and <code>.forward</code> "pipes."
+<p>
+
+		So, here's a very simple <code>.procmailrc</code> file:
+<pre>
+			:0c
+			$HOME/mail.backup
+</pre>
+		This just appends an extra copy of all incoming 
+		mail to a file named <code>mail.backup</code> in your 
+		home directory.
+<p>
+		Note that a bunch of environment variable are preset
+		for you.
+<p>
+		The :0  line marks the beginning of a "recipe"
+		(procedure, clause, whatever).  :0 can be followed
+		be any of a number of "flags."  There is a literally
+		dizzying number of ways to combine these flags.  The
+		one flag we're using in this example is 'c' for
+		"copy."  
+<p>
+		The way procmail works is to start parsing 
+		it's set of recipes from the beginning of the
+		<code>.procmailrc</code> file, through any INCLUDE'd files
+		until a message has been "delivered" (or 
+		"disposed of" as the case may be).  Any recipe 
+		can be a "disposition" or "delivery" of the message.
+		As soon as a message is "delivered" then procmail
+		closes its files, removes its locks and exits.
+<p>
+		If procmail reaches the end of its rc file
+		(and thus all of the INCLUDE'd files) without
+		"disposing" of the message -- than the message
+		is appended to your spool file (which looks
+		like a normal delivery to you and all of your
+		"mail user agents" like Eudora, elm, etc).
+<p>
+		This explains why procmail is so forgiving
+		if you have <em>no</em> <code>.procmailrc</code>.  It simply
+		delivers your message to the spool because
+		it has reached the end of all its recipes
+		(there were none).
+<p>
+		The 'c' flag causes a recipe to work on a "copy"
+		of the message -- meaning that any actions
+		taken by that recipe are not considered to be
+		"dispositions" of the message.  
+<p>		
+		Without the 'c' flag this recipe would catch 
+		all incoming messages, and all your mail would 
+		end up in <code>mail.backup</code>.  None of it would get 
+		into your spool file and none of the other recipes 
+		would be parsed.
+<p>
+		The next line in this sample recipe is simply
+		a filename.  Like sendmail's aliases and <code>.forward</code>
+		files -- procmail recognizes three sorts of 
+		disposition to any message.  You can append it 
+		to a file, forward it to some other mail address,
+		or filter it through a program.  
+<p>		
+		Actually there is one special form of "delivery" 
+		or "disposition" that procmail handles.  If you
+		provide it with a directory name (rather than a
+		filename) it will add the message to that directory
+		as a separate file.  The name of that file will be
+		based on several rather complicated factors that
+		you don't have to worry about unless you use
+		the Rand MH system, or some other relatively 
+		obscure and "exotic" mail agent.
+<p>
+		A procmail recipe generally consists of three
+		parts -- a start line (:0 with some flags) some
+		conditions (lines starting with a '*' -- asterisk --
+		character) and one "delivery" line which can be 
+		file/directory name or a line starting with a '!' --
+		bang -- character or a '|' -- pipe character.
+<p>
+		Here's another example:
+<pre>
+			:0
+			* ^From.*someone.i.dont.like@somewhere.org
+			/dev/null
+</pre>
+		This is a simple one consisting of no flags,
+		one condition and a simple file delivery.  It simply
+		throws away any mail from "someone I don't like."
+		(/dev/null under Unix is a "bit bucket" -- a bottomless
+		well for tossing unwanted output. DOS has a similar
+		concept but it's not nearly as handy).
+<p>
+		Here's a more complex one:
+<pre>
+			:0
+			* !^FROM_DAEMON 
+			* !^FROM_MAILER
+			* !^X-Loop: myaddress@myhost.mydomain.org
+			| $HOME/bin/my.script
+</pre>
+		This consists of a set of negative conditions (notice
+		that the conditions all start with the '!' character).
+		This means: for any mail that didn't come from a
+		"daemon" (some automated process) and didn't come from
+		a "mailer" (some other automated process) and which
+		doesn't contain any header line of the form:
+		"X-Loop: myadd...", send it through the script in
+		my bin directory.
+<p>
+		I can put the script directly in the rc file
+		(which is what most procmail users do most of the 
+		time).  This script might do anything to the mail.
+		In this case -- whatever it does had better be good
+		because procmail will consider any such mail
+		to be delivered and any recipes after this will
+		only be reached by mail from DAEMON's, MAILER's
+		and any mail with that particular X-Loop: line 
+		in the header.
+<p>
+		These two particular FROM_ conditions are actually
+		"special." They are preset by procmail and actually
+		refer to a couple of rather complicated regular
+		expressions that are tailored to match the sorts of
+		things that are found in the headers of most mail
+		from daemons and mailers.
+<p>
+		The X-Loop: line is a normal procmail condition.
+		In the RFC822 document (which defines what e-mail
+		headers should look like on the Internet) any line
+		started with X- is a "custom" header.  This means
+		that any mail program that wants to can add pretty
+		much any X- line it wants.
+<p>
+		A common procmail idiom is to add an X-Loop: line
+		to the header of any message that we send out --
+		and to check for our own X-Loop: line before
+		sending out anything.  This is to protect against
+		"mail loops" -- situations where our mail gets
+		forwarded or "bounced" back to us and we endlessly
+		respond to it.
+<p>
+		Finally we've gotten to the stage where we can 
+		give you the particular example that you asked
+		for.  First we start a recipe with:
+<pre>
+		:0
+</pre>
+		... then we add the one condition you've described
+<pre>
+		* ^From.*harasser@spamhome.com
+</pre>
+<dl><dd>		(you'll have to change the address to suit
+			your case).
+</dl>
+		... and we add a couple of conditions to avoid
+		looping and to avoid responding to automated systems
+<pre>
+			* !^FROM_DAEMON 
+			* !^FROM_MAILER
+</pre>
+		... and one more to prevent some tricky loop:
+<pre>
+			* !^X-Loop: myaddress@myhost.mydomain.org
+</pre>
+		... now we add a "disposition" -- the autoresponse.
+<pre>
+			| (formail -rk \
+				-A "X-Loop: yourname@youraddress.com" \
+				-A "Precendence: junk"; \
+			   echo "Please don't send me any more mail";\
+			   echo "This is an automated response";\
+			   echo "I'll never see your message";\
+			   echo "So, GO AWAY" ) | $SENDMAIL -t -oi
+</pre>
+		This is pretty complicated -- but here's how it works:
+<dl><dd>
+			The pipe character tells procmail that 
+			it should launch a program and feed the 
+			message to it.
+<p>
+			The open parenthesis is a Bourne shell construct
+			that groups a set of commands in such a way as
+			to combine the output from all of them into
+			one "stream."  We'll explain this more later.
+<p>
+			The 'formail' command is a handy program that
+			is included with the procmail package.  It
+			"formats" mail header according to its 
+			command line switches and its input.
+<dl><dd>
+				-rk tells 'formail' to format a
+				"reply" and to "keep" the message
+				body.
+<p>
+				The -A parameters tells formail
+				to "add" the next parameter as a
+				header line.  The parameters
+				provided to the -A switch must be
+				enclosed in quotes so the shell
+				treats the whole string (spaces 
+				and all) as single parameters.
+<p>
+				The backslashes at the end of each 
+				line tell procmail mail to treat
+				the next line as part of this one.
+				So, all of the lines ending in 
+				backslashes are passed to the shell
+				as one long line.
+<p>
+				This "trailing backslash" or "line
+				continuation" character is a common
+				Unix idiom found in a number of 
+				programming languages and configuration
+				file formats.
+<p>
+				The semicolons tell the shell 
+				to execute another command -- they
+				allow several commands to be issued
+				on the same command line.
+<p>
+				Each of the echo commands should be
+				reasonably self-explanatory.  We
+				could have used a 'cat' command
+				and put our text into a file if we
+				wanted.  We can also call other programs
+				here -- like 'fortune' or 'date' --
+				and their output would be combined with
+				the rest of this).
+<p>
+				Now we get to the closing parenthesis.
+				This marks the end of the block of 
+				commands that we combined.  The output
+				from all of those is fed into the 
+				next pipe -- which starts the local
+				copy of sendmail (note that this is
+				another variable that procmail 
+				thoughtfully presets for us).
+<p>
+				The -t switch on sendmail tells it to 
+				take the "To:" address from the header 
+				of its input (where 'formail -r' put
+				it) and the -oi switch enables the
+				sendmail "option" to "ignore" lines
+				that consist only of a 'dot' (don't
+				worry about the details on that).
+</dl><p>
+		This is basically the recipe you want.
+		Obviously it has to be modified a bit.  That's 
+		why I've gone to such elaborate lengths to explain
+		<em>how</em> it all works.
+<p>
+		Most of the difficulty in understanding procmail
+		has nothing to do with procmail itself.  The intricacies
+		of regular expressions (those weird things on the
+		'*' -- conditional lines) and shell quoting and 
+		command syntax, and how to format a reply header that
+		will be acceptable to sendmail (the 'formail' and 
+		'sendmail' stuff) are the parts that require so 
+		much explanation.
+</dl></dl></dl>
+
+<p>
+
+<blockquote>
+    &#62;
+    This system works very well, but anyone who knows how to read the
+    message header of the reply can see that their messages are from
+    Eudora, and therefore are getting to my system, and they probably
+    figure the messages are being read anyway.  This tends to encourage,
+    rather than discourage them. 
+</blockquote>
+
+		Or they know that it's taking up diskspace on 
+		your provider and bandwidth and time on your phone.
+<p>
+		It sounds like you should also consider contacting
+		the postmaster at this person's ISP.  If the person
+		harassing you <em>is</em> the postmaster (or owner) of
+		the domain from which this harassment is occuring
+		you can contact the postmaster at the site which 
+		provides MX and DNS services to them (look in 
+		'whois' for that or continue to complain to the
+		postmaster at your site (primenet).
+<p>
+		Note that, in some jurisdictions, you may also have
+		legal recourse.  I believe there was a decision
+		last year that held that e-mail is legally equivalent
+		to a fax machine -- and there are laws regarding 
+		unsolicited faxes.  You may want to search the 
+		web for some details and talk to a lawyer.
+<p>
+		I've found that a message to the effect that:
+<blockquote>
+		 Your message to me was unsolicited and not
+		 relevant to any of my personal or business activities.
+		 Please don't not send me any more mail.  Any further
+		 mail from you will be considered harassment and may
+		 result in legal actions against your and/or your
+		 e-mail provider.
+</blockquote>
+		 ... sent to the offender and his/her postmaster
+		 is very effective.  I don't ever remember getting
+		 hit by the same spammer twice when I've fired off
+		 one of these.
+
+<blockquote>
+    &#62;
+    I'd like to make this filtering (just for this one type of
+    message) and  autoresponse happen on the server, so the messages
+    don't even get to my system.
+</blockquote>
+
+	That's what procmail is for.
+
+<blockquote>
+    &#62;
+    I am somewhat familiar with UNIX (was a self-taught UNIX System
+    Administrator by necessity at one job for a year and a half).  I
+    use some UNIX when telnetting to my home directory - created a
+    .plan file, can get around in the command prompt (ksh), have
+    transferred files, and have several web pages.  So, at least I'm
+    not a totally ignorant novice. 
+</blockquote>
+
+	I did go into quite a bit of additional detail for 
+	the benefit of the rest of the list -- and anyone in the
+	future who bothers to check the archives before they post.
+<p>
+	I'm currently writing a book (actually revising one into
+	a second edition) on the subject of Unix System Administration.
+	I've also casually discussed writing a book on procmail and
+	SmartList with O'Reilly & Associates and Stephen.
+<p>
+	This message will go into my archives where parts of it 
+	may be used in either or both of these projects.
+
+<blockquote>
+    &#62;
+    Not to be critical of all the very fine work, but the procmail man
+    page and what I've seen on Alan Stebbens' E-Mail Software Page are
+    not geared for someone in my position.  They, like so much
+    documentation out there, are good as a reference for someone who
+    already knows how to do it - and could be used to get started
+    after a very lengthy analysis and study of the mass of technical
+    information.  
+</blockquote>
+
+	The best info on mailbots that I've found used to be 
+	maintained by Nancy McGough (sp??) at the Infinite Ink
+	web pages:
+<pre>
+			http://www.jazzie.com/ii/
+</pre>
+
+<blockquote>
+    &#62;
+    To me, a recipe is something used in the kitchen, not on my
+    computer - and I haven't seen anything out there that simply tells
+    you what a procmail recipe really is and where it goes (recipe is
+    just one example), so you can at least get an idea of what's going
+    on. 
+</blockquote>
+
+	I hope that, after reading this, you can't say that any more.
+
+<blockquote>
+    &#62;
+    I need to get my feet wet with a simple installation, get an
+    overall understanding of how the whole thing is structured, then
+    build on it gradually.  Can someone help?
+</blockquote>
+
+	I hope I have.   If you really get stuck give me a 
+	call -- I also do consulting and have written auto-responders
+	for companies like "Cybermedia" (publishers of First Aid for
+	Windows).
+<p>
+	Mail to info@starshine.org will get a response.
+	(Not a terribly well written response -- just something
+	I tossed together in less than a tenth of the time I just
+	spent on this e-mail.  If I needed more work I'd spend
+	more time on that and my web pages).
+
+<blockquote>
+    &#62;
+    Thank you very much in advance.
+</blockquote>
+
+	You're welcome.
+
+</body></html>

@@ -1,0 +1,150 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>How long can the command line be?</title>
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>How long can the command line be?</h1>
+This page attempts to explain the meaning and the consequences
+of the ARG&#95;MAX kernel constant. It's more or less related
+to my
+<a href="award.html">Useless Use of X Award page</a>
+and a recurring topic in
+<a href="news:comp.unix.shell"><tt>comp.unix.shell</tt></a>
+<h3>
+Contents
+</h3>
+<ul>
+<li>
+<a href="#main">The ARG&#95;MAX constant</a>
+<li>
+<a href="#consequences">Consequences</a>
+<li>
+<a href="#literature">Further reading</a>
+</ul>
+<h2>
+<a name="main">
+The ARG&#95;MAX constant
+</a></h2>
+The value of the constant ARG&#95;MAX defines how long an
+argument list your kernel can take on the command line before
+it chokes. Here's a script to find out the value of it:
+<blockquote><pre>
+	# Print out the system's architecture
+	uname -rms              # or uname -a
+
+	# Let the C preprocessor read in the system's limits from limits.h 
+	# and then expand the macro ARG&#95;MAX
+	# Filter out excess output (there will be some line number information
+	# and a gadzillion empty lines)
+	#
+	# On some gcc systems, I have been unable to find a working cpp.
+	# You can use gcc -E - &#60:&#60:HERE | tail -1 in that case.
+
+	cpp &#60;&#60;HERE | tail -1    # Only the last line is interesting
+	#include &#60;limits.h&#62;
+	ARG&#95;MAX
+	HERE
+</pre></blockquote>
+And here are some results from various machines I happen to have access to:
+<ul>
+<li>
+<blockquote><pre>
+	Linux 2.0.33 i686
+	131072
+</pre></blockquote>
+<li>
+<blockquote><pre>
+	SunOS 5.4 sun4m
+	1048320
+</pre></blockquote>
+<li>
+<blockquote><pre>
+	SunOS 4.1.3 sun4c
+	ARG&#95;MAX
+</pre></blockquote>
+<blockquote>
+Curiously, SunOS 4 knows about <tt>&#95;POSIX&#95;ARG&#95;MAX</tt>, 
+which is correctly set to 4096.
+<br>
+According to 
+<a href="#literature">Stevens,</a>
+SunOS 4.1.1 allows a megabyte of information to be passed
+(1048576 bytes).
+</blockquote>
+<li>
+<blockquote><pre>
+	OSF1 V4.0 alpha
+	38912
+</pre></blockquote>
+<li>
+<blockquote><pre>
+	IRIX 5.3 IP12
+	ARG_MAX
+</pre></blockquote>
+<blockquote>
+There is something funny about how IRIX does these things
+but I found the value 5120 in an <tt>#ifndef</tt> in <tt>limits.h</tt>
+</blockquote>
+<li>
+<blockquote><pre>
+	NetBSD 1.2C mac68k
+	(256 * 1024)
+</pre></blockquote>
+<blockquote>
+(For the lazy people without <code>dc</code>(1) handy,
+that's 262144 bytes.)
+</blockquote>
+</ul>
+POSIX requires ARG&#95;MAX to be at least 4096 bytes.
+There are allegedly old systems with ARG&#95;MAX set as low as
+2048 or even 1024 bytes.
+<h2>
+<a name="consequences">
+Consequences
+</a></h2>
+On a system with a low value for ARG&#95;MAX, you will often end up 
+with the shell saying <tt>Too many arguments</tt> or
+<tt>Argument list too long</tt> when you attempt something like
+<blockquote><pre>
+	ls * */*
+</pre></blockquote>
+or even
+<blockquote><pre>
+	ls *
+</pre></blockquote>
+and of course
+<blockquote><pre>
+	for f in `find . -print`; do
+		: something
+	done
+</pre></blockquote>
+On any system, the last of the examples is going to blow up sooner or later.
+This is why we have <code>xargs</code>:
+<blockquote><pre>
+	find . -print |
+	xargs : something
+</pre></blockquote>
+This is of course still not a secure construction 
+(depending of course on what the <tt>: something</tt> attempts to do).
+But that's
+<a href="award.html#arg-max">another story.</a>
+<h2>
+<a name="literature">
+Further reading
+</a></h2>
+<dl>
+<dt>
+W. Richard Stevens, <i>Advanced Programming in the Unix Environment</i>,
+p30f, p39; p209
+<dd>
+Addison-Wesley, 1992; ISBN 0-201-56317-7
+</dl>
+<hr>
+<a href="award.html">Back to Unix Award Page</a>
+
+</body>
+</html>

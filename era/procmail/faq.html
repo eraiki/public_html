@@ -1,0 +1,415 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Procmail Frequently Asked Questions</title>
+<link rev="made"
+href="http://www.iki.fi/era/feedback.html">
+</head>
+<body bgcolor="#fffff0" text="#000000"
+link="#0000ff" vlink="#600060" alink="#ff0000">
+<h1>Procmail Frequently Asked Questions</h1>
+<p>
+<p>
+This is the original FAQ which comes with the Procmail distribution. 
+I have included it here in order to make it easy to reference it from 
+<a href="mini-faq.html">my own attempt at a Procmail FAQ</a>
+<p>
+I have made every attempt to preserve as much as possible
+of Stephen's original FAQ. The HTML encoding is by me, though. 
+<p>
+If you want to check out the original, text-only version, 
+<a href="faq.txt">look no further.</a>
+<p>
+<br>
+$Id: faq.prep,v 1.9 1997/12/14 14:15:58 reriksso Exp $
+<h2>	Table of Contents </h2>
+<ol>
+<li>
+<a href="#1">How do I go about setting up a mailinglist or a mail-archive server?</a>
+<li>
+<a href="#2">I installed procmail (i.e. typed 'make install'), but how am I supposed to use it?  When I type procmail on the command line it simply does nothing.</a>
+<li>
+<a href="#3">When I compile everything the compiler complains about invalid or illegal pointer combinations, but it produces the executables anyway. Should I be concerned?</a>
+<li>
+<a href="#4">The compiler seems to issue warnings about "loop not entered at top", is that a problem?</a>
+<li>
+<a href="#5">The compiler complains about unmodifiable lvalues or assignments to const variables.  Now what?</a>
+<li>
+<a href="#6">The compiler refuses to compile <code>regexp.c</code>, what is the problem?</a>
+<li>
+<a href="#7">Everything installed just fine, it's just that there are several stale <code>&#95;locktst</code> processes which refuse to die.  How do I get rid of those?</a>
+<li>
+<a href="#8">When I send myself a testmail, the mail bounces with the message: cannot execute binary file.  What am I doing wrong?</a>
+<li>
+<a href="#9">Where do I look for examples about:</a>
+<ul>
+<li>
+One home directory, several machine architectures?
+<li>
+Procmail as an integrated local mail delivery agent? (generic,
+sendmail, ZMailer, smail, SysV mailsurr)
+<li>
+Changing the mail spool directory to <code>$HOME</code> for all users
+<li>
+Security considerations (when installing procmail suid root)
+</ul>
+<li>
+<a href="#10">How do I use procmail as a general mail filter inside sendmail?</a>
+<li>
+<a href="#11">Why do I have to insert my login name after the '#' in the <code>.forward</code> or <code>.maildelivery</code> file?</a>
+<li>
+<a href="#12">How do I view the man pages?</a>
+<li>
+<a href="#13">The leading From&#95; line on all my arriving mail shows the wrong time. Before putting procmail in the <code>.forward</code> file everything was OK.</a>
+<li>
+<a href="#14">When sending mail to someone with procmail in his/her <code>.forward</code> I sometimes get back an error saying: "Cannot mail directly to programs."</a>
+<li>
+<a href="#15">When sending mail to someone with procmail in his/her <code>.forward</code> I sometimes get back an error saying: "User doesn't have a valid shell for mailing to programs."</a>
+<li>
+<a href="#16">My mailtool sometimes reports that it is confused about the state of the mailbox, or I get "Couldn't unlock" errors from procmail now and then, or sometimes it simply seems to hang just when new mail arrives.</a>
+<li>
+<a href="#17">I sometimes get these `Lock failure on "/usr/mail/$LOGNAME.lock"' errors from procmail.  What do I do about it?</a>
+<li>
+<a href="#18">None of the above topics cover my problem.  Should I panic?</a>
+</ol>
+<hr>
+<h1>Frequently Asked Questions</h1>
+<p>
+<ol>
+<li><a name="1">
+How do I go about setting up a mailinglist or a mail-archive server?
+</a>
+<br>
+Look in the SmartList directory, start reading the INTRO file,
+it describes it in detail and should get you started.
+<li><a name="2">
+I installed procmail (i.e. typed 'make install'), but how am I supposed to
+use it?  When I type procmail on the command line it simply does nothing.
+</a>
+<br>
+<hr>
+<br>
+There exists an excellent newbie FAQ about mailfilters (and procmail
+in particular), it is being maintained by Nancy McGough <nancym@ii.com>
+and can be obtained via:
+<br>
+World Wide Web (the nicest format for online reading!):
+<br>
+<a href="http://www.cis.ohio-state.edu/hypertext/faq/usenet/mail/filtering-faq/faq.html">http://www.cis.ohio-state.edu/hypertext/faq/usenet/mail/filtering-faq/faq.html</a>
+<small>
+<br>
+(If the above doesn't work, try the "FAQ Launcher" at
+<a href="http://www.ii.com/internet/faqs/launchers/mail/filtering-faq/">http://www.ii.com/internet/faqs/launchers/mail/filtering-faq/</a>
+...&nbsp;Thanks to Eric Hilding for pointing out this problem. // <i>era)</i>
+</small>
+<br>
+Anonymous FTP:
+<br>
+<a href="ftp://rtfm.mit.edu/pub/usenet/news.answers/mail/filtering-faq">
+ftp://rtfm.mit.edu/pub/usenet/news.answers/mail/filtering-faq
+</a>
+<br>
+Email:
+<br>
+Send mail to 
+<tt><a href="mailto:mail-server@rtfm.mit.edu">mail-server@rtfm.mit.edu</a></tt>
+containing the following:
+<br><pre>
+send usenet/news.answers/mail/filtering-faq
+</pre>
+<br>
+UUCP:
+<br><pre>
+uunet!/archive/usenet/news.answers/mail/filtering-faq
+</pre>
+<br>
+It is also posted monthly in at least the following newsgroups:
+<br>
+<a href="news:comp.mail.misc">
+comp.mail.misc, 
+</a>
+<a href="news:comp.answers">
+comp.answers, 
+</a>
+<a href="news:news.answers">
+news.answers
+</a>
+<br>
+<hr>
+<br>
+You're not supposed to start procmail from the command line.
+Procmail expects exactly one mail message to be presented to it
+on its <code>stdin</code>.  Usually the mail system feeds it into procmail.
+If you start it by hand, you have to type the mail.
+<br>
+Be sure to have a <code>.forward</code> and a <code>.procmailrc</code> file in your home
+directory (see the examples subdirectory or the man page).
+MMDF users should note that they need a <code>.maildelivery</code> file <em>instead</em>
+of a <code>.forward</code> file (see the man page for more detailed information).
+<br>
+If however, procmail has been integrated in the maildelivery system
+(i.e. if your system administrator installed it that way, ask him/her),
+then you no longer need the <code>.forward</code> files in your home directory,
+having a <code>.procmailrc</code> file will suffice.
+<br>
+On some systems <code>.forward</code> files are not checked.
+It might be possible that your system supports a command like:
+<pre>
+mail -F "|/usr/local/bin/procmail"
+</pre>
+to set up forwarding to a program.
+If that doesn't seem to work it might be worth trying to put a line
+looking like this:
+<pre>
+Forward to |/usr/local/bin/procmail
+</pre>
+or if that doesn't work, try:
+<pre>
+Pipe to /usr/local/bin/procmail
+</pre>
+as the only line in your mail spool file (e.g. <code>/usr/mail/$LOGNAME</code>), as
+well as doing a <code>chmod 06660 /usr/mail/$LOGNAME</code>.  For more information
+on such systems, do a "man mail".
+<br>
+If all of this doesn't work, procmail can be called on a periodical
+basis, either via "cron", "at" or whenever you start reading mail (or
+log in).  For a sample script look in the NOTES section of the
+procmail(1) man page.
+<li><a name="3">
+When I compile everything the compiler complains about invalid or illegal
+pointer combinations, but it produces the executables anyway.
+Should I be concerned?
+</a>
+<br>
+Ignore these warnings, they simply indicate that either your compiler
+or your system include files are not ANSI/POSIX compliant.
+The compiler will produce correct code regardless of these warnings.
+<li><a name="4">
+The compiler seems to issue warnings about "loop not entered at top",
+is that a problem?
+</a>
+<br>
+No, no problem at all, it just means I wrote the code :-).
+That's just about the only uncommon coding technique I use (don't
+think I don't try to avoid those jumps in loops, it's just that
+sometimes they are the best way to code it).  Use <code>gcc</code> if you want
+to avoid these warnings.
+<li><a name="5">
+The compiler complains about unmodifiable lvalues or assignments to const
+variables.  Now what?
+</a>
+<br>
+Well, if the compiler produces the executables anyway everything
+probably is all right.	If it doesn't, you might try inserting a
+<code>&#35;define const</code> in the <code>autoconf.h</code> file by hand.
+However in any case,
+your compiler is broken; I would recommend submitting this as a
+compiler bug to your vendor.  In any case, if this should occur, I'd
+appreciate a mail from you (so I can try to fix the <code>autoconf</code> script
+to recognise your compiler correctly as well).
+<li><a name="6">
+The compiler refuses to compile <code>regexp.c</code>, what is the problem?
+</a>
+<br>
+Try compiling that module with optimisation turned off.
+<li><a name="7">
+Everything installed just fine, it's just that there are several stale
+<code>&#95;locktst</code> processes which refuse to die.  How do I get rid of those?
+</a>
+<br>
+In order to prevent things like this from happening to procmail,
+<code>&#95;locktst</code> tries to determine which kernel locking methods are
+reliable.  Sometimes this triggers a bug in the kernel or in
+your system-supplied <code>lockd</code>; this is good, because <code>&#95;locktst</code> detects
+this and makes sure that procmail will not make the same mistake.
+A side effect is that this sometimes leaves behind some stale
+<code>&#95;locktst</code> processes that seem to be unkillable.
+<br>
+This usually is the result of a buggy lockdaemon.  In order to
+get rid of the stale processes, ask your system administrator
+to kill and restart the (rpc.)lockd (and perhaps the (rpc.)statd)
+on both the filesystem-client (where you compiled procmail) and the
+filesystem-server(s) (where the lockingtests took place).
+Depending on the OS it might help if you send the offending
+<code>&#95;locktst</code> processes a kill signal before or after restarting the
+lockd again.
+<br>
+In any case, <code>&#95;locktst</code> just uncovered a bug in your operating system.
+You should contact your system's vendor and ask for a bugfix for
+your <code>lockd</code>.
+<li><a name="8">
+When I send myself a testmail, the mail bounces with the message: cannot
+execute binary file.	 What am I doing wrong?
+</a>
+<br>
+It is very well possible that mail is processed on a different
+machine from that where you usually read your mail.  Therefore you
+have to make sure that procmail has the right binary format to
+execute on those machines on which mail could arrive.  In order to
+get this right you might need to do some <code>.forward</code> file tweaking,
+look at the examples/advanced file for some suggestions.
+<li><a name="9">
+Where do I look for examples about:
+<ul>
+<li>
+One home directory, several machine architectures?
+<li>
+Procmail as an integrated local mail delivery agent? (generic,
+sendmail, ZMailer, smail, SysV mailsurr)
+<li>
+Changing the mail spool directory to <code>$HOME</code> for all users
+<li>
+Security considerations (when installing procmail suid root)
+</ul>
+</a>
+<br>
+Well, this probably is your lucky day :-), all these topics are covered
+in the examples / advanced file.
+<br>
+Other examples (e.g. for autoreplies) are most likely to be found by
+typing:		man procmailex
+<li><a name="10">
+How do I use procmail as a general mail filter inside sendmail?
+</a>
+<br>
+See EXAMPLES section of the procmail(1) man page.
+<li><a name="11">
+Why do I have to insert my login name after the '#' in the <code>.forward</code> or
+<code>.maildelivery</code> file?
+</a>
+<br>
+Some mailers `optimise' maildelivery and take out duplicates from
+Cc:, Bcc: and alias lists before delivery.  If two or more persons on
+such a list would have identical .forward files, then the mailer will
+eliminate all but one.	Adding a `#' with your login name following
+it will make the <code>.forward</code> files unique, and will ensure that the mailer
+doesn't optimise away some addresses.
+<li><a name="12">
+How do I view the man pages?
+</a>
+<br>
+If the man(1) program on your system understands the MANPATH
+environment variable, make sure that the installation directory listed
+in the Makefile for the manpages is included in your MANPATH.  If your
+man program does not support MANPATH, make sure that the man pages
+are installed in one of the standard man directories, like under
+<code>/usr/man</code>.  If you do not want to install the man pages before viewing
+them, you can view an individual man file by typing something like:
+<pre>
+nroff -man procmail.1 | more
+</pre>
+<li><a name="13">
+The leading From&#95; line on all my arriving mail shows the wrong time.
+Before putting procmail in the <code>.forward</code> file everything was OK.
+</a>
+<br>
+This is a known bug in sendmail-5.65c+IDA.  The real fix would be
+to upgrade to sendmail 6.x or later.  For a quick fix, see the
+procmailex man page.
+<li><a name="14">
+When sending mail to someone with procmail in his/her <code>.forward</code> I sometimes
+get back an error saying: "Cannot mail directly to programs."
+</a>
+<br>
+This is a known bug in some older sendmails that mistakenly drop
+their root privileges when they are given the <code>-t</code> flag.
+Either
+make sure that your sendmail always forwards to a mailserver first or
+upgrade to sendmail 6.x or later.
+<li><a name="15">
+When sending mail to someone with procmail in his/her <code>.forward</code> I sometimes
+get back an error saying:
+"User doesn't have a valid shell for mailing to programs."
+</a>
+<br>
+This indicates that the mail arrives on a mailserver which most likely
+has a different user database (<code>/etc/passwd</code>) where the login shell
+specified for the recipient is not present in <code>/etc/shells</code>.
+Contact your administrator to put the name of that shell in
+<code>/etc/shells</code>.
+<li><a name="16">
+My mailtool sometimes reports that it is confused about the state of
+the mailbox, or I get "Couldn't unlock" errors from procmail now and then,
+or sometimes it simply seems to hang just when new mail arrives.
+</a>
+<br>
+This is a known bug in the OpenLook mailtool.  It holds on to the
+kernel lock on the mail-spoolfile most of the time, and releases
+this lock when it shouldn't.  Either ask for a bugfix from your
+vendor (I'm not sure if a bugfix exists), or make sure that during
+the compilation of procmail both the fcntl() and lockf() locking
+methods are disabled (see config.h).
+<li><a name="17">
+I sometimes get these `Lock failure on "/usr/mail/$LOGNAME.lock"' errors
+from procmail.  What do I do about it?
+</a>
+<br>
+The problem here is that as long as procmail has not read a
+<code>$HOME/.procmailrc</code> file, it can hang on to the sgid mail permission
+(which it needs in order to create a lockfile in <code>/usr/mail</code>).
+I.e. if procmail delivers mail to a user without a <code>$HOME/.procmailrc</code>
+file, procmail <em>can</em> (and does) use the <code>/usr/mail/$LOGNAME.lock</code> file.
+<br>
+If, however, it finds a <code>$HOME/.procmailrc</code> file, procmail has to let go
+of the sgid mail permission because otherwise any ordinary user could
+abuse that.
+<br>
+There are several solutions to this problem:
+<ul>
+<li>
+Some systems support the sticky bit on directories (when set only
+allows the owner of a file in that directory to rename or remove
+it).	This enables you to make <code>/usr/spool/mail</code> drwxrwxrwt.  It is
+thus effectively world writable, but all the mailboxes in it are
+protected because only the mailbox owner can remove or rename it.
+<li>
+If your system did not exhibit the !@#$%^&amp;* POSIX semantics for
+setgid(), procmail would have been able to switch back and forth
+between group mail and the group the recipient belongs to without
+creating security holes.
+<li>
+If your system supported setrgid() or setregid() or setresgid()
+with BSD semantics, procmail would have been able to switch...
+(see the previous point).
+<li>
+You could simply put the following at the end of your .procmailrc
+file:
+<pre>
+LOCKFILE		# removes any preexisting lockfile
+LOG=`lockfile $DEFAULT$LOCKEXT`
+TRAP="rm -f $DEFAULT$LOCKEXT"
+:0
+$DEFAULT
+</pre>
+<li>
+You could, instead of using <code>/usr/mail/$LOGNAME</code>, use a file below
+your home directory as your default mailbox.
+<li>
+Or, you could still use <code>/usr/mail/$LOGNAME</code> as the mailbox, but
+simply instruct procmail to use a different lockfile.	 This can
+be achieved by putting following recipe at the bottom of
+your <code>.procmailrc</code> file:
+<pre>
+:0:$HOME/.lockmail
+$DEFAULT
+</pre>
+You have to make sure that all other programs that update your
+system mailbox will be using the same lockfile of course.
+<li>
+You can ignore the problem if you know that both your mail reader
+and procmail use an overlapping kernel locking method.
+</ul>
+<li><a name="18">
+None of the above topics cover my problem. Should I panic?
+</a>
+<br>
+Let me ask you a question :-), have you examined the CAVEATS, WARNINGS,
+BUGS and NOTES sections of the manual pages <em>closely</em>?
+If you have, well, then panic.	Or, alternatively, you could submit
+your question to the procmail mailinglist (see the man page for the
+exact addresses, or try "procmail -v", or look in the <code>patchlevel.h</code>
+file).
+</ol>
+
+</body>
+</html>

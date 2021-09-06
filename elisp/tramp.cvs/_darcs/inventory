@@ -1,0 +1,28 @@
+[Import from upstream cvs
+era eriksson <era+elisp@iki.fi>**20110202115917] 
+[Replace "delimet" with "delimit" globally
+era eriksson <era+elisp@iki.fi>**20110202162448
+ Ignore-this: 77d228586a06cb95c93a0b9773a90905
+] 
+[Fix German punctuation; comma before interrogative pronoun or "that"
+era eriksson <era+elisp@iki.fi>**20110202170357
+ Ignore-this: fc8b8bd9208ed57f1e666256f20a3067
+] 
+[Globally replace "explicite" with "explicit"
+era eriksson <era+elisp@iki.fi>**20110202170859
+ Ignore-this: f9d0d78ac0bff9df9631aeaf1bde9b2a
+] 
+[Middle save, first round of rough automated proofreading
+era eriksson <era+tramp@iki.fi>**20110202191253
+ Ignore-this: aed79485ef191889f6383da9fc62d3e7
+] 
+[Replace "instead of" with "instead" where applicable
+era eriksson <era+tramp@iki.fi>**20110202221118
+ Ignore-this: 1ee8ceeaedd5fcb18872cc3e524a2459
+] 
+[Revert an unwarranted pair of changes in tramp.texi
+era eriksson <era+tramp@iki.fi>**20110202221205
+ Ignore-this: 3c934fbd8f4079c7fd0a63aac675dffc
+] 
+[Sync with upstream CVS
+era eriksson <era+elisp@iki.fi>**20110205221848] 
